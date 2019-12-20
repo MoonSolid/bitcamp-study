@@ -18,8 +18,8 @@ public class App {
   }
 
 
-  static final int SIZE = 100;
-  static Lesson[] lessons = new Lesson[SIZE];
+  static final int Lesson_SIZE = 100;
+  static Lesson[] lessons = new Lesson[Lesson_SIZE];
   static int lessonCount = 0;
 
 

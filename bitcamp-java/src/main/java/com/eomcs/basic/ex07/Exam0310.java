@@ -4,8 +4,8 @@ package com.eomcs.basic.ex07;
 //
 public class Exam0310 {
 
-  static void swap(int a, int b) {
-    System.out.printf("swap(): a=%d, b=%d\n", a, b);
+  static void swap(int a, int b) {           //swap안의 int a,int b는 변수가 아닌 명령어다. 호출이끝나면사라짐
+    System.out.printf("swap(): a=%d, b=%d\n", a, b);      
     int temp = a;
     a = b;
     b = temp;
