@@ -1,4 +1,4 @@
-package com.eomcs.lms;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -19,10 +19,12 @@ public class LessonHandler {
   static final int SIZE = 100;
   static Lesson[] lessons = new Lesson[SIZE];
   static int lessonCount = 0;
-  static Scanner keyboard;
   
   
-  static void addLesson() {
+  public static Scanner keyboard;
+  
+  
+  public static void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
@@ -54,7 +56,7 @@ public class LessonHandler {
   }
 
 
-  static void listLesson() {
+  public static void listLesson() {
 
     for (int i = 0; i < lessonCount; i++) {
       Lesson l = lessons[i];

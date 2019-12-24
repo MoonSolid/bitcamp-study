@@ -1,4 +1,4 @@
-package com.eomcs.lms;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -18,9 +18,9 @@ public class MemberHandler {
   static final int MEMBER_SIZE = 100;
   static Member[] members = new Member[MEMBER_SIZE];
   static int memberCount = 0;
-  static Scanner keyboard;
+  public static Scanner keyboard;
   
-  static void addMember() {
+  public static void addMember() {
 
     Member member = new Member();
 
@@ -50,7 +50,7 @@ public class MemberHandler {
   }
   
   
-  static void listMember () {
+  public static void listMember () {
 
     for (int i = 0; i < memberCount; i++) {
       Member m = members[i];
