@@ -1,17 +1,11 @@
-package com.eomcs.lms.handler;
+package handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import domain.Board;
 
-public class BoardHandler {
-
-  static class Board {
-    int no;
-    String title;
-    Date date;
-    int viewCount;
-  }
-
+public class BoardHandler5 {
+  
   static final int BOARD_SIZE = 100;
   static Board[] boards = new Board[BOARD_SIZE];
   static int boardCount = 0;
@@ -45,6 +39,30 @@ public class BoardHandler {
     }
 
   }
-
-
+ 
+ public static void detailBoard() {
+   System.out.print("게시물 번호? ");
+   int no = keyboard.nextInt();
+   keyboard.nextLine();  
+   
+   Board board = null;
+   for (int i = 0; i < boardCount; i++) {
+     if (boards[i].no == no) {
+       board = boards[i];                     //게시글번호가 계속 증가하게 만들기
+       break;
+     }
+   }
+   
+   if (board == null) {
+     System.out.println("게시물 번호가 유효하지 않습니다. ");
+     return;
+   }
+   
+   System.out.printf("번호: %d\n", board.no);
+   System.out.printf("제목: %s\n", board.title);
+   System.out.printf("등록일: %s\n", board.date);
+   System.out.printf("조회수: %d\n", board.viewCount);
+   
+   
+ }
 }

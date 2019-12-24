@@ -1,30 +1,24 @@
-package com.eomcs.lms.handler;
+package handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import domain.Lesson;
 
 public class LessonHandler {
 
-  static class Lesson {
-    int no;
-    String title;
-    String description;
-    Date startDate;
-    Date endDate;
-    int totalHours;
-    int dayHours;
-  }
 
+  //인스턴스 필드 = 논-스태틱 필드 
+  //각 수업 목록을 개별적으로 관리
+  Lesson[] lessons = new Lesson[LESSON_SIZE];  //LessonHandler의 인스턴스필드
+  int lessonCount = 0;
 
-  static final int SIZE = 100;
-  static Lesson[] lessons = new Lesson[SIZE];
-  static int lessonCount = 0;
-  
-  
+  // 클래스 필드  = 스태틱 필드
+  // -> 공유할 변수
+  static final int LESSON_SIZE = 100;
   public static Scanner keyboard;
-  
-  
-  public static void addLesson() {
+
+
+  public static void addLesson(LessonHandler lessonHandler) {  //파라미터로 인스턴스의 주소를받음
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
@@ -51,15 +45,15 @@ public class LessonHandler {
     lesson.dayHours = keyboard.nextInt();
     keyboard.nextLine(); 
 
-    lessons[lessonCount++] = lesson;
+    lessonHandler.lessons[lessonHandler.lessonCount++] = lesson;
     System.out.println("저장하였습니다.");
   }
 
 
-  public static void listLesson() {
+  public static void listLesson(LessonHandler lessonHandler) {
 
-    for (int i = 0; i < lessonCount; i++) {
-      Lesson l = lessons[i];
+    for (int i = 0; i < lessonHandler.lessonCount; i++) {
+      Lesson l = lessonHandler.lessons[i];
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.no, l.title, l.startDate, l.endDate, l.totalHours);
     }
