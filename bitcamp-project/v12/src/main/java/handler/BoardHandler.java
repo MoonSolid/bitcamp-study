@@ -61,9 +61,9 @@ public class BoardHandler {
  public static void listBoard () {
 
     for (int i = 0; i < boardCount; i++) {
-      Board m = boards[i];
+      Board b = boards[i];
       System.out.printf("%d, %s          , %s, %d\n", 
-          m.no, m.title       , m.date, m.viewCount);
+          b.no, b.title       , b.date, b.viewCount);
     }
 
   }
