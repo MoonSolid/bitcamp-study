@@ -12,11 +12,11 @@ public class Exam0430 {
         float average;
         
         Score() {
-            System.out.println("Score()");
+            System.out.println("Score()");  //기본 default 생성자
         }
         
         Score(String name) {
-            System.out.println("Score(String)");
+            System.out.println("Score(String)");     
             this.name = name;
         }
         
@@ -38,6 +38,10 @@ public class Exam0430 {
     public static void main(String[] args) {
         // 생성자가 여러 개 일 때 파라미터에 전달하는 값으로 구분한다.
         Score s1 = new Score();
+        
+        //인스턴스 생성 후에 나중에 따로 생성자를 호출할 수 없다.
+        //Score s1 = new Score("홍길동");
+        
         Score s2 = new Score("유관순");
         Score s3 = new Score("홍길동", 100, 90, 77);
         
