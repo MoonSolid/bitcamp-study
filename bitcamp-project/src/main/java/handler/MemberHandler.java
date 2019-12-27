@@ -21,7 +21,7 @@ public class MemberHandler {
   static final int MEMBER_SIZE = 100;
   public static Scanner keyboard;
 
-  public static void addMember(MemberHandler memberHandler) {
+  public void addMember() {
 
     Member member = new Member();
 
@@ -46,15 +46,15 @@ public class MemberHandler {
 
     member.registeredDate = new Date(System.currentTimeMillis());
 
-    memberHandler.members[memberHandler.memberCount++] = member;
+    this.members[this.memberCount++] = member;
     System.out.println("저장하였습니다.");
   }
 
 
-  public static void listMember (MemberHandler memberHandler) {
+  public void listMember () {
 
-    for (int i = 0; i < memberHandler.memberCount; i++) {
-      Member m = memberHandler.members[i];
+    for (int i = 0; i < this.memberCount; i++) {
+      Member m = this.members[i];
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.no, m.name, m.email, m.tel, m.registeredDate);
     }

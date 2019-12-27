@@ -21,11 +21,13 @@ public class BoardHandler {  //클래스 괄호 안을 클래스 필드라고함
   static final int BOARD_SIZE = 100;   //상수는 변하지않으므로 개별관리할 필요가 없다
   public static Scanner keyboard;
 
-  //클래스 메서드 
-  // -> 인스턴스 없이 호출하는 메서드이다.
-  // -> 인스턴스를 사용하려면 파라미터를 통해 호출할 때 외부에서 받아야 한다.
-
-  public static void addBoard (BoardHandler boardHandler) {          //공유할 메서드 
+  //인스턴스 메서드 
+  // -> 인스턴스가 있어야만 호출할 수 있는메서드이다.
+  // -> 인스턴스를 사용하는 메서드인 경우 인스턴스 메서드로 선언하라.
+  // -> 호출할 때는 반드시인스턴스 주소를 줘야 한다.
+  // -> 이렇게 인스턴스의 변수 값을 다루는 메서드는
+  //    "연산자(operation)"라 부를 수 있다.
+  public void addBoard () {          //공유할 메서드 
 
     Board board = new Board();
 
@@ -39,20 +41,20 @@ public class BoardHandler {  //클래스 괄호 안을 클래스 필드라고함
     board.date = new Date(System.currentTimeMillis());
     board.viewCount = 0;
 
-    boardHandler.boards[boardHandler.boardCount++] = board;
+    this.boards[this.boardCount++] = board;
     System.out.println("저장하였습니다.");
 
   }
 
-  public static void detailBoard(BoardHandler boardHandler) {
+  public void detailBoard() {
     System.out.print("게시물 번호? ");
     int no = keyboard.nextInt();
     keyboard.nextLine();  
 
     Board board = null;
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      if (boardHandler.boards[i].no == no) {
-        board = boardHandler.boards[i];                     //게시글 번호를  배열의 번호가 아닌 게시글 고유번호로 지정
+    for (int i = 0; i < this.boardCount; i++) {
+      if (this.boards[i].no == no) {
+        board = this.boards[i];                     //게시글 번호를  배열의 번호가 아닌 게시글 고유번호로 지정
         break;
       }
     }
@@ -70,10 +72,10 @@ public class BoardHandler {  //클래스 괄호 안을 클래스 필드라고함
 
   }
 
-  public static void listBoard (BoardHandler boardHandler) {  //보드핸들러의 인스턴스 주소를받음
+  public void listBoard () {  
 
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      Board m = boardHandler.boards[i];
+    for (int i = 0; i < this.boardCount; i++) {
+      Board m = this.boards[i];
       System.out.printf("%d, %s          , %s, %d\n", 
           m.no, m.title       , m.date, m.viewCount);
     }
