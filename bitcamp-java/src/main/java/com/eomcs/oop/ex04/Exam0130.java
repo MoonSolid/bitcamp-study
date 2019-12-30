@@ -10,6 +10,14 @@ public class Exam0130 {
         // 생성자를 호출할 수 없다.
         // 따라서 인스턴스를 생성할 수 없다.
         //Calendar c = new Calendar(); // 컴파일 오류!
+      
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        
+        if (c1 == c2)
+          System.out.println("c1 == c2");
+        else
+          System.out.println("c1 != c2");
     }
 }
 
