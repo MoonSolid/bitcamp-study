@@ -8,7 +8,7 @@ public class LessonHandler {
 
 
   
-  LessonList lessonList; // lessonlist를 불러옴
+  ArrayList lessonList; // lessonlist를 불러옴   //변경
   
   Scanner input;
   
@@ -17,12 +17,12 @@ public class LessonHandler {
   
   public LessonHandler(Scanner input) {  //입력받는 부분을 lessonlist에서 처리
     this.input = input;
-    lessonList = new LessonList();
+    lessonList = new ArrayList();  //변경
   }
   
   public LessonHandler(Scanner input, int capacity) {
     this.input = input;
-    lessonList = new LessonList(capacity);
+    lessonList = new ArrayList(capacity);  //변경
   }
   
 
@@ -61,8 +61,9 @@ public class LessonHandler {
 
 
   public void listLesson() {
-    Lesson[] lessons = lessonList.toArray();
-    for (Lesson l : lessons) {
+    Object[] arr = this.lessonList.toArray(); //변경
+    for (Object obj : arr) {  //변경 
+      Lesson l = (Lesson) obj;  //추가  , 형변환
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), l.getStartDate(), l.getEndDate(), l.getTotalHours());
       

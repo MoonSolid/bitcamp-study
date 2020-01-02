@@ -7,7 +7,7 @@ import domain.Member;
 public class MemberHandler {
 
 
-  MemberList memberList;
+  ArrayList memberList;
   
   Scanner input;
   
@@ -16,13 +16,13 @@ public class MemberHandler {
 
   public MemberHandler(Scanner input) {
     this.input = input;
-    memberList = new MemberList();
+    memberList = new ArrayList();
   }
    
   
   public MemberHandler(Scanner input, int capacity) {
     this.input = input;
-    memberList = new MemberList(capacity);
+    memberList = new ArrayList(capacity);
   }
   
   
@@ -59,8 +59,9 @@ public class MemberHandler {
 
 
   public void listMember () {
-    Member[] members = memberList.toArray();
-    for (Member m : members) {
+    Object[] arr = this.memberList.toArray();
+    for (Object obj : arr) {
+      Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), m.getTel(), m.getRegisteredDate());
       

@@ -11,7 +11,6 @@ public class Car {
         this.model = model;
         this.maker = maker;
         this.capacity = capacity;
-     
     }
 }
 
