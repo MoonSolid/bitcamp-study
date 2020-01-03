@@ -1,8 +1,8 @@
 // Object 클래스의 메서드를 오버라이딩 하기 - toString()
 package com.eomcs.oop.ex06.d;
 
-public class Exam0110 {
-
+public class Exam0110 extends Object {
+  
     static class Score {
         String name;
         int kor;
@@ -23,6 +23,12 @@ public class Exam0110 {
     
     public static void main(String[] args) {
         Score s1 = new Score("홍길동", 100, 100, 100);
+        
+        String str = s1.toString();
+        //toString()?
+        // => Score 클래스의 수퍼 클래스인 Object의메서드이다.
+        // => 
+        
         System.out.println(s1.toString());
         
         // Object로부터 상속 받아 사용하는 toString()은 다음 형식의 문자열을 리턴한다. 

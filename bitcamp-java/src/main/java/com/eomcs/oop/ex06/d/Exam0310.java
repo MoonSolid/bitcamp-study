@@ -12,26 +12,31 @@ public class Exam0310 {
             this.age = age;
         }
     }
-    
+      
     public static void main(String[] args) {
         Member m1 = new Member("홍길동", 20);
         Member m2 = new Member("홍길동", 20);
         
-        if (m1 == m2) {
-            System.out.println("m1 == m2");
-        } else {
-            System.out.println("m1 != m2");
-        }
+        System.out.println(m1 == m2);
         
-        System.out.println(m1.equals(m2));
-        // 어! Member 클래스에 equals()를 정의한 적이 없는데 컴파일 오류가 발생하지 않네?
-        // => 클래스를 만들 때 수퍼 클래스를 지정하지 않으면,
-        //    자동으로 Object를 상속받게 된다.
-        //    따라서 자바의 모든 클래스는 Object의 자손이다.
-        // => 그래서 자바의 모든 클래스는 Object의 메서드를 사용할 수 있다.
-        //    equals()는 Object로부터 상속 받은 메서드 중에 하나이다.
-        //
-        // equals()는 String 클래스에서 문자열 비교에 사용했던 메서드이다.
+        
+        System.out.println(m1.equals(m2));  
+        // m1 과 m2 는 다른 인스턴스이기 때문에 결과는 당연히 false 이다.
+        
+        
+        System.out.println("------------------");
+        
+      
+        String s1 = new String("Hello");
+        String s2 = new String("Hello");
+        
+        System.out.println(s1 == s2);
+        
+        System.out.println(s1.equals(s2));
+        
+                
+        // equals()는
+        // String 클래스에서 문자열 비교에 사용했던 메서드이다.
         // 두 문자열의 인스턴스가 달라도 내용이 같으면 true를 리턴했다.
         // 그런데 위의 실행 결과를 보면 m1과 m2가 비록 인스턴스는 다르지만
         // 내용이 같기 때문에 true를 리턴할 것이라 예상했는데

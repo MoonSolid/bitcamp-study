@@ -1,4 +1,4 @@
-// 메서드 오버로딩(overloading) - 응용 II
+// 메서드 오버로딩(overloading) - 응용 I
 package com.eomcs.oop.ex06.b;
 
 public class Exam03 {

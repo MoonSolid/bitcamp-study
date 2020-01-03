@@ -1,7 +1,7 @@
 // Object 클래스의 메서드를 오버라이딩 하기 - hashCode()
 package com.eomcs.oop.ex06.d;
 
-public class Exam0220 {
+public class Exam0230 {
 
     static class Score {
         String name;
@@ -20,11 +20,20 @@ public class Exam0220 {
             this.aver = this.sum / 3f;
         }
         
-        // hashCode()를 오버라이딩하면 원하는 값을 리턴할 수 있다.
+        // 인스턴스가 다르더라도 데이터가 같으면
+        // 같은 해시 값을 리턴하도록 오버라이딩 해보자!
         @Override
         public int hashCode() {
-            // 무조건 모든 Score 인스턴스가 같은 해시코드를 갖게 하기
-            return 1000;
+            // 가장 간단한 방법은 모든 값을 문자열로 만들어 붙인 다음에
+            // String 클래스에 있는 hashCode()를 사용하는 것이다.
+            // 왜? String 클래스에 있는 hashCode()는 문자열이 같은 경우 
+            //     같은 해시 값을 리턴하도록 이미 오버라이딩 되어 있기 때문이다.
+            String value = String.format("%s,%d,%d,%d,%d,%.1f", 
+                    this.name, this.kor, this.eng, this.math,
+                    this.sum, this.aver);
+            
+            
+            return value.hashCode();
         }
     }
     
