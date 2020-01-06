@@ -20,7 +20,7 @@ public class Exam0230 extends C {
         //    개발자들이 이 클래스의 인스턴스를 만들 수 있도록 스태틱 메서드를 제공한다.
         //    당연히 그 메서드는 외부에서 호출할 수 있도록 public으로 공개되었다.
         Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance(); 
         System.out.println(cal1 == cal2);
         
         // getInstance()의 리턴 값을 확인해 보면 다르다는 것을 알 수 있다.

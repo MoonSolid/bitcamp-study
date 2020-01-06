@@ -1,10 +1,24 @@
 // 다형적 변수와 오버라이딩
-package com.eomcs.oop.ex07.c;
+package com.eomcs.oop.ex06.e;
 
 public class Exam01 {
     public static void main(String[] args) {
         A a = new A();
+        
+        
+        
+        
+        System.out.println("-------------------------");
+        
+        
         A2 a2 = new A2();
+        a2.m(); //A2가 수퍼 클래스인 A의 메서드 호출 가능
+        a2.x(); //A2의 메서드 호출 가능
+        
+        System.out.println("-------------------------");
+        A a3 = new A2();
+        
+        a3.m();
         
         // A 객체 사용
         a.m();

@@ -21,7 +21,7 @@ public class Exam0400 {
         System.out.println(m1 == m2);
         
         // Object로부터 상속 받은 hashCode()는 인스턴스 마다 고유의 해시값을 리턴한다.
-        System.out.printf("%x, %x\n", m1.hashCode(), m2.hashCode());
+        System.out.printf("%x, %x\n", m1.hashCode(), m2.hashCode());    
         
         // Object로부터 상속 받은 toString()은 "클래스명@해시값"을 리턴한다.
         System.out.printf("%s, %s\n", m1.toString(), m2.toString());
