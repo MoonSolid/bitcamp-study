@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.ArrayList;
 
@@ -15,6 +14,11 @@ public class LessonHandler {
   public LessonHandler(Scanner input) {
     this.input = input;
     this.lessonList = new ArrayList<>();
+  }
+  
+  public LessonHandler(Scanner input, int capacity) {
+    this.input = input;
+    this.lessonList = new ArrayList<>(capacity);
   }
   
   public void listLesson() {
@@ -111,7 +115,7 @@ public class LessonHandler {
     int totalHours = input.nextInt();
     input.nextLine();
     
-    System.out.printf("수업명(%d)? ",oldLesson.getDayHours());
+    System.out.printf("일수업시간(%d)? ",oldLesson.getDayHours());
     int dayHours = input.nextInt();
     input.nextLine();
     

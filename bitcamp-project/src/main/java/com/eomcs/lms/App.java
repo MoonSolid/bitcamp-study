@@ -36,6 +36,7 @@ public class App {
           break;  
         case "/lesson/delete":
           lessonHandler.deleteLesson();
+          break;
         case "/member/add":
           memberHandler.addMember();
           break;
