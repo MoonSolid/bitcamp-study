@@ -57,8 +57,66 @@ public class ArrayList<E> {
     }
   }
   
+  
+  @SuppressWarnings("unchecked")
+  public E set(int index, E obj) {
+    if (index < 0 || index >= this.size)
+      return null;
+    
+    E old = (E) this.list[index];
+    this.list[index] = obj;
+
+    return old;
+  }
+  
+  @SuppressWarnings("unchecked")
+  public E remove(int index) {            //배열 삭제후 인덱스를 당기는 메서드 
+    if (index < 0 || index >= this.size)  //인덱스가 유효범위를 넘어가면  null리턴
+      return null;
+    
+    //삭제할 항목을 따로 보관해 둔다.
+    E old = (E) this.list[index];
+    
+    for (int i = index + 1; i <this.size; i++) {
+     this.list[i - 1] = this.list[i]; 
+    }
+    
+    this.size --;
+    
+    this.list[this.size] = null;
+    
+    // 삭제한 항목을 리턴한다.
+    return old;
+  }
+  
   public int size() {
     return this.size;
+    
+      
+      
+    }
+  
+  public static void main(String[] args) {
+    ArrayList<String> list = new ArrayList<>();
+    list.add("aaaa");
+    list.add("bbbb");
+    list.add("cccc");
+    list.add("dddd");
+    list.add("eeee");
+    list.add("ffff");
+    
+    list.remove(3); //배열의 3번 인덱스 삭제
+    /*
+      list.set(0, "0000");
+      list.set(3, "3333");
+      list.set(5, "5555");
+      list.set(-1, "ㅋㅋㅋㅋ");
+      list.set(6, "^^^^^");
+     */
+    String[] arr = list.toArray(new String[] {});
+    for (String s : arr) {
+      System.out.println(s);
+    }
   }
   
 }

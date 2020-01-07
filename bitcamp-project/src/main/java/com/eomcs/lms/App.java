@@ -28,6 +28,14 @@ public class App {
         case "/lesson/list":
           lessonHandler.listLesson();
           break;
+        case "/lesson/detail":
+          lessonHandler.detailLesson();
+          break;            
+        case "/lesson/update":
+          lessonHandler.updateLesson();
+          break;  
+        case "/lesson/delete":
+          lessonHandler.deleteLesson();
         case "/member/add":
           memberHandler.addMember();
           break;
@@ -43,6 +51,12 @@ public class App {
         case "/board/detail":
           boardHandler.detailBoard();
           break;  
+        case "/board/update":
+          boardHandler.updateBoard();
+          break;  
+        case "/board/delete":
+          boardHandler.deleteBoard();
+          break; 
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
