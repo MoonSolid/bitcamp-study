@@ -55,21 +55,17 @@ public class BoardHandler {
   }
 
   public void detailBoard() {
-    System.out.print("게시글 번호? ");
-    int no = input.nextInt();
+    System.out.print("게시글 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-    //게시글 번호로 객체를 찾는다.
-    int index = indexOfBoard(no);
+    Board board = this.boardList.get(index);
 
-
-    if (index == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
+    if (board == null) {
+      System.out.println("게시물 인덱스가 유효하지 않습니다.");
       return;
     }
 
-    
-    Board board = this.boardList.get(index);
     System.out.printf("번호: %d\n", board.getNo());
     System.out.printf("제목: %s\n", board.getTitle());
     System.out.printf("등록일: %s\n", board.getDate());
@@ -78,29 +74,27 @@ public class BoardHandler {
 
 
   public void updateBoard() {
-    System.out.print("게시글 번호?");
-    int no = input.nextInt();
+    System.out.print("게시글 인덱스?");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
+    Board oldBoard = this.boardList.get(index);
 
-    int index = indexOfBoard(no);
-    
-    
-    if (index == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
+    if (oldBoard == null) {
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
       return;
     }
 
-    Board oldBoard = this.boardList.get(index);
+
     System.out.printf("내용(%s)? ",oldBoard.getTitle());  //기존의 내용을 보여줌
     String title = input.nextLine();            //새로운 내용 입력
-
+    
     if (title.length() == 0) {   //게시글 변경값이 없을경우 
       System.out.println("게시글 변경을 취소했습니다.");
       return;
     }
-
-    //기존값을 적용
+    
+      //기존값을 적용
     Board newBoard = new Board();  //새로운게시글저장할 보드 객체 만들고 
     newBoard.setNo(oldBoard.getNo());  //기존의 게시글을 저장
     newBoard.setViewCount(oldBoard.getViewCount()); //기존의 조회수 저장
@@ -111,35 +105,25 @@ public class BoardHandler {
     this.boardList.set(index, newBoard); //보드리스트의 set을 호출해서 인덱스에 새로운 게시글을 저장
     System.out.println("게시글을 변경했습니다.");
   }
-
+  
   public void deleteBoard() {
-    System.out.print("게시글 번호? ");
-    int no = input.nextInt();
+    System.out.print("게시글 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    //게시글 번호로 객체를 찾는다.
 
-    int index = indexOfBoard(no);
+    Board board = this.boardList.get(index);
 
-    if (index == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
+    if (board == null) {
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
       return;
     }
 
     this.boardList.remove(index);
-
+    
     System.out.println("게시글을 삭제했습니다.");
   }
-
-  private int indexOfBoard(int no) {
-    //게시글 번호로 객체를 찾는다.
-    for (int i = 0; i < this.boardList.size(); i++) {
-      if (this.boardList.get(i).getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
-  }
 }
+
 
 
 

@@ -60,18 +60,16 @@ public class LessonHandler {
   }
   
   public void detailLesson() {
-    System.out.print("수업 번호? ");
-    int no = input.nextInt();
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    int index = indexOfLesson(no);
+    Lesson lesson = this.lessonList.get(index);
     
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다..");
+    if (lesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
       return;
     }
-
-    Lesson lesson = this.lessonList.get(index);
     
     System.out.printf("번호: %d\n", lesson.getNo());
     System.out.printf("수업명: %s\n", lesson.getTitle());
@@ -83,22 +81,20 @@ public class LessonHandler {
   }
   
   public void updateLesson() {
-    System.out.print("수업 번호? ");
-    int no = input.nextInt();
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    
-    int index = indexOfLesson(no);
-    
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다.");
-      return;
-    }
-    
     
     Lesson oldLesson = this.lessonList.get(index);
     
+    if (oldLesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
+      return;
+    }
     
     boolean Changed = false;
+    
+    
     String inputStr = null; 
     Lesson newLesson = new Lesson();
     
@@ -171,13 +167,13 @@ public class LessonHandler {
       
   public void deleteLesson() {
     System.out.print("수업 인덱스? ");
-    int no = input.nextInt();
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
 
-     int index = indexOfLesson(no);
-    
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다.");
+    Lesson lesson = this.lessonList.get(index);
+
+    if (lesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
       return;
     }
 
@@ -185,14 +181,5 @@ public class LessonHandler {
     
     System.out.println("수업을 삭제했습니다.");
   }    
-  
-  private int indexOfLesson(int no) {
-    for (int i = 0; i < this.lessonList.size(); i++) {
-      if (this.lessonList.get(i).getNo() == no ) {
-        return i;
-      }
-    }
-    return -1;
-  }
   
 }

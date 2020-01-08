@@ -19,10 +19,7 @@ public class MemberHandler {
   public void listMember() {
     // Member 객체의 목록을 저장할 배열을 넘기는데 크기가 0인 배열을 넘긴다.
     // toArray()는 내부에서 새 배열을 만들고, 값을 복사한 후 리턴한다.
-    Member[] arr = new Member[this.memberList.size()];
-    
-    this.memberList.toArray(arr);
-    
+    Member[] arr = this.memberList.toArray(new Member[] {});
     for (Member m : arr) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), 
@@ -60,20 +57,17 @@ public class MemberHandler {
   }
   
   public void detailMember() {
-    System.out.print("회원 번호? ");
-    int no = input.nextInt();
+    System.out.print("회원 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    int index = indexOfMember(no);
+    Member member = this.memberList.get(index);
     
-    if (index == -1) {
+    if (member == null) {
       System.out.println("회원 인덱스가 유효하지 않습니다.");
       return;
     }
     
-    
-    
-    Member member = this.memberList.get(index);
     System.out.printf("번호: %d\n", member.getNo());
     System.out.printf("이름: %s\n", member.getName());
     System.out.printf("이메일: %s\n", member.getEmail());
@@ -83,27 +77,22 @@ public class MemberHandler {
   }
   
   public void updateMember() {
-    System.out.print("회원 번호? ");
-    int no = input.nextInt();
+    System.out.print("회원 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    
-    int index = indexOfMember(no);
-    
-    if (index == -1) {
-      System.out.println("회원 번호가 유효하지 않습니다.");
-      return;
-    }
     
     Member oldMember = this.memberList.get(index);
     
-    
+    if (oldMember == null) {
+      System.out.println("회원 인덱스가 유효하지 않습니다.");
+      return;
+    }
     
     boolean changed = false;
     String inputStr = null;
     Member newMember = new Member();
     
     newMember.setNo(oldMember.getNo());
-    
     
     System.out.printf("이름(%s)? ", oldMember.getName());
     inputStr = input.nextLine();
@@ -159,14 +148,14 @@ public class MemberHandler {
   }
   
   public void deleteMember() {
-    System.out.print("회원 번호? ");
-    int no = input.nextInt();
+    System.out.print("회원 인덱스? ");
+    int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    int index = indexOfMember(no);
+    Member member = this.memberList.get(index);
     
-    if (index == -1) {
-      System.out.println("해당 번호의 회원이 없습니다.");
+    if (member == null) {
+      System.out.println("회원 인덱스가 유효하지 않습니다.");
       return;
     }
     
@@ -174,14 +163,4 @@ public class MemberHandler {
     
     System.out.println("회원을 삭제했습니다.");
   }
-  
-  private int indexOfMember(int no) {
-    for (int i = 0; i < this.memberList.size(); i++) {
-      if (this.memberList.get(i).getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
 }

@@ -46,25 +46,28 @@ public class ArrayList<E> {
     return (E) this.elementData[index];
   }
   
-  @SuppressWarnings("unchecked")
   public E set(int index, E e) {
     if (index < 0 || index >= this.size) {
       return null;
     }
+    
+    @SuppressWarnings("unchecked")
     E oldValue = (E) this.elementData[index];
     this.elementData[index] = e;
     return oldValue;
   }
   
-  @SuppressWarnings("unchecked")
   public E remove(int index) {
     if (index < 0 || index >= this.size) {
       return null;
     }
     
-    E oldValue = (E) this.elementData[index];
-    System.arraycopy(this.elementData, index + 1, 
-        this.elementData, index, this.size - (index + 1) );
+    
+    @SuppressWarnings("unchecked")
+    E oldValue = (E) this.elementData[index];    
+    System.arraycopy(this.elementData, index + 1,  //배열을 복사해서 삭제하는 방법
+        this.elementData,index,this.size - (index + 1) );
+    
     /*
     for (int i = index + 1; i < this.size; i++) {
       this.elementData[i - 1] = this.elementData[i];
@@ -79,9 +82,10 @@ public class ArrayList<E> {
   }
   
   public Object[] toArray() {
-    return Arrays.copyOf(this.elementData, this.size);
+    
+    return Arrays.copyOf(this.elementData, this.size);   //
     /*
-    Object[] arr = new Object[this.size];
+    Object[] arr = new Object[this.size];  //배열을 출력할때 현재 값만 출력
     for (int i = 0; i < this.size; i++) {
       arr[i] = this.elementData[i];
     }
@@ -89,14 +93,9 @@ public class ArrayList<E> {
     */
   }
   
-  @SuppressWarnings("unchecked")
-  public E[] toArray(E[] arr) {
-    if (arr.length < this.size) {
-      // 파라미터로 받은 배열이 작을 때는 새 배열을 만들어 리턴.
-      return (E[]) Arrays.copyOf(this.elementData, this.size, arr.getClass());
-    }
-    System.arraycopy(this.elementData, 0, arr, 0, this.size);
-    return arr; // 넉넉할 때는 파라미터로 받은 배열을 그대로 리턴. 
+@SuppressWarnings("unchecked")
+public E[] toArray(E[] arr) {    
+    return (E[]) Arrays.copyOf(this.elementData, this.size, arr.getClass());   //
   }
 }
 
