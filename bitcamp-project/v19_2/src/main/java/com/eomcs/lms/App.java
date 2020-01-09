@@ -4,19 +4,16 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
-import com.eomcs.util.Prompt;
 
 public class App {
-  
+
   static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
-    java.util.LinkedList list;
-    Prompt prompt = new Prompt(keyboard);
     
-    BoardHandler boardHandler = new BoardHandler(prompt);
-    LessonHandler lessonHandler = new LessonHandler(prompt);
-    MemberHandler memberHandler = new MemberHandler(prompt);
+    BoardHandler boardHandler = new BoardHandler(keyboard);
+    LessonHandler lessonHandler = new LessonHandler(keyboard);
+    MemberHandler memberHandler = new MemberHandler(keyboard);
     
     String command;
     
@@ -33,13 +30,13 @@ public class App {
           break;
         case "/lesson/detail":
           lessonHandler.detailLesson();
-          break;
+          break;            
         case "/lesson/update":
           lessonHandler.updateLesson();
-          break;
+          break;  
         case "/lesson/delete":
           lessonHandler.deleteLesson();
-          break;
+          break; 
         case "/member/add":
           memberHandler.addMember();
           break;
@@ -51,10 +48,10 @@ public class App {
           break;
         case "/member/update":
           memberHandler.updateMember();
-          break;
+          break; 
         case "/member/delete":
           memberHandler.deleteMember();
-          break;
+          break; 
         case "/board/add":
           boardHandler.addBoard();
           break;
@@ -66,7 +63,7 @@ public class App {
           break;  
         case "/board/update":
           boardHandler.updateBoard();
-          break; 
+          break;  
         case "/board/delete":
           boardHandler.deleteBoard();
           break; 
