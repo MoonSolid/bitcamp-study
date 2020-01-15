@@ -1,3 +1,3 @@
-# src/main/resources
-
-애플리케이션이 사용할 설정 파일이나 기타 파일을 보관하는 폴더이다.
+  # src/main/resource
+  
+ 애플리케이션을 실행하는 동안 사용할 기타 파일을 두는 폴더이다. ex) *.properties, *.txt, *.xml 등
