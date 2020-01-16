@@ -1,5 +1,5 @@
 // 클래스의 종류 : 패키지 멤버 클래스
-package com.eomcs.oop.ex11.a;
+package com.eomcs.oop.ex11.b;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -12,9 +12,9 @@ import java.io.FilenameFilter;
 // => public    : 모두 접근 가능
 // => (default) : 같은 패키지에 소속된 클래스 만이 접근 가능 
 public class JavaFilter implements FilenameFilter {
-    public boolean accept(File dir, String name) {
-        if (name.endsWith(".java")) 
-            return true; 
-        return false; 
-    }
+  public boolean accept(File dir, String name) {
+    if (name.endsWith(".java")) 
+      return true; 
+    return false; 
+  }
 }

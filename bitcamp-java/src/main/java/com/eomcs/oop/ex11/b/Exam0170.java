@@ -1,5 +1,5 @@
 // 클래스의 종류 : 중첩 클래스 요약 정리
-package com.eomcs.oop.ex11.a;
+package com.eomcs.oop.ex11.b;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -23,6 +23,15 @@ public class Exam0170 {
         
         // anonymous class
         Object obj = new Object() {};
+        Object obj2 = new Object() {
+          int a;
+          
+          @Override
+          public String toString() {
+            return "익명 클래스";
+          }
+        };
+        
     }
 
 }
