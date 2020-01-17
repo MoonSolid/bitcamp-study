@@ -2,7 +2,7 @@ package com.eomcs.oop.ex02;
 
 //# 메서드 분류 - 인스턴스 메서드 사용
 //
-public class Calculator4 {
+public class Calculator 4 {
   int result = 0;
 
   // 인스턴스 변수를 다룰 때는 인스턴스 메서드를 사용하는 것이 편하다!

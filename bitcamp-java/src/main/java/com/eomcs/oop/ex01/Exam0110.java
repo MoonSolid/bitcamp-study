@@ -18,8 +18,8 @@ public class Exam0110 {
     eng = 90;
     math = 85;
     sum = kor + eng + math;
-    aver = (float)sum / 3;  //int형 sum을 float과 연산할때 float임시메모리를 만들어서 연산한다.
-                                   //기존 sum 의 데이터타입은 변하지않는다.
+    aver = (float)sum / 3;
+
     System.out.printf("이름: %s\n", name);
     System.out.printf("국어: %d\n", kor);
     System.out.printf("영어: %d\n", eng);

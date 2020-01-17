@@ -5,12 +5,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 public class Exam0131 {
-
-
-
-  //inner class = non-static nested class
-  //=> 바깥 클래스의 인스턴스를 사용하는 경우 inner class로 정의하라.
-  //=> 인스턴스 필드를 사용하는 메서드에 대해 인스턴스 메서드로 선언하는 것과 같다.
+  static int a;
+  int b;
+  
+  // non-static nested class = inner class
   class JavaFilter implements FilenameFilter {
     public boolean accept(File dir, String name) {
       if (name.endsWith(".java")) 
@@ -19,16 +17,18 @@ public class Exam0131 {
     }
   }
 
-
-
   public static void main(String[] args) throws Exception {
-    File dir = new File(".");
-    JavaFilter javaFilter; //레퍼런스를 선언할 때는 상관없다.
-    //static 메서드에서는 static이 안붙은 인스턴스 멤버를 사용할 수 없다.
-    //javaFilter = new JavaFilter(); //컴파일 에러
+    a = 100; // static 필드
+    //b = 100; // 컴파일 오류! 인스턴스 필드 
     
-    //static 메서드에서 인스턴스 멤버를 사용하려면
-    //인스턴스를 생성해야만 한다.
+    File dir = new File(".");
+    JavaFilter javaFilter; // 레퍼런스를 선언할 때는 상관없다.
+    
+    // static 메서드에서는 static이 안붙은 인스턴스 멤버를 사용할 수 없다.
+    //javaFilter = new JavaFilter(); // 컴파일 오류!
+    
+    // static 메서드에서 인스턴스 멤버를 사용하려면 
+    // 인스턴스를 생성해야만 한다.
     Exam0131 obj = new Exam0131();
     
     // 그리고 이 인스턴스를 가지고 인스턴스 필드/메서드/중첩클래스를 사용할 수 있다.
@@ -38,7 +38,6 @@ public class Exam0131 {
     for (String name : names) {
       System.out.println(name);
     }
-
   }
 
 }

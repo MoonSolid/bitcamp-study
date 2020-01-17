@@ -12,6 +12,7 @@ public class Exam0440 {
     // => 패키지 이름을 항상 붙여야 한다.
     //    그래야만 컴파일러가 해당 클래스를 찾을 수 있다.
     com.eomcs.oop.ex01.test.B v1;
+    
     v1 = new com.eomcs.oop.ex01.test.B();
 
     // 그런데 다른 패키지의 클래스를 사용할 때 마다 

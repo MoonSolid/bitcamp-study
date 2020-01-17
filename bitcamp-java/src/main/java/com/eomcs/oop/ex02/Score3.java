@@ -1,6 +1,6 @@
 package com.eomcs.oop.ex02;
 
-//# 사용자 정의 데이터 타입 - 인스턴스 메서드  //  연산자를 instance method 문법으로 정의
+//# 사용자 정의 데이터 타입 - 연산자를 instance method 문법으로 정의
 //
 public class Score3 {
   String name;
@@ -18,7 +18,7 @@ public class Score3 {
         score.sum = score.kor + score.eng + score.math;
         score.average = score.sum / 3f;
     }
-  */
+   */
 
   // 인스턴스 메서드를 사용하여 연산자 정의하기 
   // => 인스턴스의 주소를 파라미터로 받는 것이 아니라,

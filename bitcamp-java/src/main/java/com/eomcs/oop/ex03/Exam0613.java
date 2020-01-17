@@ -66,6 +66,7 @@ public class Exam0613 {
     
     {
       this.a = 103;
+      this.b = 300;
       System.out.println("세 번째 인스턴스 초기화 블록");
     }
   }
