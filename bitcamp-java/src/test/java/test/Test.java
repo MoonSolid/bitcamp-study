@@ -1,6 +1,12 @@
 package test;
 
-// 컬렉션에서 값을 꺼내는 방법(사용 규칙)을 정의
 public class Test {
-  final int TV = 0;
+  public static void main(String[] args) {
+    Object obj = new String("Hello");
+
+    String str = ((String) obj).toLowerCase();
+    System.out.println(str);
+
+  }
 }
+
