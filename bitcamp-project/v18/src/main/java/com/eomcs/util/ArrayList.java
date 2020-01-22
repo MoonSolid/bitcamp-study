@@ -34,11 +34,9 @@ public class ArrayList<E> {
      arr[i] = (E) this.list[i];
    }
    */
-    
-    
-    
-   return arr;
+    return arr;
   }
+    
   public void add(E obj) {
     if (this.size == this.list.length) {
       int oldCapacity = this.list.length;
