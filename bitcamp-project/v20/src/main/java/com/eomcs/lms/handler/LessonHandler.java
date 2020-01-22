@@ -1,5 +1,3 @@
-// 사용자 입력을 받는 코드를 별도의 메서드로 분리한다.
-//
 package com.eomcs.lms.handler;
 
 import com.eomcs.lms.domain.Lesson;
@@ -80,7 +78,7 @@ public class LessonHandler {
         String.format("수업명(%s)? ", oldLesson.getTitle()), 
         oldLesson.getTitle()));
 
-    newLesson.setDescription(prompt.inputString("설명? ", oldLesson.getTitle()));
+    newLesson.setDescription(prompt.inputString("설명? ", oldLesson.getDescription()));
     
     newLesson.setStartDate(prompt.inputDate(
         String.format("시작일(%s)? ", oldLesson.getStartDate()), 
