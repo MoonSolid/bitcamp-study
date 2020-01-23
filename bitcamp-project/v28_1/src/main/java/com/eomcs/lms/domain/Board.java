@@ -11,37 +11,6 @@ public class Board {
   private String writer;
 
 
-
-  // CSV 포맷:
-  // - 번호, 제목, 등록일 , 조회수 , 작성자
-  public static Board valueOf(String csv) {
-
-    // 한 줄을 콤마(,)로 나눈다.
-    String[] data = csv.split(",");
-
-
-    // 한 줄에 들어 있던 데이터를 추출하여 board 객체에 담는다.
-    Board board = new Board();
-    board.setNo(Integer.parseInt(data[0]));
-    board.setTitle(data[1]);
-    board.setDate(Date.valueOf(data[2]));
-    board.setViewCount(Integer.parseInt(data[3]));
-    board.setWriter(data[4]);
-    return board;
-  }
-
-  // 포맷해주는 메서드
-  public String toCsvString() {
-    // this = board
-
-    // 게시글 목록에서 게시글 데이터를 꺼내 CSV 형식의 문자열로 만든다.
-
-    return String.format("%d,%s,%s,%d,%s", this.getNo(), this.getTitle(), this.getDate(),
-        this.getViewCount(), this.getWriter());
-  }
-
-
-
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -78,7 +47,6 @@ public class Board {
       return false;
     return true;
   }
-
 
   public int getNo() {
     return no;
@@ -119,7 +87,6 @@ public class Board {
   public void setWriter(String writer) {
     this.writer = writer;
   }
-
 
 
 }

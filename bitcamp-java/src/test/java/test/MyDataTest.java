@@ -1,12 +1,23 @@
 package test;
 
-import java.util.function.BiFunction;
+import java.util.ListIterator;
+import java.util.Stack;
 
 public class MyDataTest {
   public static void main(final String[] args) {
+    Stack<String> s = new Stack<>();
 
-    BiFunction<Integer, Integer, Integer> f = (a, b) -> a > b ? a : b;
-    System.out.println(f.apply(3, 10));
+    s.push("가");
+    s.push("나");
+    s.push("다");
+    s.push("라");
+
+    ListIterator<String> it = s.listIterator(s.size());
+
+    while (it.hasPrevious()) {
+      System.out.println(it.previous());
+    }
+
 
   }
 }
