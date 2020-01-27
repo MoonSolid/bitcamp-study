@@ -2,7 +2,6 @@
   "ExpandedNodes": [
     "",
     "\\bitcamp-project",
-    "\\bitcamp-project\\v13",
     "\\bitcamp-project\\v13\\src",
     "\\bitcamp-project\\v13\\src\\main",
     "\\bitcamp-project\\v13\\src\\main\\java",
@@ -11,6 +10,6 @@
     "\\bitcamp-project\\v13\\src\\main\\java\\com\\eomcs\\lms",
     "\\bitcamp-project\\v13\\src\\main\\java\\domain"
   ],
-  "SelectedNode": "\\bitcamp-project\\v13\\src\\main\\java\\com\\eomcs\\lms\\App.java",
+  "SelectedNode": "\\bitcamp-project",
   "PreviewInSolutionExplorer": false
 }
