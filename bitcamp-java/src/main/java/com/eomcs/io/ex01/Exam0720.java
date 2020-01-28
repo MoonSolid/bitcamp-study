@@ -1,15 +1,20 @@
-package test;
+// 활용 - 지정한 폴더를 삭제하라.
+package com.eomcs.io.ex01;
 
 import java.io.File;
 
-public class MyDataTest {
-  public static void main(final String[] args) {
+public class Exam0720 {
 
+
+  public static void main(String[] args) throws Exception {
+
+    // temp 디렉토리를 삭제
     File dir = new File("temp");
+
 
     deleteFile(dir);
 
-    System.out.println("디렉토리를 삭제하였습니다.");
+    System.out.println("삭제하였습니다.");
 
   }
 
@@ -23,12 +28,10 @@ public class MyDataTest {
         file.delete();
       }
     }
-
-    dir.delete();
-
-
+    {
+      dir.delete();
+    }
   }
-
 }
 
 
