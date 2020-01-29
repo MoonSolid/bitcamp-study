@@ -1,15 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\bitcamp-project",
-    "\\bitcamp-project\\v13\\src",
-    "\\bitcamp-project\\v13\\src\\main",
-    "\\bitcamp-project\\v13\\src\\main\\java",
-    "\\bitcamp-project\\v13\\src\\main\\java\\com",
-    "\\bitcamp-project\\v13\\src\\main\\java\\com\\eomcs",
-    "\\bitcamp-project\\v13\\src\\main\\java\\com\\eomcs\\lms",
-    "\\bitcamp-project\\v13\\src\\main\\java\\domain"
+    "\\bitcamp-java",
+    "\\bitcamp-java\\src\\main",
+    "\\bitcamp-java\\src\\main\\java",
+    "\\bitcamp-java\\src\\main\\java\\com",
+    "\\bitcamp-java\\src\\main\\java\\com\\eomcs",
+    "\\bitcamp-java\\src\\main\\java\\com\\eomcs\\io"
   ],
-  "SelectedNode": "\\bitcamp-project",
+  "SelectedNode": "\\bitcamp-java",
   "PreviewInSolutionExplorer": false
 }

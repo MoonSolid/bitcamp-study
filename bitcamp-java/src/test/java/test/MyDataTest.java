@@ -1,6 +1,6 @@
 package test;
 
-import java.io.File;
+import java.io.FileOutputStream;
 
 public class MyDataTest {
 
@@ -8,36 +8,20 @@ public class MyDataTest {
 
   public static void main(final String[] args) throws Exception {
 
-    File dir = new File(".");
+    FileOutputStream out = new FileOutputStream("temp/test1.data");
 
-    System.out.println(dir.getCanonicalPath());
+    byte[] bytes = new byte[] {0x7a, 0x6b, 0x5c, 0x4d, 0x3e, 0x2f, 0x30};
 
-    printList(dir, 1);
-
-  }
-
-  static void printList(File dir, int level) {
-    File[] files = dir.listFiles();
-
-
-    for (File file : files) {
-      printIndent(level);
-
-      if (file.isDirectory() && !file.isHidden()) {
-        System.out.printf("%s/\n", file.getName());
-        printList(file, level + 1);
-      } else {
-        System.out.print("\\--");
-        System.out.printf("%s\n", file.getName());
-      }
-    }
-
-  }
-
-  static void printIndent(int level) {
-    for (int i = 0; i < level; i++) {
-      System.out.print(" ");
-    }
+    
+   out.write(bytes, 2, 3);
+   
+   out.close();
+   
+   
+   
+   
+    
+    
   }
 
 }
