@@ -10,8 +10,8 @@ public class Exam0210 {
     // => 파일이나 디렉토리 정보를 관리
     // => 파일이나 디렉토리를 생성,삭제,변경
 
-    // 1) 현재 파일 정보 조회
-    // "." - 현재 폴더
+    // 현재 파일 정보 조회
+    //
     File file1 = new File("./build.gradle");
     System.out.printf("파일명: %s\n", file1.getName());
     System.out.printf("파일크기: %d\n", file1.length());
@@ -30,9 +30,6 @@ public class Exam0210 {
     System.out.printf("감춤여부: %b\n", file1.isHidden());
     System.out.printf("존재여부: %b\n", file1.exists());
     System.out.printf("실행가능여부: %b\n", file1.canExecute());
-
-    System.out.println("----------------------------");
-
   }
 
 }

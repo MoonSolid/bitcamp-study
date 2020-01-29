@@ -6,8 +6,9 @@ import java.io.File;
 public class Exam0411 {
 
   public static void main(String[] args) throws Exception {
-    // 생성할 파일의 경로 설정
-    // 해당 경로에 디렉토리가 없다면 파일을 생성할 수 없다. 예외 발생!
+    // 존재하지 않는 폴더에 파일을 생성할 때
+    // - 해당 경로에 디렉토리가 없다면 파일을 생성할 수 없다.
+    // - 예외 발생!
     File file = new File("temp2/b/test.txt");
 
     if (file.createNewFile()) { // 파일 생성

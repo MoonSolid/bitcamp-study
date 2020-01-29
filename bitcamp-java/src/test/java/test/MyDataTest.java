@@ -3,30 +3,41 @@ package test;
 import java.io.File;
 
 public class MyDataTest {
-  public static void main(final String[] args) {
 
-    File dir = new File("temp");
 
-    deleteFile(dir);
 
-    System.out.println("디렉토리를 삭제하였습니다.");
+  public static void main(final String[] args) throws Exception {
+
+    File dir = new File(".");
+
+    System.out.println(dir.getCanonicalPath());
+
+    printList(dir, 1);
 
   }
 
-  static void deleteFile(File dir) {
+  static void printList(File dir, int level) {
     File[] files = dir.listFiles();
 
+
     for (File file : files) {
-      if (file.isDirectory()) {
-        deleteFile(file);
+      printIndent(level);
+
+      if (file.isDirectory() && !file.isHidden()) {
+        System.out.printf("%s/\n", file.getName());
+        printList(file, level + 1);
       } else {
-        file.delete();
+        System.out.print("\\--");
+        System.out.printf("%s\n", file.getName());
       }
     }
 
-    dir.delete();
+  }
 
-
+  static void printIndent(int level) {
+    for (int i = 0; i < level; i++) {
+      System.out.print(" ");
+    }
   }
 
 }

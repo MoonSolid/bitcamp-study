@@ -3,7 +3,7 @@ package com.eomcs.io.ex01;
 
 import java.io.File;
 
-public class Exam0720 {
+public class Exam0720_05 {
 
   public static void main(String[] args) throws Exception {
 
@@ -16,10 +16,13 @@ public class Exam0720 {
   }
 
   static void deleteFile(File dir) {
-    if (dir.isDirectory()) {
-      File[] files = dir.listFiles();
-      for (File file : files) {
+    File[] files = dir.listFiles();
+
+    for (File file : files) {
+      if (file.isDirectory()) {
         deleteFile(file);
+      } else {
+        file.delete(); // 파일 삭제
       }
     }
     dir.delete(); // 디렉토리 삭제

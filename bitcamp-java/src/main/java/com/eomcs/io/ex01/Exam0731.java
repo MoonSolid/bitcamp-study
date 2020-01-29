@@ -6,7 +6,6 @@ import java.io.FileFilter;
 
 public class Exam0731 {
 
-
   public static void main(String[] args) throws Exception {
 
     File dir = new File("bin/main");
@@ -17,12 +16,12 @@ public class Exam0731 {
 
   static void printList(File dir, String packageName) {
 
-    // 현재 디렉토리의 하위 파일 및 디렉토리 목록을 알아낸다.
     File[] files = dir.listFiles(new FileFilter() {
       @Override
       public boolean accept(File pathname) {
-        if (pathname.isHidden())
+        if (pathname.isHidden()) {
           return false;
+        }
 
         if (pathname.getName().contains("$")) {
           return false;
@@ -36,17 +35,21 @@ public class Exam0731 {
       }
     });
 
-
     if (packageName.length() > 0) {
       packageName += ".";
     }
-
     for (File file : files) {
       if (file.isDirectory()) {
         printList(file, packageName + file.getName());
       } else {
         System.out.println(packageName + file.getName().replace(".class", ""));
       }
+    }
+  }
+
+  static void printIndent(int level) {
+    for (int i = 0; i < level; i++) {
+      System.out.print("  ");
     }
   }
 

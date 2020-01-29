@@ -1,4 +1,4 @@
-// 익명 클래스로 파일 필터 만들기
+// 익명 클래스로 FileFilter 만들기
 package com.eomcs.io.ex01;
 
 import java.io.File;
@@ -9,13 +9,12 @@ public class Exam0640 {
 
   public static void main(String[] args) throws Exception {
 
-    // 필터 객체를 한 개 만 만들 것이라면
-    // 익명 클래스로 정의하는 것이 낫다.
-    //
+    File dir = new File(".");
 
     // 익명 클래스를 정의할 때
-    // 객체를 사용할 위치에 정의하는 것이 코드를 읽기 쉽게 한다.
-    File dir = new File(".");
+    // 객체를 사용할 위치에 익명 클래스를 정의하는 것이
+    // 코드를 더 읽기 쉽게 만든다.
+    //
     File[] files = dir.listFiles(new FileFilter() {
       @Override
       public boolean accept(File file) {

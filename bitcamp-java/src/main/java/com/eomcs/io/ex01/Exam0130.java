@@ -11,8 +11,8 @@ public class Exam0130 {
     // => 파일이나 디렉토리를 생성,삭제,변경
 
     // 존재하지 않는 폴더를 조회
-    // ".." - 상위 폴더
-    File currentDir = new File("./src/main");
+    //
+    File currentDir = new File("./haha");
     System.out.printf("폴더명: %s\n", currentDir.getName());
     System.out.printf("경로: %s\n", currentDir.getPath());
     System.out.printf("절대경로: %s\n", currentDir.getAbsolutePath());
