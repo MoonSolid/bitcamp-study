@@ -102,8 +102,8 @@ public class App {
       }
 
       commandStack.push(command);
-
       commandQueue.offer(command);
+
 
       Command commandHandler = commandMap.get(command);
 
