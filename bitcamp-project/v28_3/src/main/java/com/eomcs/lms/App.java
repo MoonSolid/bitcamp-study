@@ -1,16 +1,12 @@
 package com.eomcs.lms;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,6 +36,7 @@ import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.util.Prompt;
+import com.google.gson.Gson;
 
 public class App {
 
@@ -155,23 +152,25 @@ public class App {
 
   private static void loadLessonData() {
     // 데이터가 보관된 파일을 정보를 준비한다.
-    File file = new File("./lesson.data");
+    File file = new File("./lesson.json");
 
-    try (DataInputStream in =
-        new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+    try (FileReader in = new FileReader(file)) {
+      // 방법1) JSON ===> List
+      // Gson json도구 = new Gson();
+      // Lesson[] 배열 = json도구.fromJson(in, Lesson[].class);
+      // for (Lesson 수업 : 배열) {
+      // lessonList.add(수업);
+      // }
 
-      int size = in.readInt();
-      for (int i = 0; i < size; i++) {
-        Lesson lesson = new Lesson();
-        lesson.setNo(in.readInt());
-        lesson.setTitle(in.readUTF());
-        lesson.setDescription(in.readUTF());
-        lesson.setStartDate(Date.valueOf(in.readUTF()));
-        lesson.setEndDate(Date.valueOf(in.readUTF()));
-        lesson.setTotalHours(in.readInt());
-        lesson.setDayHours(in.readInt());
-        lessonList.add(lesson);
-      }
+      // 방법2) JSON ===> List
+      // Gson json도구 = new Gson();
+      // Lesson[] 배열 = json도구.fromJson(in, Lesson[].class);
+      // List<Lesson> 읽기전용List구현체 = Arrays.asList(배열);
+      // lessonList.addAll(읽기전용List구현체);
+
+      // 위의 코드를 간략히 줄이면 다음과 같다.
+      lessonList.addAll(Arrays.asList(new Gson().fromJson(in, Lesson[].class)));
+
       System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", lessonList.size());
 
     } catch (IOException e) {
@@ -181,23 +180,10 @@ public class App {
 
   private static void saveLessonData() {
     // 데이터가 보관된 파일을 정보를 준비한다.
-    File file = new File("./lesson.data");
+    File file = new File("./lesson.json");
 
-    try (DataOutputStream out =
-        new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-      out.writeInt(lessonList.size());
-
-      for (Lesson lesson : lessonList) {
-        out.writeInt(lesson.getNo());
-        out.writeUTF(lesson.getTitle());
-        out.writeUTF(lesson.getDescription());
-        out.writeUTF(lesson.getStartDate().toString());
-        out.writeUTF(lesson.getEndDate().toString());
-        out.writeInt(lesson.getTotalHours());
-        out.writeInt(lesson.getDayHours());
-
-      }
-
+    try (FileWriter out = new FileWriter(file)) {
+      out.write(new Gson().toJson(lessonList));
       System.out.printf("총 %d 개의 수업 데이터를 저장했습니다.\n", lessonList.size());
 
     } catch (IOException e) {
@@ -206,26 +192,10 @@ public class App {
   }
 
   private static void loadMemberData() {
-    File file = new File("./member.data");
+    File file = new File("./member.json");
 
-    try (DataInputStream in =
-        new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        Member member = new Member();
-
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setPhoto(in.readUTF());
-        member.setTel(in.readUTF());
-        member.setRegisteredDate(Date.valueOf(in.readUTF()));
-        memberList.add(member);
-
-      }
-
+    try (FileReader in = new FileReader(file)) {
+      memberList.addAll(Arrays.asList(new Gson().fromJson(in, Member[].class)));
       System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", memberList.size());
 
     } catch (IOException e) {
@@ -234,24 +204,10 @@ public class App {
   }
 
   private static void saveMemberData() {
-    File file = new File("./member.data");
+    File file = new File("./member.json");
 
-    try (DataOutputStream out =
-        new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-
-      out.writeInt(memberList.size());
-
-      for (Member member : memberList) {
-        out.writeInt(member.getNo());
-        out.writeUTF(member.getName());
-        out.writeUTF(member.getEmail());
-        out.writeUTF(member.getPassword());
-        out.writeUTF(member.getPhoto());
-        out.writeUTF(member.getTel());
-        out.writeUTF(member.getRegisteredDate().toString());
-
-      }
-
+    try (FileWriter out = new FileWriter(file)) {
+      out.write(new Gson().toJson(memberList));
       System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", memberList.size());
 
     } catch (IOException e) {
@@ -260,27 +216,10 @@ public class App {
   }
 
   private static void loadBoardData() {
-    File file = new File("./board.data");
+    File file = new File("./board.json");
 
-    try (DataInputStream in =
-        new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-
-        board.setNo(in.readInt());
-        board.setTitle(in.readUTF());
-        board.setDate(Date.valueOf(in.readUTF()));
-        board.setViewCount(in.readInt());
-        String writer = in.readUTF();
-        if (writer.length() > 0) {
-          board.setWriter(writer);
-        }
-        boardList.add(board);
-      }
-
+    try (FileReader in = new FileReader(file)) {
+      boardList.addAll(Arrays.asList(new Gson().fromJson(in, Board[].class)));
       System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
 
     } catch (IOException e) {
@@ -289,21 +228,10 @@ public class App {
   }
 
   private static void saveBoardData() {
-    File file = new File("./board.data");
+    File file = new File("./board.json");
 
-    try (DataOutputStream out =
-        new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-
-      out.writeInt(boardList.size());
-
-      for (Board board : boardList) {
-        out.writeInt(board.getNo());
-        out.writeUTF(board.getTitle());
-        out.writeUTF(board.getDate().toString());
-        out.writeInt(board.getViewCount());
-        out.writeUTF(board.getWriter() == null ? "" : board.getWriter());
-      }
-
+    try (FileWriter out = new FileWriter(file)) {
+      out.write(new Gson().toJson(boardList));
       System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", boardList.size());
 
     } catch (IOException e) {
