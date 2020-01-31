@@ -14,13 +14,13 @@ public class Test01 {
     // 인스턴스 생성
     // => 인스턴스를 여러 개 생성할 수 있다.
     Car1 c1 = new Car1();
+    
     Car1 c2 = new Car1();
     
-    System.out.println(c1 == c2);
+    if (c1 != c2) 
+      System.out.println("다르다!");
   }
 }
-    
-     
 
 
 
