@@ -24,9 +24,6 @@ public class Member implements Serializable {
 
     String[] data = csv.split(",");
 
-    // 한 줄에 들어 있던 데이터를 추출하여 Lesson 객체에 담는다.
-    // => 데이터 순서는 다음과 같다.
-    // 번호,강의명,설명,시작일,종료일,총강의시간,일강의시간
     Member member = new Member();
     member.setNo(Integer.parseInt(data[0]));
     member.setName(data[1]);
