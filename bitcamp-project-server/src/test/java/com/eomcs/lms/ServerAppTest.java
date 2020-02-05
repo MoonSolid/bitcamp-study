@@ -1,11 +1,7 @@
 package com.eomcs.lms;
 
-import org.junit.Test;
-
 public class ServerAppTest {
-
-  @Test
-  public void testBoardList() {
-
-  }
+public static void main(String[] args) {
+  
+}
 }
