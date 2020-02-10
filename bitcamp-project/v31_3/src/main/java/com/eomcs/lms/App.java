@@ -94,12 +94,12 @@ public class App {
 
     // 옵저버의 실행이 끝났으면 DataLoaderListener 옵저버가 준비한
     // List객체를 꺼내보자
+    Prompt prompt = new Prompt(keyboard);
+    HashMap<String, Command> commandMap = new HashMap<>();
+    
     List<Board> boardList = (List<Board>) context.get("boardList");
     List<Lesson> lessonList = (List<Lesson>) context.get("lessonList");
     List<Member> memberList = (List<Member>) context.get("memberList");
-
-    Prompt prompt = new Prompt(keyboard);
-    HashMap<String, Command> commandMap = new HashMap<>();
 
     commandMap.put("/board/add", new BoardAddCommand(prompt, boardList));
     commandMap.put("/board/list", new BoardListCommand(boardList));
@@ -189,11 +189,17 @@ public class App {
 
   public static void main(String[] args) {
     App app = new App();
-
     // 애플리케이션의 상태 정보를 받을 옵저버를 등록한다.
-
-    app.addApplicationContextListener(new GreetingListener());
     app.addApplicationContextListener(new DataLoaderListener());
+    app.addApplicationContextListener(new GreetingListener());
+    app.service();
+  }
+
+  public static void main(String[] args) {
+    App app = new App();
+    // 애플리케이션의 상태 정보를 받을 옵저버를 등록한다.
+    app.addApplicationContextListener(new DataLoaderListener());
+    app.addApplicationContextListener(new GreetingListener());
     app.service();
   }
 }
