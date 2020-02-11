@@ -1,32 +1,34 @@
 package test;
 
-import java.io.DataInputStream;
-import java.io.PrintStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.util.Scanner;
 
 public class Server {
   public static void main(String[] args) throws Exception {
-
-    ServerSocket serverSocket = new ServerSocket(9999);
-    Socket socket = serverSocket.accept();
-
-    PrintStream out = new PrintStream(socket.getOutputStream());
-    DataInputStream in = new DataInputStream(socket.getInputStream());
-
-    String message = in.readUTF();
-    System.out.println("클라이언트 : " + message);
+    Scanner scan = new Scanner(System.in);
+    System.out.println("서버 실행중..");
 
 
-    out.println("내가 바보면 넌 멍청이야");
+    DatagramSocket socket = new DatagramSocket(8888);
+    byte[] buf = new byte[8196];
 
 
-    out.close();
-    in.close();
-    serverSocket.close();
+    DatagramPacket emptyPacket = new DatagramPacket(buf, buf.length);
+    System.out.println("데이터를 받으려면 엔터를 입력하세요.");
+    scan.nextLine();
+
+    socket.receive(emptyPacket);
+
+    System.out.println("-------------------------------------------");
+    scan.close();
     socket.close();
 
-
-
+    System.out.println("-------------------------------------------");
+    String message = new String(//
+        emptyPacket.getData(), 0, emptyPacket.getLength(), "UTF-8");
+    System.out.println("클라이언트의 데이터 출력");
+    System.out.println("메시지 출력");
+    System.out.println("클라이언트 " + message);
   }
 }

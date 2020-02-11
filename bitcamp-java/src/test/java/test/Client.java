@@ -1,28 +1,26 @@
 package test;
 
-import java.io.DataOutputStream;
-import java.net.Socket;
-import java.util.Scanner;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class Client {
   public static void main(String[] args) throws Exception {
+    DatagramSocket socket = new DatagramSocket();
 
-    Socket socket = new Socket("localhost", 9999);
+    String receiver = "localhost";
+    int port = 8888;
 
-    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-    Scanner in = new Scanner(socket.getInputStream());
+    byte[] bytes = "hello".getBytes("UTF-8");
 
+    DatagramPacket packet = new DatagramPacket(//
+        bytes, bytes.length, InetAddress.getByName(receiver), port);
 
-    out.writeUTF("바보야 ");
-
-    String response = in.nextLine();
-    System.out.println(response);
-
-
+    socket.send(packet);
+    System.out.println("데이터 전송 완료");
 
     socket.close();
-    out.close();
-    in.close();
+
   }
 }
 
