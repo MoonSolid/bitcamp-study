@@ -1,51 +1,32 @@
-# 32_11 - 서버에서 제공한 프록시 객체를 사용하여 데이터를 처리하기
+# 34 - 다중 클라이언트 요청을 동시에 처리하기
 
 ## 학습목표
 
-- 프록시 패턴의 이점을 이해한다.
+- Thread의 사용 목적과 동작원리을 이해한다.
+- Thread를 정의하고 사용할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao/XxxDao.java 추가
-- src/main/java/com/eomcs/lms/dao/proxy/XxxDaoProxy.java 추가
-- src/main/java/com/eomcs/lms/handler/XxxCommand.java 변경
+- src/main/java/com/eomcs/lms/dao/proxy/Worker.java 추가
+- src/main/java/com/eomcs/lms/dao/proxy/DaoProxyHelper.java 추가
+- src/main/java/com/eomcs/lms/dao/proxy/XxxDaoProxy 변경
 - src/main/java/com/eomcs/lms/ClientApp.java 변경
 
 ## 실습  
 
-### 훈련 1: 서버 프로젝트(32_11)에서  DAO 프록시 클래스를 가져오라.
+### 훈련 1: 서버와 통신을 담당할 실제 작업의 규칙을 정의하라.
 
-- com.eomcs.lms.dao.XxxDao 인터페이스를 가져온다.
-- com.eomcs.lms.dao.rpoxy 패키지와 그 하위 클래스를 모두 가져온다.
+- com.eomcs.dao.proxy.Worker 인터페이스를 정의한다.
 
-### 훈련 2: BoardXxxCommand 객체가 BoardDaoProxy 객체를 사용하여 데이터를 처리하게 하라.
+### 훈련 2: DaoProxy를 도와 서버와의 연결을 담당할 객체를 정의하라. 
 
-- com.eomcs.lms.handler.BoardXxxCommand 클래스를 변경한다.
- - 입출력 스트림 필드를 제거한다.
- - 생성자에서 프록시 객체를 받는다.
- - 프록시 객체를 사용하여 데이터를 처리한다.
+- com.eomcs.dao.proxy.DaoProxyHelper 를 정의한다.
+
+### 훈련 3: DaoProxyHelper를 사용하도록 DaoProxy를 변경하라.
+
+- com.eomcs.lms.dao.rpoxy.XxxDaoProxy 를 변경한다.
+
+### 훈련 4: DaoProxyHelper가 추가된 것에 맞춰 ClientApp을 변경하라.
+
 - com.eomcs.lms.ClientApp 변경한다.
- - BoardDaoProxy 객체를 생성한다.
- - BoardXxxCommand 객체에 주입한다.
- 
-### 훈련 3: LessonXxxCommand 객체가 LessonDaoProxy 객체를 사용하여 데이터를 처리하게 하라.
-
-- com.eomcs.lms.handler.LessonXxxCommand 클래스를 변경한다.
- - 입출력 스트림 필드를 제거한다.
- - 생성자에서 프록시 객체를 받는다.
- - 프록시 객체를 사용하여 데이터를 처리한다.
-- com.eomcs.lms.ClientApp 변경한다.
- - LessonDaoProxy 객체를 생성한다.
- - LessonXxxCommand 객체에 주입한다.
- 
-### 훈련 4: MemberXxxCommand 객체가MemberDaoProxy 객체를 사용하여 데이터를 처리하게 하라.
-
-- com.eomcs.lms.handler.MemberXxxCommand 클래스를 변경한다.
- - 입출력 스트림 필드를 제거한다.
- - 생성자에서 프록시 객체를 받는다.
- - 프록시 객체를 사용하여 데이터를 처리한다.
-- com.eomcs.lms.ClientApp 변경한다.
- - MemberDaoProxy 객체를 생성한다.
- - MemberXxxCommand 객체에 주입한다.
-
-
+  

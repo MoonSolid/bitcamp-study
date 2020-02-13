@@ -124,15 +124,10 @@ public class ServerApp {
 
       System.out.println("통신을 위한 입출력 스트림을 준비하였음!");
 
-      while (true) {
         String request = in.readUTF();
         System.out.println("클라이언트가 보낸 메시지를 수신하였음!");
 
-        switch (request) {
-          case "quit":
-            quit(out);
-            return 0; // 클라이언트와 연결을 끊는다.
-          case "/server/stop":
+          if(request.equalsIgnoreCase("/server/stop")) {
             quit(out);
             return 9; // 서버를 종료한다.
         }
@@ -160,8 +155,9 @@ public class ServerApp {
 
         out.flush();
         System.out.println("클라이언트에게 응답하였음!");
-        System.out.println("------------------------------------");
-      }
+        
+        return 0;
+        
     } catch (Exception e) {
       System.out.println("예외 발생:");
       e.printStackTrace();
