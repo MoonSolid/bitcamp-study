@@ -1,27 +1,25 @@
 package test;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 
 public class MyDataTest {
+  public static void main(String[] args) {
 
-  static class MyThread extends Thread {
-    @Override
-    public void run() {
-      Scanner scan = new Scanner(System.in);
-      System.out.print("입력하시오> ");
-      String input = scan.nextLine();
-      System.out.println("입력값 : " + input);
-      scan.close();
+
+
+    try (Scanner scan = new Scanner(System.in);
+        OutputStream out = new FileOutputStream("/vote.txt");) {
+      System.out.println("투표할 인원을 입력하세요");
+      String str = scan.nextLine();
+      byte[] by = str.getBytes();
+      out.write(by);
+
+    } catch (Exception e) {
+
     }
-  }
 
-
-  public static void main(final String[] args) {
-
-    MyThread t = new MyThread();
-
-    t.start();
-    System.out.println("메인문 끝");
 
 
   }
