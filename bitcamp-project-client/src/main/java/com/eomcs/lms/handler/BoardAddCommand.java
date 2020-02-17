@@ -18,6 +18,7 @@ public class BoardAddCommand implements Command {
   @Override
   public void execute() {
     Board board = new Board();
+
     board.setTitle(prompt.inputString("내용? "));
 
     try {

@@ -94,9 +94,12 @@ public class MemberDaoImpl implements MemberDao {
         Statement stmt = con.createStatement()) {
 
       int result =
-          stmt.executeUpdate("update lms_member set name= '" + member.getName() + "', email='"
-              + member.getEmail() + "', pwd='" + member.getPassword() + "', tel='" + member.getTel()
-              + "', photo='" + member.getPhoto() + "' where member_id=" + member.getNo());
+          stmt.executeUpdate("update lms_member set name= '" //
+              + member.getName() + "', email='" //
+              + member.getEmail() + "', pwd='" //
+              + member.getPassword() + "', tel='" //
+              + member.getTel() + "', photo='" // 
+              + member.getPhoto() + "' where member_id=" + member.getNo());
 
       return result;
     }

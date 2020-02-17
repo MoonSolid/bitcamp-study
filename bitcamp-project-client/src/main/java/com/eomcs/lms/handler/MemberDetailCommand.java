@@ -6,8 +6,8 @@ import com.eomcs.util.Prompt;
 
 public class MemberDetailCommand implements Command {
 
-  Prompt prompt;
   MemberDao memberDao;
+  Prompt prompt;
 
   public MemberDetailCommand(MemberDao memberDao, Prompt prompt) {
     this.memberDao = memberDao;

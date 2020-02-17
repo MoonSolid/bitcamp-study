@@ -29,6 +29,7 @@ public class BoardUpdateCommand implements Command {
       }
 
       Board newBoard = new Board();
+
       newBoard.setNo(oldBoard.getNo());
       newBoard.setTitle(
           prompt.inputString(String.format("내용(%s)? ", oldBoard.getTitle()), oldBoard.getTitle()));
@@ -43,6 +44,7 @@ public class BoardUpdateCommand implements Command {
 
     } catch (Exception e) {
       System.out.println("변경 실패!");
+      e.printStackTrace();
     }
   }
 }
