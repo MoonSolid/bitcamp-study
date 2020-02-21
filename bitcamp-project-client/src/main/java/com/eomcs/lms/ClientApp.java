@@ -1,28 +1,14 @@
 // LMS 클라이언트
 package com.eomcs.lms;
 
+import java.io.PrintStream;
+import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.dao.MemberDao;
-import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
-import com.eomcs.lms.handler.BoardAddCommand;
-import com.eomcs.lms.handler.BoardDeleteCommand;
-import com.eomcs.lms.handler.BoardDetailCommand;
-import com.eomcs.lms.handler.BoardListCommand;
-import com.eomcs.lms.handler.BoardUpdateCommand;
-import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.MemberAddCommand;
-import com.eomcs.lms.handler.MemberDeleteCommand;
-import com.eomcs.lms.handler.MemberDetailCommand;
-import com.eomcs.lms.handler.MemberListCommand;
-import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.util.Prompt;
 
 public class ClientApp {
@@ -34,48 +20,9 @@ public class ClientApp {
   Queue<String> commandQueue;
 
 
-  HashMap<String, Command> commandMap = new HashMap<>();
-
-  public ClientApp() {
-    // 생성자
-    // => 객체가 작업할 때 사용할 자원들을 준비시키는 일을 한다.
-
-    // 사용자가 입력한 명령어를 보관할 객체 준비
+  public ClientApp() throws Exception {
     commandStack = new ArrayDeque<>();
     commandQueue = new LinkedList<>();
-
-
-    // DAO 프록시의 서버 연결을 도와줄 도우미 객체 준비
-
-    // BoardDaoProxy boardDao = new BoardDaoProxy(daoProxyHelper);
-    // LessonDaoProxy lessonDao = new LessonDaoProxy(daoProxyHelper);
-    // MemberDaoProxy memberDao = new MemberDaoProxy(daoProxyHelper);
-
-
-    BoardDao boardDao = new BoardDaoImpl();
-    MemberDao memberDao = new MemberDaoImpl();
-
-
-
-    // 사용자 명령을 처리할 Command 객체 준비
-    commandMap.put("/board/list", new BoardListCommand(boardDao));
-    commandMap.put("/board/add", new BoardAddCommand(boardDao, prompt));
-    commandMap.put("/board/detail", new BoardDetailCommand(boardDao, prompt));
-    commandMap.put("/board/update", new BoardUpdateCommand(boardDao, prompt));
-    commandMap.put("/board/delete", new BoardDeleteCommand(boardDao, prompt));
-
-    // commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
-    // commandMap.put("/lesson/add", new LessonAddCommand(lessonDao, prompt));
-    // commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao, prompt));
-    // commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao, prompt));
-    // commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao, prompt));
-
-    commandMap.put("/member/list", new MemberListCommand(memberDao));
-    commandMap.put("/member/add", new MemberAddCommand(memberDao, prompt));
-    commandMap.put("/member/detail", new MemberDetailCommand(memberDao, prompt));
-    commandMap.put("/member/update", new MemberUpdateCommand(memberDao, prompt));
-    commandMap.put("/member/delete", new MemberDeleteCommand(memberDao, prompt));
-
   }
 
   public void service() {
@@ -101,19 +48,91 @@ public class ClientApp {
       commandQueue.offer(command);
 
       processCommand(command);
-
     }
-
     keyboard.close();
   }
 
   private void processCommand(String command) {
-    Command commandHandler = commandMap.get(command);
-    if (commandHandler == null) {
-      System.out.println("실행할 수 없는 명령입니다.");
+    // 명령어 형식을 변경!
+    // => [기존 방식]
+    // => 예) /board/list
+    // [새 방식]
+    // => 예) bitcamp://서버주소:포트번호/board/list
+    //
+    String host = null;
+    int port = 9999;
+    String servletPath = null;
+
+    // 명령어를 분석하여 서버주소와 포트번호, 실행시킬 작업명을 분리한다.
+    try {
+      if (!command.startsWith("bitcamp://")) {
+        // 명령어가 "bitcamp://" 로 시작하지 않는다면
+        throw new Exception("명령어 형식이 옳지 않습니다!");
+      }
+
+      // System.out.println(command);
+      // command 예) bitcamp://localhost:9999/board/list
+
+      String url = command.substring(10);
+      // 커맨드의 10번째부터 가져온다
+      // url = localhost:9999/board/list
+
+
+      // System.out.println(url);
+
+      int index = url.indexOf('/'); // 14
+      // url에서 첫번째 /의 위치를 찾은후
+      String[] str = //
+          url.substring(0, index) // localhost:9999
+              // url에서 0번째부터 index까지 출력한다
+
+              .split(":"); // {"localhost", "9999"}
+      // 값을 :로 구분한다
+      host = str[0];
+      if (str.length == 2) {
+        port = Integer.parseInt(str[1]);
+      }
+      // System.out.printf("=> %s:%d\n", host, port); // => localhost:9999
+
+      servletPath = url.substring(index);
+      // System.out.printf("=> %s\n", servletPath); // => /board/list
+
+
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
       return;
     }
-    commandHandler.execute();
+
+
+
+    try (Socket socket = new Socket(host, port);
+        PrintStream out = new PrintStream(socket.getOutputStream());
+        Scanner in = new Scanner(socket.getInputStream())
+
+    ) {
+
+      // 서버에 명령을 보낸다.
+      out.println(servletPath);
+      out.flush();
+
+      // 서버의 응답을 읽어서 출력한다.
+
+      while (true) {
+        String response = in.nextLine();
+        if (response.equals("!end!")) {
+          break;
+        } else if (response.equals("!{}!")) {
+          String input = prompt.inputString("");
+          out.println(input);
+        } else {
+          System.out.println(response);
+        }
+      }
+
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      System.out.println();
+    }
   }
 
   private void printCommandHistory(Iterator<String> iterator) {

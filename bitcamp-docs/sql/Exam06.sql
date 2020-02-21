@@ -47,6 +47,8 @@ values(203, 's203', '111-1111', 's203@', sha2('1111', 224));
 insert into memb(mno, name, tel, email, pwd)
 values(204, 's204', '111-1111', 's204@', sha2('1111', 224));
 
+--여기 입력할차례
+
 insert into tcher(mno, hr_pay, acc_no, bank)
 values(200, 10000, '2000', '신한은행');
 insert into tcher(mno, hr_pay, acc_no, bank)

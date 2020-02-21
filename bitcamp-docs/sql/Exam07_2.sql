@@ -19,6 +19,8 @@ select rno, loc, name
 from room
 order by name desc;
 
+-- desc 내림차순 
+
 /* 이름은 오름차순, 지점명도 오름차순으로 정렬하기*/
 select rno, loc, name 
 from room

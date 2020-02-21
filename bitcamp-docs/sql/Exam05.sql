@@ -47,11 +47,13 @@ ALTER TABLE stnt
         );
 
 -- 수강생 유니크 인덱스
-CREATE UNIQUE INDEX UIX_stnt
+CREATE UNIQUE INDEX stnt
     ON stnt ( -- 수강생
-        acc_no ASC, -- 통장번호
+        acc_no ASC, -- 통장번호  
         bank ASC    -- 은행명
     );
+    
+    //ASC는 색인표를 만들때 오름차순 
 
 -- 강사
 CREATE TABLE tcher (
@@ -104,6 +106,8 @@ CREATE INDEX IX_lect
     ON lect( -- 강의
         titl ASC -- 강의명
     );
+    
+    //중복허용
 
 ALTER TABLE lect
     MODIFY COLUMN lno INTEGER NOT NULL AUTO_INCREMENT COMMENT '강의번호';
@@ -234,12 +238,12 @@ ALTER TABLE memb
     MODIFY COLUMN mno INTEGER NOT NULL AUTO_INCREMENT COMMENT '멤버번호';
 
 -- 주소
-CREATE TABLE addr (
-    ano      INTEGER      NOT NULL COMMENT '주소번호', -- 주소번호
-    pst_no   VARCHAR(5)   NOT NULL COMMENT '우편번호', -- 우편번호
-    bas_addr VARCHAR(255) NOT NULL COMMENT '기본주소' -- 기본주소
-)
-COMMENT '주소';
+	CREATE TABLE addr (
+	    ano      INTEGER      NOT NULL COMMENT '주소번호', -- 주소번호
+	    pst_no   VARCHAR(5)   NOT NULL COMMENT '우편번호', -- 우편번호
+	    bas_addr VARCHAR(255) NOT NULL COMMENT '기본주소' -- 기본주소
+	)
+	COMMENT '주소';
 
 -- 주소
 ALTER TABLE addr
@@ -272,6 +276,8 @@ ALTER TABLE lect_tcher
             mno  -- 강사번호
         );
 
+        --여기까지 ER-digram 그릴 차례
+        
 -- 수강생
 ALTER TABLE stnt
     ADD CONSTRAINT FK_memb_TO_stnt -- 멤버 -> 수강생
@@ -292,9 +298,11 @@ ALTER TABLE tcher
             mno -- 멤버번호
         );
 
+        
+      
 -- 강의
 ALTER TABLE lect
-    ADD CONSTRAINT FK_mgr_TO_lect -- 매니저 -> 강의
+    ADD CONSTRAINT FK_mgr_TO_lect -- 매니저 -> 강의  
         FOREIGN KEY (
             mno -- 매니저번호
         )
@@ -331,7 +339,7 @@ ALTER TABLE lect_appl
         REFERENCES stnt ( -- 수강생
             mno -- 수강생번호
         );
-
+----
 -- 수강신청
 ALTER TABLE lect_appl
     ADD CONSTRAINT FK_lect_TO_lect_appl -- 강의 -> 수강신청
@@ -366,7 +374,7 @@ ALTER TABLE memb
 ALTER TABLE lect_tcher
     ADD CONSTRAINT FK_tcher_TO_lect_tcher -- 강사 -> 강의배정
         FOREIGN KEY (
-            mno -- 강사번호
+            mno -- 강사번호 
         )
         REFERENCES tcher ( -- 강사
             mno -- 강사번호

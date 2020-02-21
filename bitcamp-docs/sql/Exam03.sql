@@ -224,7 +224,7 @@ insert into test1(title, regdt) values('bbbb', '2017-2-2');
 insert into test1(title, regdt) values('cccc', '2017-2-13');
 insert into test1(title, regdt) values('dddd', '2017-3-2');
 insert into test1(title, regdt) values('eeee', '2017-4-15');
-insert into test1(title, regdt) values('ffff', '2017-6-7');
+insert into test1(title, regdt) values('  ffff', '2017-6-7');
 insert into test1(title, regdt) values('gggg', '2017-6-17');
 insert into test1(title, regdt) values('hhhh', '2017-6-27');
 insert into test1(title, regdt) values('iiii', '2017-9-5');
@@ -259,7 +259,7 @@ select now();
 /* 현재 날짜 알아내기 */
 select curdate();
 
-/* 현재 시간 알아내기 */
+/* 현재 시간 알아내기 */  
 select curtime();
 
 /* 주어진 날짜, 시간에서 날짜만 뽑거나 시간만 뽑기 */
