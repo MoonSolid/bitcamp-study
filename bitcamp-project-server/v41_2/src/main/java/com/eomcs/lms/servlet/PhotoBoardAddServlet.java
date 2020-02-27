@@ -30,7 +30,7 @@ public class PhotoBoardAddServlet implements Servlet {
 
     // 우리를 대신해서 트랜잭션 관리자를 사용하여
     // 트랜잭션을 처리할 도우미 객체를 준비한다.
-    // 따라서 트랜재션 관리자는 TransactionTemplate이 사용할 것이기 때문에
+    // 따라서 트랜잭션 관리자는 TransactionTemplate이 사용할 것이기 때문에
     // 생성자에 넘겨준다.
     this.transactionTemplate = new TransactionTemplate(txManager);
 
