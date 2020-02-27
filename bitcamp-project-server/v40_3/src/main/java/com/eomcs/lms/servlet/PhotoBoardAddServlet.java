@@ -16,51 +16,44 @@ import com.eomcs.util.Prompt;
 
 public class PhotoBoardAddServlet implements Servlet {
 
-
-  // DAO 클래스를 구체적으로 지정하기 보다는
-  // 인터페이스를 지정함으로써
-  // 향후 다른 구현체로 교체하기 쉽도록 만든다.
-
+  ConnectionFactory conFactory;
   PhotoBoardDao photoBoardDao;
   LessonDao lessonDao;
   PhotoFileDao photoFileDao;
-  ConnectionFactory conFactory;
 
-  public PhotoBoardAddServlet(PhotoBoardDao photoBoardDao, //
+  public PhotoBoardAddServlet( //
+      ConnectionFactory conFactory, //
+      PhotoBoardDao photoBoardDao, //
       LessonDao lessonDao, //
-      PhotoFileDao photoFileDao, //
-      ConnectionFactory conFactory) {
+      PhotoFileDao photoFileDao) {
+    this.conFactory = conFactory;
     this.photoBoardDao = photoBoardDao;
     this.lessonDao = lessonDao;
     this.photoFileDao = photoFileDao;
-    this.conFactory = conFactory;
   }
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
     PhotoBoard photoBoard = new PhotoBoard();
+    photoBoard.setTitle(Prompt.getString(in, out, "제목? "));
 
-    photoBoard.setTitle(Prompt.getString(in, out, "제목?"));
-
-    int lessonNo = Prompt.getInt(in, out, "수업번호?");
+    int lessonNo = Prompt.getInt(in, out, "수업 번호? ");
 
     Lesson lesson = lessonDao.findByNo(lessonNo);
     if (lesson == null) {
       out.println("수업 번호가 유효하지 않습니다.");
+      return;
     }
 
     photoBoard.setLesson(lesson);
 
-
-    // 트랜젝션을 시작하기 위해 auto-commit을 수동으로 바꾼다.
-    // 이 이후부터 하는 데이터 변경 작업은
-    // 모두 임시 테이블에 보관된다.
-    // 오직 commit 명령을 DBMS에 보낼 때만 진짜 테이블에 적용된다.
-
+    // 트랜잭션 시작
     Connection con = conFactory.getConnection();
-    // =>ConnectionFactory는 스레드에 보관된 Connection 객체를 찾을 것이다.
-    // =>있으면 스레드에 보관된 Connection 객체를 리턴해 줄것이
+    // => ConnectionFactory는 스레드에 보관된 Connection 객체를 찾을 것이다.
+    // => 있으면 스레드에 보관된 Connection 객체를 리턴해 줄 것이고,
+    // => 없으면 새로 만들어 리턴해 줄 것이다.
+    // => 물론 새로 만든 Connection 객체는 스레드에도 보관될 것이다.
 
     con.setAutoCommit(false);
 
@@ -79,35 +72,33 @@ public class PhotoBoardAddServlet implements Servlet {
     } catch (Exception e) {
       con.rollback();
       out.println(e.getMessage());
+
     } finally {
       con.setAutoCommit(true);
     }
   }
 
   private List<PhotoFile> inputPhotoFiles(Scanner in, PrintStream out) {
-
     // 첨부 파일을 입력 받는다.
-    out.println("최소 한개의 사진파일을 등록해야 합니다.");
+    out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
     out.println("파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.");
 
     ArrayList<PhotoFile> photoFiles = new ArrayList<>();
 
-
     while (true) {
-      String filepath = Prompt.getString(in, out, "사진 파일?");
-
-
+      String filepath = Prompt.getString(in, out, "사진 파일? ");
 
       if (filepath.length() == 0) {
         if (photoFiles.size() > 0) {
           break;
         } else {
-          out.println("최소 한개의 사진파일을 등록해야 합니다.");
+          out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
           continue;
         }
       }
       photoFiles.add(new PhotoFile().setFilepath(filepath));
     }
+
     return photoFiles;
   }
 }

@@ -1,57 +1,41 @@
 package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
-import java.sql.Connection;
 import java.util.Scanner;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.util.ConnectionFactory;
+import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.sql.TransactionTemplate;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardDeleteServlet implements Servlet {
 
+  TransactionTemplate transactionTemplate;
   PhotoBoardDao photoBoardDao;
-  LessonDao lessonDao;
   PhotoFileDao photoFileDao;
-  ConnectionFactory conFactory;
 
-  public PhotoBoardDeleteServlet(PhotoBoardDao photoBoardDao, //
-      LessonDao lessonDao, //
-      PhotoFileDao photoFileDao, //
-      ConnectionFactory conFactory) {
+  public PhotoBoardDeleteServlet( //
+      PlatformTransactionManager txManager, //
+      PhotoBoardDao photoBoardDao, //
+      PhotoFileDao photoFileDao) {
+    this.transactionTemplate = new TransactionTemplate(txManager);
     this.photoBoardDao = photoBoardDao;
-    this.lessonDao = lessonDao;
     this.photoFileDao = photoFileDao;
-    this.conFactory = conFactory;
   }
-
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-
     int no = Prompt.getInt(in, out, "번호? ");
 
-    // 사진 게시글을 삭제하기 전에 먼저 자식 테이블에 있는
-    // 첨부 파일 데이터를 삭제한다.
-
-    Connection con = conFactory.getConnection();
-
-    con.setAutoCommit(false);
-
-
-    try {
+    transactionTemplate.execute(() -> {
       photoFileDao.deleteAll(no);
+
       if (photoBoardDao.delete(no) == 0) {
-        throw new Exception("사진 게시글이 없습니다");
+        throw new Exception("해당 번호의 사진 게시글이 없습니다.");
       }
-      con.commit();
       out.println("사진 게시글을 삭제했습니다.");
-    } catch (Exception e) {
-      con.rollback();
-      out.println(e.getMessage());
-    } finally {
-      con.setAutoCommit(true);
-    }
+
+      return null;
+    });
   }
 }

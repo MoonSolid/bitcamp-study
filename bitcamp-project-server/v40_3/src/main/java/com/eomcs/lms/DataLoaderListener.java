@@ -14,23 +14,19 @@ import com.eomcs.util.ConnectionFactory;
 //
 public class DataLoaderListener implements ApplicationContextListener {
 
-  // 다른 클래스에서 커넥션 객체를 사용할 수 있도록 공개한다.
-  // => Servlet 클래스에서 트랜젝션을 다루기 위해 이 커넥션 객체를 사용한다.
-
   @Override
   public void contextInitialized(Map<String, Object> context) {
 
-
     try {
-      // DB 연결 객체 준비
+      // DB 연결 정보
       String jdbcUrl = "jdbc:mariadb://localhost:3306/studydb";
       String username = "study";
       String password = "1111";
 
       // Connection 팩토리 준비
-      ConnectionFactory conFactory = new ConnectionFactory(jdbcUrl, username, password);
-
-
+      ConnectionFactory conFactory = new ConnectionFactory(//
+          jdbcUrl, username, password);
+      context.put("connectionFactory", conFactory);
 
       // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
       context.put("boardDao", new BoardDaoImpl(conFactory));
@@ -38,7 +34,6 @@ public class DataLoaderListener implements ApplicationContextListener {
       context.put("memberDao", new MemberDaoImpl(conFactory));
       context.put("photoBoardDao", new PhotoBoardDaoImpl(conFactory));
       context.put("photoFileDao", new PhotoFileDaoImpl(conFactory));
-      context.put("connectionFactory", conFactory);
 
     } catch (Exception e) {
       e.printStackTrace();
