@@ -14,18 +14,13 @@ from lect_appl la
         left outer join mgr mr on l.mno=mr.mno;  
 
 /* select 절에 서브쿼리 사용하기 */
-        
- 
-       
-        
 
 /* => 1단계: 수강신청 데이터를 출력 */
-        
-select
-la.lano,
-la.lno,
-la.mno,
-date_format(la.rdt, '%Y-%m-%d') reg_dt
+select 
+  la.lano, 
+  la.lno, 
+  la.mno, 
+  date_format(la.rdt, '%Y-%m-%d') reg_dt
 from lect_appl la; 
 
 /* => 2단계 : 서브 쿼리를 이용하여 강의명을 가져오기 */
@@ -35,8 +30,6 @@ select
     la.mno, 
     la.rdt
 from lect_appl la;
-
-
 
 /* => 3단계 : 서브 쿼리를 이용하여 학생명을 가져오기 */
 select 
@@ -69,7 +62,7 @@ from lect l
              기존의 lect_appl 테이블과 조인한다.*/
 select 
     la.lano, 
-    (select titl from lect where lno=la.lno) as lect_title, 
+    /*(select titl from lect where lno=la.lno) as lect_title,*/ 
     (select name from memb where mno=la.mno) as stud_name,
     lec.titl,
     lec.room_name,
@@ -107,7 +100,7 @@ select
     lec.manager_name,
     lec.manager_posi
 from lect_appl la 
-    join lect2 as lec on la.lno=lec.lno;
+    join lect2 lec on la.lno=lec.lno;
             
             
 /* where 절에 서브쿼리 사용하기 */
@@ -115,22 +108,17 @@ from lect_appl la
 /* 과장 또는 대리 매니저가 담당하고 있는 수강 신청만 추출하기 */
 select 
     la.lano, 
-    -- (select titl from lect where lno=la.lno) as lect_title, 
+    /* (select titl from lect where lno=la.lno) as lect_title, */ 
     (select name from memb where mno=la.mno) as stud_name,
     lec.titl,
     lec.room_name,
-    -- lec.manager_no,
+    /* lec.manager_no, */
     lec.manager_name,
     lec.manager_posi
 from lect_appl la 
-    join lect2 as lec on la.lno=lec.lno
+    join lect2 as lec on la.lno=lec.lno 
 where
-    lec.manager_no in (select 
-                           mno 
-                       from
-                           mgr 
-                       where 
-                           posi in ('과장'));
+    lec.manager_no in (select mno from mgr where posi in ('과장', '주임'));
 
 
 

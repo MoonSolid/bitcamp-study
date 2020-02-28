@@ -88,6 +88,16 @@ select no, name, class, working
 from test1
 where working='Y' and class='java100';
 
+/* 주의!
+ * where 절을 통해 결과 데이터를 먼저 선택(selection)한 다음 
+ * 결과 데이터에서 가져올 컬럼을 선택(projection)한다.
+ * 따라서 실행 순서는:
+ * from ==> where ==> select 
+ */
+select no, name
+from test1
+where working='Y' and class='java100';
+
 /* 재직자가 아닌 사람만 조회하라!*/
 select no, name, class, working
 from test1
@@ -224,7 +234,7 @@ insert into test1(title, regdt) values('bbbb', '2017-2-2');
 insert into test1(title, regdt) values('cccc', '2017-2-13');
 insert into test1(title, regdt) values('dddd', '2017-3-2');
 insert into test1(title, regdt) values('eeee', '2017-4-15');
-insert into test1(title, regdt) values('  ffff', '2017-6-7');
+insert into test1(title, regdt) values('ffff', '2017-6-7');
 insert into test1(title, regdt) values('gggg', '2017-6-17');
 insert into test1(title, regdt) values('hhhh', '2017-6-27');
 insert into test1(title, regdt) values('iiii', '2017-9-5');
@@ -259,7 +269,7 @@ select now();
 /* 현재 날짜 알아내기 */
 select curdate();
 
-/* 현재 시간 알아내기 */  
+/* 현재 시간 알아내기 */
 select curtime();
 
 /* 주어진 날짜, 시간에서 날짜만 뽑거나 시간만 뽑기 */
