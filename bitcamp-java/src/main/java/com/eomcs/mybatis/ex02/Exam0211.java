@@ -25,7 +25,7 @@ public class Exam0211 {
 
     // 예) 게시글 제목에 ohora 를 포함한 게시글을 찾는다.
     List<Board> list = sqlSession.selectList(//
-        "BoardMapper.selectBoard2", "%제목%");
+        "BoardMapper.selectBoard2", "%ohora%");
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s\n", //

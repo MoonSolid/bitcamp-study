@@ -25,15 +25,14 @@ public class Exam0210 {
 
     // 예) 3번 이상 게시물을 가져온다.
     List<Board> list = sqlSession.selectList(//
-        "BoardMapper.selectBoard1", 10);
+        "BoardMapper.selectBoard1", 5);
 
     for (Board board : list) {
-      System.out.printf("%d, %s, %s, %s, %d\n", //
+      System.out.printf("%d, %s, %s, %s\n", //
           board.getNo(), //
           board.getTitle(), //
           board.getContent(), //
-          board.getRegisteredDate(), //
-          board.getViewCount());
+          board.getRegisteredDate());
     }
 
     sqlSession.close();
