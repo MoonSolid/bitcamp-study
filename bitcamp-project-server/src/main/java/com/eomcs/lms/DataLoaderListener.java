@@ -1,6 +1,10 @@
 package com.eomcs.lms;
 
+import java.io.InputStream;
 import java.util.Map;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
@@ -29,11 +33,17 @@ public class DataLoaderListener implements ApplicationContextListener {
           jdbcUrl, username, password);
       context.put("dataSource", dataSource);
 
+      // Mybatis 객체 준비
+      InputStream inputStream = Resources.getResourceAsStream(//
+          "com/eomcs/lms/conf/mybatis-config.xml");
+      SqlSessionFactory sqlSessionFactory = //
+          new SqlSessionFactoryBuilder().build(inputStream);
+
       // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
-      context.put("boardDao", new BoardDaoImpl(dataSource));
-      context.put("lessonDao", new LessonDaoImpl(dataSource));
-      context.put("memberDao", new MemberDaoImpl(dataSource));
-      context.put("photoBoardDao", new PhotoBoardDaoImpl(dataSource));
+      context.put("boardDao", new BoardDaoImpl(sqlSessionFactory));
+      context.put("lessonDao", new LessonDaoImpl(sqlSessionFactory));
+      context.put("memberDao", new MemberDaoImpl(sqlSessionFactory));
+      context.put("photoBoardDao", new PhotoBoardDaoImpl(sqlSessionFactory));
       context.put("photoFileDao", new PhotoFileDaoImpl(dataSource));
 
       // 트랜잭션 관리자 준비
@@ -51,7 +61,9 @@ public class DataLoaderListener implements ApplicationContextListener {
     // 모든 DB 커넥션을 명시적으로 끊어준다.
     // 그러면 DBMS는 timeout 될 때까지 기다릴 필요가 없이
     // 클라이언트와 연결된 스레드를 즉시 해제시킬 수 있다.
+    //
     DataSource dataSource = (DataSource) context.get("dataSource");
     dataSource.clean();
   }
+
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="LessonMapper">
+
+  <resultMap type="Lesson" id="LessonMap">
+    <id column="lesson_id"   property="no"/>
+    <id column="sdt"   property="startDate"/>
+    <id column="edt"   property="endDate"/>
+    <id column="tot_hr"   property="totalHours"/>
+    <id column="day_hr"   property="dayHours"/>
+    <id column="titl"   property="title"/>
+    <id column="conts"   property="description"/>
+  </resultMap>
+  
+  <select id="selectLesson" resultMap="LessonMap">
+    select
+     lesson_id,
+     titl,
+     sdt,
+     edt,
+     tot_hr
+    from
+     lms_lesson
+  </select>
+  
+  
+  <insert id="insertBoard" parameterType="Board">
+  insert into lms_board(conts)
+   values(#{title})
+  </insert>
+  
+  
+</mapper>
+
+
+
+
+
+
+
