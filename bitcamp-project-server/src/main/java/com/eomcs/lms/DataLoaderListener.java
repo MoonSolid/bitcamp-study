@@ -44,7 +44,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       context.put("lessonDao", new LessonDaoImpl(sqlSessionFactory));
       context.put("memberDao", new MemberDaoImpl(sqlSessionFactory));
       context.put("photoBoardDao", new PhotoBoardDaoImpl(sqlSessionFactory));
-      context.put("photoFileDao", new PhotoFileDaoImpl(dataSource));
+      context.put("photoFileDao", new PhotoFileDaoImpl(sqlSessionFactory));
 
       // 트랜잭션 관리자 준비
       PlatformTransactionManager txManager = new PlatformTransactionManager(dataSource);

@@ -11,6 +11,7 @@ public class BoardJsonFileDao extends AbstractJsonFileDao<Board> implements Boar
   }
 
   // 서블릿 객체들이 데이터를 다룰 때 사용할 메서드를 정의한다.
+  @Override
   public int insert(Board board) throws Exception {
 
     if (indexOf(board.getNo()) > -1) { // 같은 번호의 게시물이 있다면,
@@ -22,10 +23,12 @@ public class BoardJsonFileDao extends AbstractJsonFileDao<Board> implements Boar
     return 1;
   }
 
+  @Override
   public List<Board> findAll() throws Exception {
     return list;
   }
 
+  @Override
   public Board findByNo(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {
@@ -34,6 +37,7 @@ public class BoardJsonFileDao extends AbstractJsonFileDao<Board> implements Boar
     return list.get(index);
   }
 
+  @Override
   public int update(Board board) throws Exception {
     int index = indexOf(board.getNo());
 
@@ -46,6 +50,7 @@ public class BoardJsonFileDao extends AbstractJsonFileDao<Board> implements Boar
     return 1;
   }
 
+  @Override
   public int delete(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {

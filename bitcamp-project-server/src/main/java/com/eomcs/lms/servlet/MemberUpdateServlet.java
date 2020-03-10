@@ -16,9 +16,7 @@ public class MemberUpdateServlet implements Servlet {
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-
     int no = Prompt.getInt(in, out, "번호? ");
-
 
     Member old = memberDao.findByNo(no);
     if (old == null) {
@@ -26,26 +24,28 @@ public class MemberUpdateServlet implements Servlet {
       return;
     }
 
-
     Member member = new Member();
 
     member.setNo(no);
-
-    member.setName(Prompt.getString(in, out, "이름? "));
-    member.setEmail(Prompt.getString(in, out, "이메일? "));
+    member.setName(Prompt.getString(in, out, //
+        String.format("이름(%s)? ", old.getName()), //
+        old.getName()));
+    member.setEmail(Prompt.getString(in, out, //
+        String.format("이메일(%s)? ", old.getEmail()), //
+        old.getEmail()));
     member.setPassword(Prompt.getString(in, out, "암호? "));
-    member.setPhoto(Prompt.getString(in, out, "사진? "));
-    member.setTel(Prompt.getString(in, out, "전화? "));
-
-
+    member.setPhoto(Prompt.getString(in, out, //
+        String.format("사진(%s)? ", old.getPhoto()), //
+        old.getPhoto()));
+    member.setTel(Prompt.getString(in, out, //
+        String.format("전화(%s)? ", old.getTel()), //
+        old.getTel()));
 
     if (memberDao.update(member) > 0) {
       out.println("회원을 변경했습니다.");
 
     } else {
-      out.println("회원 변경에 실패했습니다.");
+      out.println("변경에 실패했습니다.");
     }
-
-
   }
 }

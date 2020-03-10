@@ -3,36 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="LessonMapper">
+<mapper namespace="PhotoFileMapper">
 
-  <resultMap type="Lesson" id="LessonMap">
-    <id column="lesson_id"   property="no"/>
-    <id column="sdt"   property="startDate"/>
-    <id column="edt"   property="endDate"/>
-    <id column="tot_hr"   property="totalHours"/>
-    <id column="day_hr"   property="dayHours"/>
-    <id column="titl"   property="title"/>
-    <id column="conts"   property="description"/>
+  <resultMap type="PhotoFile" id="PhotoFileMap">
+    <id column="photo_file_id"   property="no"/>
+    <result column="file_path"  property="filepath"/>
+    <result column="photo_id"  property="boardNo"/>
   </resultMap>
-  
-  <select id="selectLesson" resultMap="LessonMap">
-    select
-     lesson_id,
-     titl,
-     sdt,
-     edt,
-     tot_hr
-    from
-     lms_lesson
-  </select>
-  
-  
-  <insert id="insertBoard" parameterType="Board">
-  insert into lms_board(conts)
-   values(#{title})
+    
+  <insert id="insertPhotoFile" parameterType="PhotoFile">
+    insert into lms_photo_file(photo_id,file_path) 
+    values(#{boardNo}, #{filepath})
   </insert>
   
-  
+  <select id="selectPhotoFile" resultMap="PhotoFileMap" parameterType="int">
+    select 
+      photo_file_id, 
+      photo_id, 
+      file_path
+    from 
+      lms_photo_file
+    where 
+      photo_id=#{boardNo}
+    order by 
+      photo_file_id asc
+  </select>
+
+  <delete id="deletePhotoFile" parameterType="int">
+    delete from lms_photo_file
+    where photo_id=#{boardNo}
+  </delete>
 </mapper>
 
 

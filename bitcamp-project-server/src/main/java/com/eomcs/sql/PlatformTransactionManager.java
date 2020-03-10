@@ -22,14 +22,11 @@ public class PlatformTransactionManager {
     Connection con = dataSource.getConnection();
     con.commit();
     con.setAutoCommit(true);
-
   }
 
   public void rollback() throws Exception {
     Connection con = dataSource.getConnection();
     con.rollback();
     con.setAutoCommit(true);
-
   }
-
 }

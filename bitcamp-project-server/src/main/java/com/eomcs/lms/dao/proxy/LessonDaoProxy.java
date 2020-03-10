@@ -8,13 +8,12 @@ import com.eomcs.lms.domain.Lesson;
 
 // 프록시 객체는 항상 작업 객체와 동일한 인터페이스를 구현해야 한다.
 // => 마치 자신이 작업 객체인양 보이기 위함이다.
-// => LessonDao 작업 객체를 대행할 프록시를 정의한다
+// => LessonDao 작업 객체를 대행할 프록시를 정의한다.
+//
 public class LessonDaoProxy implements LessonDao {
 
   ObjectInputStream in;
   ObjectOutputStream out;
-
-
 
   public LessonDaoProxy(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
@@ -31,6 +30,7 @@ public class LessonDaoProxy implements LessonDao {
     if (response.equals("FAIL")) {
       throw new Exception(in.readUTF());
     }
+
     return 1;
   }
 
@@ -84,6 +84,5 @@ public class LessonDaoProxy implements LessonDao {
     }
     return 1;
   }
+
 }
-
-

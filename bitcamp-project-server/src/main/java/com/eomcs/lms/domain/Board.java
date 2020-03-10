@@ -3,19 +3,9 @@ package com.eomcs.lms.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
-// 객체를 serialize 하려면 이 기능을 활성화시켜야 한다.
-// - java.io.Serializable을 구현하라
-// - serialize 데이터를 구분하기 위해 버전 번호를 명시하라.
-
 public class Board implements Serializable {
 
-  private static final long serialVersionUID = 20200131L; // 버전 번호 명시
-
-  @Override
-  public String toString() {
-    return "Board [no=" + no + ", title=" + title + ", date=" + date + ", viewCount=" + viewCount
-        + ", writer=" + writer + "]";
-  }
+  private static final long serialVersionUID = 20200131L;
 
   private int no;
   private String title;
@@ -23,17 +13,18 @@ public class Board implements Serializable {
   private int viewCount;
   private String writer;
 
-
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", title=" + title + ", date=" + date + ", viewCount=" + viewCount
+        + ", writer=" + writer + "]";
+  }
 
   // CSV 포맷:
-  // - 번호, 제목, 등록일 , 조회수 , 작성자
+  // - 번호,제목,등록일,조회수,작성자
+  //
   public static Board valueOf(String csv) {
-
-    // 한 줄을 콤마(,)로 나눈다.
     String[] data = csv.split(",");
 
-
-    // 한 줄에 들어 있던 데이터를 추출하여 board 객체에 담는다.
     Board board = new Board();
     board.setNo(Integer.parseInt(data[0]));
     board.setTitle(data[1]);
@@ -43,17 +34,10 @@ public class Board implements Serializable {
     return board;
   }
 
-  // 포맷해주는 메서드
   public String toCsvString() {
-    // this = board
-
-    // 게시글 목록에서 게시글 데이터를 꺼내 CSV 형식의 문자열로 만든다.
-
     return String.format("%d,%s,%s,%d,%s", this.getNo(), this.getTitle(), this.getDate(),
         this.getViewCount(), this.getWriter());
   }
-
-
 
   @Override
   public int hashCode() {
@@ -91,7 +75,6 @@ public class Board implements Serializable {
       return false;
     return true;
   }
-
 
   public int getNo() {
     return no;
@@ -132,7 +115,5 @@ public class Board implements Serializable {
   public void setWriter(String writer) {
     this.writer = writer;
   }
-
-
 
 }

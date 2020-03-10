@@ -11,7 +11,8 @@ public class MemberDaoImpl implements MemberDao {
 
   SqlSessionFactory sqlSessionFactory;
 
-  public MemberDaoImpl(SqlSessionFactory sqlSessionFactory) {
+  public MemberDaoImpl( //
+      SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
   }
 
@@ -72,5 +73,4 @@ public class MemberDaoImpl implements MemberDao {
       return sqlSession.selectOne("MemberMapper.selectByEmailPassword", params);
     }
   }
-
 }

@@ -10,7 +10,8 @@ public class LessonDaoImpl implements LessonDao {
 
   SqlSessionFactory sqlSessionFactory;
 
-  public LessonDaoImpl(SqlSessionFactory sqlSessionFactory) {
+  public LessonDaoImpl( //
+      SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
   }
 

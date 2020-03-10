@@ -4,19 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 
 // 객체를 serialize 하려면 이 기능을 활성화시켜야 한다.
-// - java.io.Serializable을 구현하라
+// - java.io.Serializable을 구현하라!
 // - serialize 데이터를 구분하기 위해 버전 번호를 명시하라.
-
+//
 public class Member implements Serializable {
 
-
   private static final long serialVersionUID = 20200131L;
-
-  @Override
-  public String toString() {
-    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
-        + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
-  }
 
   private int no;
   private String name;
@@ -26,27 +19,29 @@ public class Member implements Serializable {
   private String tel;
   private Date registeredDate;
 
-  public static Member valueOf(String csv) {
+  @Override
+  public String toString() {
+    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
+        + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
+  }
 
+  public static Member valueOf(String csv) {
     String[] data = csv.split(",");
 
-    // 한 줄에 들어 있던 데이터를 추출하여 Lesson 객체에 담는다.
-    // => 데이터 순서는 다음과 같다.
-    // 번호,강의명,설명,시작일,종료일,총강의시간,일강의시간
     Member member = new Member();
     member.setNo(Integer.parseInt(data[0]));
     member.setName(data[1]);
     member.setEmail(data[2]);
-    member.setPassword((data[3]));
-    member.setPhoto((data[4]));
-    member.setTel((data[5]));
+    member.setPassword(data[3]);
+    member.setPhoto(data[4]);
+    member.setTel(data[5]);
     member.setRegisteredDate(Date.valueOf(data[6]));
 
     return member;
   }
 
   public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s\n", this.getNo(), this.getName(), this.getEmail(),
+    return String.format("%d,%s,%s,%s,%s,%s,%s", this.getNo(), this.getName(), this.getEmail(),
         this.getPassword(), this.getPhoto(), this.getTel(), this.getRegisteredDate());
   }
 

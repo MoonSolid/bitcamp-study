@@ -27,12 +27,14 @@ public class PhotoBoardUpdateServlet implements Servlet {
     // 우리가 직접 트랜잭션 관리자를 사용하지 않고,
     // 도우미 객체를 이용하여 트랜잭션 작업을 처리할 것이다.
     this.transactionTemplate = new TransactionTemplate(txManager);
+
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
+
     int no = Prompt.getInt(in, out, "번호? ");
 
     PhotoBoard old = photoBoardDao.findByNo(no);
@@ -43,7 +45,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
 
     PhotoBoard photoBoard = new PhotoBoard();
     photoBoard.setTitle(Prompt.getString(in, out, //
-        String.format("제목(%s)? \n", old.getTitle()), //
+        String.format("제목(%s)? ", old.getTitle()), //
         old.getTitle()));
     photoBoard.setNo(no);
 

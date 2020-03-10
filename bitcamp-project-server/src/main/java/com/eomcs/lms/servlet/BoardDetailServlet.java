@@ -19,7 +19,6 @@ public class BoardDetailServlet implements Servlet {
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-
     Board board = boardDao.findByNo(no);
 
     if (board != null) {
