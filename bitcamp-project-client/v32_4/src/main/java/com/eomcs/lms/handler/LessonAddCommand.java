@@ -20,8 +20,8 @@ public class LessonAddCommand implements Command {
 
   @Override
   public void execute() {
+    
     Lesson lesson = new Lesson();
-
     lesson.setNo(prompt.inputInt("번호? "));
     lesson.setTitle(prompt.inputString("수업명? "));
     lesson.setDescription(prompt.inputString("설명? "));
@@ -40,9 +40,7 @@ public class LessonAddCommand implements Command {
         System.out.println(in.readUTF());
         return;
       }
-
       System.out.println("저장하였습니다.");
-
     } catch (Exception e) {
       System.out.println("통신 오류 발생!");
     }
