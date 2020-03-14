@@ -1,48 +1,24 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyDataTest {
   public static void main(String[] args) throws Exception {
-    String title = null;
-    String contents = null;
 
-    try (Scanner scan = new Scanner(System.in)) {
-      System.out.println("제목? ");
-      title = scan.nextLine();
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    System.out.println("입력 : ");
+    String command = br.readLine();
 
-      System.out.println("내용? ");
-      contents = scan.nextLine();
+    Pattern p = Pattern.compile("^[0-9]{3}-[0-9]{4}-[0-9]{4}&");
+    Matcher m = p.matcher(command);
 
-      System.out.println("등록하시겠습니까? (Y/n) ");
-      String input = scan.nextLine();
-
-      if (!input.equalsIgnoreCase("Y") && input.length() != 0) {
-        System.out.println("등록되지 않았습니다.");
-        return;
-      } else {
-        System.out.println("등록되었습니다.");
-      }
-
-      try (Connection con = DriverManager.getConnection( //
-          "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-          Statement stmt = con.createStatement();) {
-
-
-        String sql =
-            String.format("insert into x_board(title,contents) values('%s','%s')", title, contents);
-
-        int count = stmt.executeUpdate(sql);
-
-        System.out.printf("게시글이 %d개 등록되었습니다", count);
-
-      }
-
-
-
+    if (m.find()) {
+      System.out.println("휴대폰 번호입니다.");
+    } else {
+      System.out.println("휴대폰 번호가 아닙니다.");
     }
   }
 }
