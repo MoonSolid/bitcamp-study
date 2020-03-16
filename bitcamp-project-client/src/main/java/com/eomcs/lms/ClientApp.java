@@ -19,7 +19,6 @@ public class ClientApp {
   Deque<String> commandStack;
   Queue<String> commandQueue;
 
-
   public ClientApp() throws Exception {
     commandStack = new ArrayDeque<>();
     commandQueue = new LinkedList<>();
