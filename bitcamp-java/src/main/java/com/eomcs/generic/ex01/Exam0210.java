@@ -1,4 +1,4 @@
-// 제네릭(Generic) - 문법 정리 - 레퍼런스와 인스턴스 생성
+// 제네릭(Generic) 문법 정리 - 레퍼런스와 인스턴스 생성 
 package com.eomcs.generic.ex01;
 
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ public class Exam0210 {
 
     // 제네릭 문법으로 레퍼런스 변수를 선언할 때는 타입명을 생략할 수 없다.
     //ArrayList<> list4; // 컴파일 오류!
-    
     
   }
 }

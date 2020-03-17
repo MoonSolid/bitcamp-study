@@ -5,24 +5,23 @@ package com.eomcs.basic.ex05;
 public class Exam0411 {
   public static void main(String[] args) {
 
-    System.out.println(3 << 1);
-    //     000000000 00000000 00000000 0000011
-    //  00|00000000 00000000 00000000 000001xx 
-    //     00000000 00000000 00000000 00000100 = 4
+    // 0111 1111 1111 1111 1111 1111 1111 1010 =  21_4748_3642
+    // 1000 0000 0000 0000 0000 0000 0000 0110 = -21_4748_3642
 
-    System.out.println(3 << 33);
-    System.out.println(3 << 65);
-    System.out.println(3 << 97);
+    // 음수를 왼쪽으로 이동할 때는 부호비트에 상관없이 무조건 이동
+    int a = -0x7f_ff_ff_fa; // -21_4748_3642
+    System.out.println(a);
+    System.out.println(a << 1); // 1|0000 0000 0000 0000 0000 0000 0000 1100 = 12
+    System.out.println(a << 2);
+    System.out.println(a << 3);
+    System.out.println(a << 4);
 
-    // int 값에 대한  비트 이동은 할 때 0 ~ 31 값만 유효하다.
-    // long 값에 대한 비트 이동을 할 때 0 ~ 63 값만 유효하다.
-    
-    
-
+    // 결론!
+    // 왼쪽으로 x 만큼 비트를 이동시키는 것은 주어진 양수 대해 2**x 로 곱한 것과 같다.
+    // 주의!
+    // 음수의 경우는 양수로 바뀔 수 있다.
   }
 }
-
-
 
 
 

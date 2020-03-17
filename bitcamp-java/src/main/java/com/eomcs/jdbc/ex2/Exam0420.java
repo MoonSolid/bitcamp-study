@@ -27,10 +27,10 @@ public class Exam0420 {
       System.out.print("파일1? ");
       filenames[0] = keyScan.nextLine();
 
-      System.out.print("파일2 ");
+      System.out.print("파일2? ");
       filenames[1] = keyScan.nextLine();
 
-      System.out.print("파일3 ");
+      System.out.print("파일3? ");
       filenames[2] = keyScan.nextLine();
 
       System.out.print("입력하시겠습니까?(Y/n) ");
@@ -44,7 +44,6 @@ public class Exam0420 {
 
     try (Connection con = DriverManager.getConnection( //
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-
         PreparedStatement stmt = con.prepareStatement( //
             "insert into x_board(title,contents) values(?,?)", //
             Statement.RETURN_GENERATED_KEYS);) {
@@ -60,21 +59,15 @@ public class Exam0420 {
         System.out.printf("입력된 게시글 번호: %d\n", no);
 
         for (int i = 0; i < filenames.length; i++) {
-          if (filenames[i].length() == 0) {
+          if (filenames[i].length() == 0)
             continue;
-          }
-
-          try (PreparedStatement stmt2 = con.prepareStatement(//
+          try (PreparedStatement stmt2 = con.prepareStatement( //
               "insert into x_board_file(file_path,board_id) values(?,?)")) {
             stmt2.setString(1, filenames[i]);
             stmt2.setInt(2, no);
             stmt2.executeUpdate();
           }
-
         }
-
-
-
       }
     }
   }

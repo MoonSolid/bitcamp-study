@@ -1,115 +1,113 @@
-package com.eomcs.util;
+package com.eomcs.algorithm.data_structure.linkedlist;
 
 public class LinkedList {
-
+  
   Node first;
-
+  
   Node last;
-
+  
   int size;
-
+  
   public void add(Object value) {
-    Node newNode = new Node() ;
-
+    Node newNode = new Node();
     newNode.value = value;
-
+    
     if (first == null) {
       last = first = newNode;
     } else {
       last.next = newNode;
       last = newNode;
     }
-
+    
     this.size++;
   }
-
+  
   public Object get(int index) {
     if (index < 0 || index >= size)
       return null;
-
+    
     Node cursor = first;
-    for (int i = 0; i < index; i++)  {
+    for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
-
+    
     return cursor.value;
   }
-
+  
   public void add(int index, Object value) {
     if (index < 0 || index >= size)
       return;
-
+    
     Node newNode = new Node();
     newNode.value = value;
-
+    
     Node cursor = first;
-    for (int i = 0; i < index - 1; i++)  {
+    for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
-
-    if (index == 0) {  
+    
+    if (index == 0) {
       newNode.next = first;
       first = newNode;
     } else {
-      newNode.next = cursor.next; //현재 노드를 다음주소로 설정 한다
-      cursor.next = newNode;      //그리고 현재 노드를 새로운 노드로 설정한다
+      newNode.next = cursor.next;
+      cursor.next = newNode;
     }
-
+    
     this.size++;
   }
-
+  
   public Object remove(int index) {
     if (index < 0 || index >= size)
       return null;
-
+    
     Node cursor = first;
-    for (int i = 0; i < index -1; i++)  {
+    for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
-
+    
     Node deletedNode = null;
     if (index == 0) {
       deletedNode = first;
       first = deletedNode.next;
-    }else {
+    } else {
       deletedNode = cursor.next;
       cursor.next = deletedNode.next;
     }
 
     deletedNode.next = null;
     size--;
-
+    
     return deletedNode.value;
-
   }
-
-
+  
   public Object set(int index, Object value) {
     if (index < 0 || index >= size)
       return null;
-
+    
     Node cursor = first;
-    for (int i = 0; i < index; i++)  {
+    for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
-
+    
     Object oldValue = cursor.value;
     cursor.value = value;
-
+    
     return oldValue;
   }
-
+  
   public Object[] toArray() {
     Object[] arr = new Object[size];
-
+    
     Node cursor = first;
-    for (int i = 0; i < size; i++)  {
-      arr[i] = cursor.value; //첫번째 커서를 i번방에 담고
-      cursor = cursor.next;  //다음커서로 이동함
+    for (int i = 0; i < size; i++) {
+      arr[i] = cursor.value;
+      cursor = cursor.next;
     }
+    
     return arr;
   }
-
+  
   static class Node {
     Object value;
     Node next;

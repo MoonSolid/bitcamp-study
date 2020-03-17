@@ -1,4 +1,4 @@
-// 팩토리 메서드 적용 전
+// 팩토리 메서드 적용 후
 package com.eomcs.design_pattern.factory_method;
 
 class Car2 {
@@ -8,8 +8,12 @@ class Car2 {
 }
 
 
-// 인스턴스 생성과정이 복잡할 때 별도의 클래스에서 인스턴스를 생성하는 것이 유지보수에 좋다.
-// => 어떤 클래스의 인스턴스를 대신 생성해주는 클래스의 이름은 보통 XxxFactory라고 짓는다.
+// 인스턴스 생성과정이 복잡할 때 사용하는 설계 기법이다.
+// 복잡한 객체 생성 코드를 메서드에 캡슐화한다.
+// 메서드 호출을 통해 인스턴스를 리턴 받는다.
+// => 이런 메서드를 '팩토리 메서드'라 부른다.
+// => 보통 인스턴스의 팩토리 역할을 하는 클래스는 'XxxFactory'라는 이름을 짓는다.
+//
 class Car2Factory {
 
   // 인스턴스를 생성해주는 메서드를 정의한다.
@@ -55,11 +59,13 @@ public class Test02 {
     Car2 c2 = Car2Factory.create("tcg");
     Car2 c3 = Car2Factory.create("sn");
     Car2 c4 = Car2Factory.create("sng");
+    Car2 c5 = Car2Factory.create("ok");
 
     System.out.println(c1.model);
     System.out.println(c2.model);
     System.out.println(c3.model);
     System.out.println(c4.model);
+    System.out.println(c5.model);
 
 
   }

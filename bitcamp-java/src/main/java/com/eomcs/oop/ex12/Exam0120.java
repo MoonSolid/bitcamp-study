@@ -1,4 +1,4 @@
-// 람다(lambda) 문법 - body
+// Lambda 문법 - 람다 body
 package com.eomcs.oop.ex12;
 
 public class Exam0120 {
@@ -8,17 +8,13 @@ public class Exam0120 {
   }
 
   public static void main(String[] args) {
-    // 메서드의 몸체에 한 문장만 있을 때 중괄호 생략할 수 있다.
-    Player p1 = () -> System.out.println("Hello!");
-    p1.play();
+    // 1) 한 문장일 때는 중괄호를 생략할 수 있다.
+    Player p1 = () -> System.out.println("테스트1");
 
-    // 중괄호로 묶어도 상관없다.
+    // 2) 물론 중괄호를 명확히 적어도 된다.
     Player p2 = () -> {
-      System.out.println("Hello!");
+      System.out.println("테스트1");
     };
-
-    p2.play();
-
   }
 }
 

@@ -35,10 +35,8 @@ public class CalcServer {
       } finally {
         System.out.println("클라이언트 연결 종료!");
       }
-      super.run();
     }
   }
-
 
 
   public static void main(String[] args) throws Exception {
@@ -50,7 +48,7 @@ public class CalcServer {
       System.out.println("클라이언트의 연결을 기다림!");
       Socket socket = ss.accept();
       InetSocketAddress remoteAddr = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("클라이언트%s가 연결되었음!\n", //
+      System.out.printf("클라이언트(%s:%d)가 연결되었음!\n", //
           remoteAddr.getAddress(), remoteAddr.getPort());
 
       // 독립적으로 수행할 코드를 갖고 있는 스레드 객체를 생성한다.
@@ -59,9 +57,8 @@ public class CalcServer {
       // 그리고 작업을 실행시킨다.
       // => 스레드를 실행시킨 후 바로 리턴한다.
       requestHandler.start();
-      System.out.printf("%s클라이언트 요청을 스레드에게 맡겼습니다!\n", //
+      System.out.printf("%s 클라이언트 요청을 스레드에게 맡겼습니다!\n", //
           remoteAddr.getAddress());
-
 
     }
     // ss.close();

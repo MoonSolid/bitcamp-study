@@ -1,57 +1,67 @@
+// 과제 1 : 가위,바위,보 게임 애플리케이션을 작성하라.
+// - 실행1
+// 가위,바위,보? 보
+// 컴퓨터: 가위  (랜덤 값이 출력된다. 힌트: Math.random())
+// => 졌습니다.
+//
+// - 실행2
+// 가위,바위,보? 바위
+// 컴퓨터: 가위
+// => 이겼습니다.
+//
 package com.eomcs.basic.ex04.assignment2;
+
 import java.util.Scanner;
-public class Test02{
-public static void main(String[] args) {
-  Scanner keyboard = new Scanner(System.in);
-  System.out.print("가위,바위,보? ");
-  String a = keyboard.nextLine();
-  int s=0;
-  if(a.equals("가위")) {
-     s = 1;
-  }else if(a.equals("바위")) {
-     s = 2;
-  }else if(a.equals("보")) {
-    s = 3;
-  }
-  
-  keyboard.close();
-  int num =(int)(Math.random()*3)+1;
-  String computer = null;
-  
-  if(num==1) {
-    computer = "가위";
-  }else if(num==2) {
-    computer = "바위";
-  }else if(num==3) {
-    computer = "보";
-  }
-  
-  System.out.printf("컴퓨터? %s\n ", computer);
-  
-  if(s>num) {
-    if(s==3&&num==1) {
-      System.out.println("졌습니다.");
-    }else {
-    System.out.println("이겼습니다.");
+
+public class Test02 {
+  public static void main(String[] args) {
+    // 컴퓨터의 가위, 바위, 보 계산하기
+    Scanner keyScan = new Scanner(System.in);
+    
+    System.out.print("가위,바위,보? ");
+    String user = keyScan.nextLine();
+    System.out.printf("사용자: %s\n", user);
+
+    int random = (int)(Math.random() * 3);
+    String computer;
+    if (random == 0) 
+      computer = "가위";
+    else if (random == 1) 
+      computer = "바위";
+    else 
+      computer = "보";
+    
+    System.out.printf("컴퓨터: %s\n", computer);
+    
+    if (user.equals("가위")) {
+      if (computer.equals("보")) {
+        System.out.println("=> 당신이 이겼습니다.");
+        return;
+      }
+    } else if (user.equals("바위")) {
+      if (computer.equals("가위")) {
+        System.out.println("=> 당신이 이겼습니다.");
+        return;
+      }
+    } else {
+      if (computer.equals("바위")) {
+        System.out.println("=> 당신이 이겼습니다.");
+        return;
+      }
     }
-  }else if(s==num) {
-    System.out.println("비겼습니다.");
-  }else if(s<num) {
-    if(num==3 && s==1){
-      System.out.println("이겼습니다.");
-    }else{
-    System.out.println("졌습니다.");
-    }
+    
+    System.out.println("=> 당신은 비기거나 졌습니다.");
+    
+    keyScan.close();
   }
-  
-  /*
-  if(s == num)
-    System.out.println("비겼습니다.");
-  else if((s==1 && num==3) || (s==2 && num==1) || (s==3 && num==2))
-    System.out.println("이겼습니다.");
-  else
-    System.out.println("졌습니다.");
-  */
-  
 }
-}
+
+
+
+
+
+
+
+
+
+

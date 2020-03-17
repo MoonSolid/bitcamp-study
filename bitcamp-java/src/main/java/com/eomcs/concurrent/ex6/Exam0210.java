@@ -24,7 +24,6 @@ public class Exam0210 {
 
     @Override
     public void run() {
-
       synchronized (this) {
         try {
           while (true) {
@@ -61,7 +60,7 @@ public class Exam0210 {
       t1.start();
       list.add(t1);
 
-      MyThread t2 = new MyThread("2번 스레드**>", this);
+      MyThread t2 = new MyThread("2번 스레드***>", this);
       t2.start();
       list.add(t2);
 
@@ -88,14 +87,14 @@ public class Exam0210 {
 
   public static void main(String[] args) {
 
-
+    // 스레드풀 준비!
     MyThreadPool threadPool = new MyThreadPool();
 
-    Scanner keyscan = new Scanner(System.in);
+    Scanner keyScan = new Scanner(System.in);
 
     while (true) {
       System.out.print("카운트? ");
-      String str = keyscan.nextLine();
+      String str = keyScan.nextLine();
       if (str.equals("quit")) {
         break;
       }
@@ -105,7 +104,7 @@ public class Exam0210 {
       // 스레드풀에서 스레드를 한 개 꺼낸다.
       MyThread t = threadPool.get();
       if (t == null) {
-        System.out.println("남는 스레드가 없습니다.");
+        System.out.println("남는 스레드가 없습니다!");
         continue;
       }
 
@@ -114,8 +113,7 @@ public class Exam0210 {
     }
 
     System.out.println("main 스레드 종료!");
-    keyscan.close();
+    keyScan.close();
   }
 }
-
 

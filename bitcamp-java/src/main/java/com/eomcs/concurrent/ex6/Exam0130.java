@@ -1,4 +1,4 @@
-// 스레드 재사용 - 2단계) sleep()/timeout을 사용한 재사용
+// 스레드 재사용 - 3단계) sleep()/timeout 을 활용한 스레드 재사용 II
 package com.eomcs.concurrent.ex6;
 
 import java.util.Scanner;
@@ -23,11 +23,11 @@ public class Exam0130 {
         System.out.println("스레드 시작했음!");
         try {
           while (true) {
-            System.out.println("스레드를 10초동안 잠들게 한다.");
+            System.out.println("스레드를 10초 동안 잠들게 한다!");
             Thread.sleep(10000);
 
             // 무조건 작업하지 말고,
-            // enable이 true일 떄만 작업하게 하자!
+            // enable이 true일 때만 작업하게 하자!
             if (!enable) {
               continue;
             }
@@ -47,17 +47,14 @@ public class Exam0130 {
       }
     }
 
-
     MyThread t = new MyThread();
-
     t.start();
 
-    Scanner keyscan = new Scanner(System.in);
-
+    Scanner keyScan = new Scanner(System.in);
 
     while (true) {
       System.out.print("카운트? ");
-      String str = keyscan.nextLine();
+      String str = keyScan.nextLine();
       if (str.equals("quit")) {
         break;
       }
@@ -67,9 +64,9 @@ public class Exam0130 {
       // 이 버전은 다음과 같이 동작한다.
       // => 스레드가 작업을 완료하면 10초 동안 잠든다.
       // => 10초 후에 깨어났을 때 카운트 값이 설정되어 있지 않으면 다시 잠든다.
-      // => 카운트 값이 설정되면서 enable이 활성화 상태라면 작업을 실행하낟.
+      // => 카운트 값이 설정되면서 enable이 활성화 상태라면 작업을 실행한다.
       // => 작업이 끝나면 enable을 비활성으로 만든 후 잠든다.
-      // 이전 버전에서는 꺠어난 후 무조건 작업을 수행했지만,
+      // 이전 버전에서는 깨어난 후 무조건 작업을 수행했지만,
       // 이 버전은 카운트 값이 설정될 때만 작업하도록 개선하였다.
       // 그러나 근본적인 문제는 해결되지 않았다.
       // => 작업을 완료한 후 무조건 10초를 기다린다.
@@ -78,8 +75,7 @@ public class Exam0130 {
     }
 
     System.out.println("main 스레드 종료!");
-    keyscan.close();
+    keyScan.close();
   }
 }
-
 

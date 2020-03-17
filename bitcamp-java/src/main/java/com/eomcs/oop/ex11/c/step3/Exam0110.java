@@ -4,7 +4,7 @@ package com.eomcs.oop.ex11.c.step3;
 public class Exam0110 {
   public static void main(String[] args) {
     // 이전 예제에서는 카테고리 값을 저장할 때 상수를 사용하기 때문에
-    // 잘못된 문자열을 입력할 가능성을 없앴다.
+    // 잘못된 문자열을 입력할 가능을 없앴다.
     //
     Product p = new Product();
     p.category = Product.appliance_tv;

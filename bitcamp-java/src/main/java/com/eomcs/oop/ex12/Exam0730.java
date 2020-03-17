@@ -3,7 +3,6 @@ package com.eomcs.oop.ex12;
 
 public class Exam0730 {
 
-
   static class Message {
     String name;
 
@@ -20,18 +19,13 @@ public class Exam0730 {
     }
   }
 
-
-
   static interface Factory1 {
     Message get();
   }
 
-
   static interface Factory2 {
     Message get(String name);
   }
-
-
 
   public static void main(String[] args) {
     // 생성자 레퍼런스를 지정할 때,
@@ -45,7 +39,6 @@ public class Exam0730 {
 
     msg = f2.get("홍길동"); // ==> new Message("홍길동")
     msg.print();
-
 
   }
 }

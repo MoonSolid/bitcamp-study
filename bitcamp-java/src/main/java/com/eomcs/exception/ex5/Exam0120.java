@@ -49,7 +49,7 @@ public class Exam0120 {
     } catch (RuntimeException e) {
       System.out.println(e.getMessage());
       System.out.println("게시물 입력 중에 오류 발생!");
-      e.printStackTrace();
+      // e.printStackTrace();
     }
 
   }

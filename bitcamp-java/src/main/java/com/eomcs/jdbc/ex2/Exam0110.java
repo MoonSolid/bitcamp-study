@@ -43,10 +43,9 @@ public class Exam0110 {
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
         Statement stmt = con.createStatement();) {
 
-      String sql =
-          String.format("insert into x_board(title,contents) values('%s','%s')", title, contents);
-
-
+      String sql = String.format( //
+          "insert into x_board(title,contents) values('%s','%s')", //
+          title, contents);
       int count = stmt.executeUpdate(sql);
       System.out.printf("%d 개 입력 성공!", count);
     }

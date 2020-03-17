@@ -1,4 +1,4 @@
-// Apache HttpClient 라이브러리를 이용하여 웹서버 만들기
+// Apache HttpClient 라이브러리를 이용하여 웹서버 만들기 
 package com.eomcs.net.ex09;
 
 import java.io.File;
@@ -27,19 +27,25 @@ import org.apache.http.protocol.HttpCoreContext;
 import org.apache.http.protocol.HttpRequestHandler;
 
 public class Exam0110 {
-
+  
   public static void main(String[] args) throws Exception {
-    SocketConfig socketConfig =
-        SocketConfig.custom().setSoTimeout(15000).setTcpNoDelay(true).build();
+    SocketConfig socketConfig = SocketConfig.custom()
+        .setSoTimeout(15000)
+        .setTcpNoDelay(true)
+        .build();
 
-    final HttpServer server = ServerBootstrap.bootstrap().setListenerPort(8888)
-        .setServerInfo("Bitcamp/1.1").setSocketConfig(socketConfig).setSslContext(null)
+    final HttpServer server = ServerBootstrap.bootstrap()
+        .setListenerPort(8888)
+        .setServerInfo("Bitcamp/1.1")
+        .setSocketConfig(socketConfig)
+        .setSslContext(null)
         .setExceptionLogger(new StdErrorExceptionLogger())
-        .registerHandler("*", new HttpFileHandler("./webroot")).create();
+        .registerHandler("*", new HttpFileHandler("./webroot"))
+        .create();
 
     server.start();
     System.out.println("서버 실행 중...");
-
+    
     server.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 
     Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -65,7 +71,7 @@ public class Exam0110 {
 
   }
 
-  static class HttpFileHandler implements HttpRequestHandler {
+  static class HttpFileHandler implements HttpRequestHandler  {
 
     private final String docRoot;
 
@@ -74,8 +80,9 @@ public class Exam0110 {
       this.docRoot = docRoot;
     }
 
-    @Override
-    public void handle(final HttpRequest request, final HttpResponse response,
+    public void handle(
+        final HttpRequest request,
+        final HttpResponse response,
         final HttpContext context) throws HttpException, IOException {
 
       // 클라이언트가 요청한 방식을 알아 낸다.
@@ -83,7 +90,7 @@ public class Exam0110 {
       if (!method.equals("GET")) { // GET 요청이 아니라면 오류 내용을 응답한다.
         throw new MethodNotSupportedException(method + " method not supported");
       }
-
+      
       String target = request.getRequestLine().getUri();
 
       final File file = new File(this.docRoot, URLDecoder.decode(target, "UTF-8"));
@@ -91,7 +98,8 @@ public class Exam0110 {
 
         response.setStatusCode(HttpStatus.SC_NOT_FOUND);
         StringEntity entity = new StringEntity(
-            "<html><body><h1>File" + file.getPath() + " not found</h1></body></html>",
+            "<html><body><h1>File" + file.getPath() +
+            " not found</h1></body></html>",
             ContentType.create("text/html", "UTF-8"));
         response.setEntity(entity);
         System.out.println("File " + file.getPath() + " not found");
@@ -99,7 +107,8 @@ public class Exam0110 {
       } else if (!file.canRead() || file.isDirectory()) {
 
         response.setStatusCode(HttpStatus.SC_FORBIDDEN);
-        StringEntity entity = new StringEntity("<html><body><h1>Access denied</h1></body></html>",
+        StringEntity entity = new StringEntity(
+            "<html><body><h1>Access denied</h1></body></html>",
             ContentType.create("text/html", "UTF-8"));
         response.setEntity(entity);
         System.out.println("Cannot read file " + file.getPath());

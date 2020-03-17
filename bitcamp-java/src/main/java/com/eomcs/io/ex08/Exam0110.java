@@ -7,7 +7,6 @@ public class Exam0110 {
 
   public static void main(String[] args) throws Exception {
 
-
     // 상속을 통한 기능 확장의 문제점
     // - 자바는 다중 상속이 불가능하기 때문에
     // 여러 클래스에 있는 기능을 조합하려면

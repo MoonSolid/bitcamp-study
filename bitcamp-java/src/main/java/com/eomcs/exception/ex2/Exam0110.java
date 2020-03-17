@@ -3,7 +3,6 @@ package com.eomcs.exception.ex2;
 
 public class Exam0110 {
   public static void main(String[] args) {
-
     String op = "#";
     int a = 100;
     int b = 200;
@@ -18,8 +17,6 @@ public class Exam0110 {
       // catch 블록에서 파라미터로 받는다.
       System.out.println(e.getMessage());
     }
-
-
   }
 }
 

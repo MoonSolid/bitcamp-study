@@ -12,10 +12,11 @@ import java.util.Scanner;
 // *****
 //
 public class Test05 {
+  
   public static void main(String[] args) {
     // 사용자로부터 밑변의 길이를 입력 받는다.
     Scanner keyScan = new Scanner(System.in);
-    System.out.print("밑변의 길이? ");    
+    System.out.print("밑변의 길이? ");
     int base = keyScan.nextInt();
     keyScan.close();
     
@@ -25,20 +26,17 @@ public class Test05 {
   
   static void printTriangle(int base) {
     // 코드를 완성하시오!
-      if (base == 0)
-        return;
-      
-      printTriangle(base - 1);
-      
-      for (int i = 0; i < base; i++) {
-        System.out.print("*");
-      }
-        System.out.println();        
+    if (base == 0)
+      return;
+    
+    printTriangle(base - 1);
+    
+    for (int i = 0; i < base; i++) {
+      System.out.print("*");
+    }
+    System.out.println();
   }
 }
-      
-      
-    
 
 
 

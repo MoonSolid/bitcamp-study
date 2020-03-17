@@ -34,7 +34,7 @@ class Musics2 {
     public void play() {
       for (final String song : songs) {
         System.out.println(song);
-      } 
+      }
       System.out.println("-----------------------------");
     }
   }

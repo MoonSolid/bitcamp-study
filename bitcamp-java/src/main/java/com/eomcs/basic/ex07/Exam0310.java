@@ -4,8 +4,8 @@ package com.eomcs.basic.ex07;
 //
 public class Exam0310 {
 
-  static void swap(int a, int b) {           //swap안의 int a,int b는 변수가 아닌 명령어다. 호출이끝나면사라짐
-    System.out.printf("swap(): a=%d, b=%d\n", a, b);      
+  static void swap(int a, int b) {
+    System.out.printf("swap(): a=%d, b=%d\n", a, b);
     int temp = a;
     a = b;
     b = temp;
@@ -26,8 +26,8 @@ public class Exam0310 {
 }
 
 // call by value
-// => 자바에서는 primitive data type인 경우 메서드를 호출할 때 
-//    값을 넘긴다.
+// => 아규먼트가 primitive data type인 경우,
+//    메서드를 호출할 때 값을 넘긴다.
 // => 자바에서는 primitive data type에 대해서 
-//    메모리 주소를 넘기는 방법이 없다.
+//    메모리(변수) 주소를 넘기는 방법이 없다.
 // 

@@ -21,22 +21,19 @@ public class Exam0110 {
             System.out.println("==> " + i);
             Thread.sleep(1000);
           }
-          run();
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     }
 
-
     MyThread t = new MyThread();
 
-    Scanner keyscan = new Scanner(System.in);
-
+    Scanner keyScan = new Scanner(System.in);
 
     while (true) {
       System.out.print("카운트? ");
-      String str = keyscan.nextLine();
+      String str = keyScan.nextLine();
       if (str.equals("quit")) {
         break;
       }
@@ -49,11 +46,10 @@ public class Exam0110 {
       // 다시 시작시킬 수 없다!
       // 주의!
       // => 이미 실행 중인 스레드 객체에 대해 start()를 또 호출하면 예외가 발생한다.
-
     }
 
     System.out.println("main 스레드 종료!");
+    keyScan.close();
   }
 }
-
 
