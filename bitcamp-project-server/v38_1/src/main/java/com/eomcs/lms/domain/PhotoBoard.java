@@ -1,6 +1,7 @@
 package com.eomcs.lms.domain;
 
 import java.io.Serializable;
+
 import java.sql.Date;
 
 public class PhotoBoard implements Serializable {

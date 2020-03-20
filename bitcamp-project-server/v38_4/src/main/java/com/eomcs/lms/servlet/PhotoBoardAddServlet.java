@@ -89,8 +89,6 @@ public class PhotoBoardAddServlet implements Servlet {
     while (true) {
       String filepath = Prompt.getString(in, out, "사진 파일?");
 
-
-
       if (filepath.length() == 0) {
         if (photoFiles.size() > 0) {
           break;
