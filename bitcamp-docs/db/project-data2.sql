@@ -1,10 +1,10 @@
 -- 일정 데이터 
-insert into sc_plan(plan_id, place, cont, memo, cost)
-  values(101, '장소', '내용', '메모', '비용');
-insert into sc_plan(plan_id, place, cont, memo, cost)
-  values(102, '장소', '내용', '메모', '비용');
-insert into sc_plan(plan_id, place, cont, memo, cost)
-  values(103, '장소', '내용', '메모', '비용');
+insert into sc_plan(plan_id, place, cont, memo, cost, titl)
+  values(101, '장소', '내용', '메모', '비용', '일정명');
+insert into sc_plan(plan_id, place, cont, memo, cost, titl)
+  values(102, '장소', '내용', '메모', '비용', '일정명');
+insert into sc_plan(plan_id, place, cont, memo, cost, titl)
+  values(103, '장소', '내용', '메모', '비용', '일정명');
   
 
 

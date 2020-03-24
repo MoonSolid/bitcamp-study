@@ -8,10 +8,10 @@ public class Exam01 {
 
   public static void main(String[] args) {
     ApplicationContext iocContainer = new ClassPathXmlApplicationContext(//
-        "com/eomcs/spring/ioc/ex05/a/application-context-01.xml");
+        "com/eomcs/spring/ioc/ex05/a/application-context.xml");
 
     System.out.println(iocContainer.getBean("c1"));
-    // System.out.println(iocContainer.getBean("c2"));
+    System.out.println(iocContainer.getBean("c2"));
   }
 
 }
