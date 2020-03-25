@@ -26,10 +26,10 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     this.photoFileDao = photoFileDao;
   }
 
-  // @@Transactional
-  // => 메서드 전체를 트랜젝션으루 몪는다.
-  // => 예외 없이 실행하면 자동으로 commit() 한다
-  // => 예외가 발생하면 자동으로 rollback() 한다
+  // @Transactional
+  // => 메서드 전체를 트랜잭션으로 묶는다.
+  // => 예외 없이 실행하면 자동으로 commit() 한다.
+  // => 예외가 발생하면 자동으로 rollback() 한다.
   @Transactional
   @Override
   public void add(PhotoBoard photoBoard) throws Exception {
@@ -58,7 +58,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     if (photoBoard.getFiles() != null) {
       photoFileDao.deleteAll(photoBoard.getNo());
       photoFileDao.insert(photoBoard);
-
     }
   }
 
@@ -69,6 +68,5 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     if (photoBoardDao.delete(no) == 0) {
       throw new Exception("해당 번호의 사진 게시글이 없습니다.");
     }
-
   }
 }

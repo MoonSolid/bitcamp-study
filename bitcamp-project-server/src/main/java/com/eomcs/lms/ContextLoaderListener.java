@@ -2,8 +2,8 @@ package com.eomcs.lms;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -65,7 +65,8 @@ public class ContextLoaderListener implements ApplicationContextListener {
     logger.debug("Spring IoC 컨테이너에 들어있는 객체들:");
     String[] beanNames = appCtx.getBeanDefinitionNames();
     for (String beanName : beanNames) {
-      logger.debug(String.format("%s =======> %s", beanName, //
+      logger.debug(String.format("%s =======> %s", //
+          beanName, //
           appCtx.getBean(beanName).getClass().getName()));
     }
 

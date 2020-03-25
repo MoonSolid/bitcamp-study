@@ -1,8 +1,8 @@
 package com.eomcs.lms;
 
 import javax.sql.DataSource;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 // 다음 애노테이션을 선언하면,
 // @Transactional 이 붙은 메서드가 있을 경우
-// 트랜젝션 제어 코드가 삽입된 프록시 객체를 자동생성한다.
+// 트랜잭션 제어 코드가 삽입된 프록시 객체를 자동생성한다.
 @EnableTransactionManagement
 
 // Spring IoC 컨테이너에서 사용할 Properties 파일을 로딩하기
