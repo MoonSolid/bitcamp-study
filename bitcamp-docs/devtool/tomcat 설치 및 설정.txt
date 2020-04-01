@@ -9,17 +9,26 @@
 
 ## 톰캣 서버 설정
 
+### 서버 포트 번호 변경
 
+- $TOMCAT_HOME/conf/server.xml 변경
+  - Connector 태그의 port 값을 8080에서 원하는 값으로 변경한다.
+  - 예) Connector port="9999"...
+  
 ## tomcat 관리자 아이디 등록하기
-- conf/tomcat-users.xml 파일에 role 및 user 추가
-```
- <role rolename="tomcat"/>
- <role rolename="manager-gui"/>
- <user username="tomcat" password="1111" roles="tomcat,manager-gui"/>
+
+- $TOMCAT_HOME/conf/tomcat-users.xml 파일에 role 및 user 추가
 
 ```
+  <role rolename="tomcat"/>
+  <role rolename="manager-gui"/>
+  <role rolename="admin-gui"/>
 
-- conf/Catalina/localhost 폴더에 manager.xml 파일 추가하고 다음과 같이 작성한다.
+  <user username="tomcat" password="1111" roles="tomcat,manager-gui,admin-gui"/>
+```
+
+- $TOMCAT_HOME/conf/Catalina/localhost 폴더에 manager.xml 파일 추가하고 다음과 같이 작성한다.
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <Context privileged="true" antiResourceLocking="false"
@@ -29,3 +38,8 @@
 </Context>
 
 ```
+
+## 톰캣 서버 실행
+
+- $TOMCAT_HOME/bin/startup.bat 실행(Windows)
+- $TOMCAT_HOME/bin/startup.sh 실행(Unix/Linux)
