@@ -2,26 +2,24 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class BoardDetailServlet {
+public class BoardDetailServlet implements Servlet {
 
-  BoardService boardService;
+  BoardDao boardDao;
 
-  public BoardDetailServlet(BoardService boardService) {
-    this.boardService = boardService;
+  public BoardDetailServlet(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
-  @RequestMapping("/board/detail")
+
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Board board = boardService.get(no);
+    Board board = boardDao.findByNo(no);
 
     if (board != null) {
       out.printf("번호: %d\n", board.getNo());

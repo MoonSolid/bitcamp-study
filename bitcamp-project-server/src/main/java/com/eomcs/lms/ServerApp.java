@@ -12,10 +12,37 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.util.RequestHandler;
-import com.eomcs.util.RequestMappingHandlerMapping;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
+import com.eomcs.lms.servlet.BoardAddServlet;
+import com.eomcs.lms.servlet.BoardDeleteServlet;
+import com.eomcs.lms.servlet.BoardDetailServlet;
+import com.eomcs.lms.servlet.BoardListServlet;
+import com.eomcs.lms.servlet.BoardUpdateServlet;
+import com.eomcs.lms.servlet.LessonAddServlet;
+import com.eomcs.lms.servlet.LessonDeleteServlet;
+import com.eomcs.lms.servlet.LessonDetailServlet;
+import com.eomcs.lms.servlet.LessonListServlet;
+import com.eomcs.lms.servlet.LessonUpdateServlet;
+import com.eomcs.lms.servlet.MemberAddServlet;
+import com.eomcs.lms.servlet.MemberDeleteServlet;
+import com.eomcs.lms.servlet.MemberDetailServlet;
+import com.eomcs.lms.servlet.MemberListServlet;
+import com.eomcs.lms.servlet.MemberSearchServlet;
+import com.eomcs.lms.servlet.MemberUpdateServlet;
+import com.eomcs.lms.servlet.PhotoBoardAddServlet;
+import com.eomcs.lms.servlet.PhotoBoardDeleteServlet;
+import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
+import com.eomcs.lms.servlet.PhotoBoardListServlet;
+import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
+import com.eomcs.lms.servlet.Servlet;
+import com.eomcs.sql.ConnectionProxy;
+import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.util.ConnectionFactory;
 
 public class ServerApp {
 
@@ -23,17 +50,14 @@ public class ServerApp {
   Set<ApplicationContextListener> listeners = new HashSet<>();
   Map<String, Object> context = new HashMap<>();
 
+  // 커맨드(예: Servlet 구현체) 디자인 패턴과 관련된 코드
+  Map<String, Servlet> servletMap = new HashMap<>();
+
   // 스레드 풀
   ExecutorService executorService = Executors.newCachedThreadPool();
 
   // 서버 멈춤 여부 설정 변수
   boolean serverStop = false;
-
-  // IoC 컨테이너 준비
-  ApplicationContext iocContainer;
-
-  // request handler 맵퍼 준비
-  RequestMappingHandlerMapping handlerMapper;
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -60,12 +84,51 @@ public class ServerApp {
 
     notifyApplicationInitialized();
 
-    // ApplicationContext (IoC 컨테이너)를 꺼낸다.
-    iocContainer = (ApplicationContext) context.get("iocContainer");
+    // ConnectionFactory 꺼낸다.
+    ConnectionFactory conFactory = (ConnectionFactory) context.get(//
+        "connectionFactory");
 
-    // request handler mapper를 꺼낸다.
-    handlerMapper = //
-        (RequestMappingHandlerMapping) context.get("handlerMapper");
+    // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
+    BoardDao boardDao = (BoardDao) context.get("boardDao");
+    LessonDao lessonDao = (LessonDao) context.get("lessonDao");
+    MemberDao memberDao = (MemberDao) context.get("memberDao");
+    PhotoBoardDao photoBoardDao = (PhotoBoardDao) context.get("photoBoardDao");
+    PhotoFileDao photoFileDao = (PhotoFileDao) context.get("photoFileDao");
+
+    // 트랜잭션 관리자를 꺼내 변수에 저장한다.
+    PlatformTransactionManager txManager = //
+        (PlatformTransactionManager) context.get("transactionManager");
+
+    // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
+    servletMap.put("/board/list", new BoardListServlet(boardDao));
+    servletMap.put("/board/add", new BoardAddServlet(boardDao));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
+
+    servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
+    servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));
+    servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
+    servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
+    servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
+
+    servletMap.put("/member/list", new MemberListServlet(memberDao));
+    servletMap.put("/member/add", new MemberAddServlet(memberDao));
+    servletMap.put("/member/detail", new MemberDetailServlet(memberDao));
+    servletMap.put("/member/update", new MemberUpdateServlet(memberDao));
+    servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
+    servletMap.put("/member/search", new MemberSearchServlet(memberDao));
+
+    servletMap.put("/photoboard/list", new PhotoBoardListServlet( //
+        photoBoardDao, lessonDao));
+    servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
+        photoBoardDao, photoFileDao));
+    servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
+        txManager, photoBoardDao, lessonDao, photoFileDao));
+    servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
+        txManager, photoBoardDao, photoFileDao));
+    servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
+        txManager, photoBoardDao, photoFileDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
@@ -78,6 +141,17 @@ public class ServerApp {
         executorService.submit(() -> {
           processRequest(socket);
 
+          // 스레드에 보관된 커넥션 객체를 제거한다.
+          ConnectionProxy con = (ConnectionProxy) conFactory.removeConnection();
+          if (con != null) {
+            try {
+              // 커넥션 객체를 진짜로 닫는다.
+              con.realClose();
+            } catch (Exception e) {
+              // DB 커넥션을 닫다가 예외가 발생한 것은 그냥 무시한다.
+              // 왜? 개발자가 따로 처리할 게 없다.
+            }
+          }
           System.out.println("--------------------------------------");
         });
 
@@ -139,13 +213,11 @@ public class ServerApp {
         return;
       }
 
-      RequestHandler requestHandler = handlerMapper.getHandler(request);
+      Servlet servlet = servletMap.get(request);
 
-      if (requestHandler != null) {
+      if (servlet != null) {
         try {
-          requestHandler.getMethod().invoke( //
-              requestHandler.getBean(), //
-              in, out);
+          servlet.service(in, out);
 
         } catch (Exception e) {
           out.println("요청 처리 중 오류 발생!");
@@ -182,7 +254,7 @@ public class ServerApp {
     System.out.println("서버 수업 관리 시스템입니다.");
 
     ServerApp app = new ServerApp();
-    app.addApplicationContextListener(new ContextLoaderListener());
+    app.addApplicationContextListener(new DataLoaderListener());
     app.service();
   }
 }

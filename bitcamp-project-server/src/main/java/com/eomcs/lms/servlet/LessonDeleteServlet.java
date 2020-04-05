@@ -2,25 +2,22 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
-import com.eomcs.lms.service.LessonService;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class LessonDeleteServlet {
+public class LessonDeleteServlet implements Servlet {
 
-  LessonService lessonService;
+  LessonDao lessonDao;
 
-  public LessonDeleteServlet(LessonService lessonService) {
-    this.lessonService = lessonService;
+  public LessonDeleteServlet(LessonDao lessonDao) {
+    this.lessonDao = lessonDao;
   }
 
-  @RequestMapping("/lesson/delete")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    if (lessonService.delete(no) > 0) { // 삭제했다면,
+    if (lessonDao.delete(no) > 0) { // 삭제했다면,
       out.println("강의를 삭제했습니다.");
 
     } else {

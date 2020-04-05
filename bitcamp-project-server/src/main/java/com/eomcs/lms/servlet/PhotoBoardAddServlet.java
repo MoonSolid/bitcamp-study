@@ -4,29 +4,34 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.lms.service.LessonService;
-import com.eomcs.lms.service.PhotoBoardService;
+import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class PhotoBoardAddServlet {
+public class PhotoBoardAddServlet implements Servlet {
 
-  PhotoBoardService photoBoardService;
-  LessonService lessonService;
+  PlatformTransactionManager txManager;
+  PhotoBoardDao photoBoardDao;
+  LessonDao lessonDao;
+  PhotoFileDao photoFileDao;
 
-  public PhotoBoardAddServlet(//
-      PhotoBoardService photoBoardService, //
-      LessonService lessonService) {
-    this.photoBoardService = photoBoardService;
-    this.lessonService = lessonService;
+  public PhotoBoardAddServlet( //
+      PlatformTransactionManager txManager, //
+      PhotoBoardDao photoBoardDao, //
+      LessonDao lessonDao, //
+      PhotoFileDao photoFileDao) {
+    this.txManager = txManager;
+    this.photoBoardDao = photoBoardDao;
+    this.lessonDao = lessonDao;
+    this.photoFileDao = photoFileDao;
   }
 
-  @RequestMapping("/photoboard/add")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
     PhotoBoard photoBoard = new PhotoBoard();
@@ -34,19 +39,32 @@ public class PhotoBoardAddServlet {
 
     int lessonNo = Prompt.getInt(in, out, "수업 번호? ");
 
-    Lesson lesson = lessonService.get(lessonNo);
+    Lesson lesson = lessonDao.findByNo(lessonNo);
     if (lesson == null) {
       out.println("수업 번호가 유효하지 않습니다.");
       return;
     }
+
     photoBoard.setLesson(lesson);
 
-    // 사용자로부터 사진 게시글에 첨부할 파일을 입력 받는다.
-    List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
-    photoBoard.setFiles(photoFiles);
+    txManager.beginTransaction();
 
-    photoBoardService.add(photoBoard);
-    out.println("새 사진 게시글을 등록했습니다.");
+    try {
+      if (photoBoardDao.insert(photoBoard) == 0) {
+        throw new Exception("사진 게시글 등록에 실패했습니다.");
+      }
+      List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
+      for (PhotoFile photoFile : photoFiles) {
+        photoFile.setBoardNo(photoBoard.getNo());
+        photoFileDao.insert(photoFile);
+      }
+      txManager.commit();
+      out.println("새 사진 게시글을 등록했습니다.");
+
+    } catch (Exception e) {
+      txManager.rollback();
+      out.println(e.getMessage());
+    }
   }
 
   private List<PhotoFile> inputPhotoFiles(Scanner in, PrintStream out) {

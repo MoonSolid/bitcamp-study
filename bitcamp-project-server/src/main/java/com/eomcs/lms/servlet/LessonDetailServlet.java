@@ -2,26 +2,23 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class LessonDetailServlet {
+public class LessonDetailServlet implements Servlet {
 
-  LessonService lessonService;
+  LessonDao lessonDao;
 
-  public LessonDetailServlet(LessonService lessonService) {
-    this.lessonService = lessonService;
+  public LessonDetailServlet(LessonDao lessonDao) {
+    this.lessonDao = lessonDao;
   }
 
-  @RequestMapping("/lesson/detail")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Lesson lesson = lessonService.get(no);
+    Lesson lesson = lessonDao.findByNo(no);
 
     if (lesson != null) {
       out.printf("번호: %d\n", lesson.getNo());

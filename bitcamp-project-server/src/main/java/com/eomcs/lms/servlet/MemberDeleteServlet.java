@@ -2,25 +2,22 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
-import com.eomcs.lms.service.MemberService;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class MemberDeleteServlet {
+public class MemberDeleteServlet implements Servlet {
 
-  MemberService memberService;
+  MemberDao memberDao;
 
-  public MemberDeleteServlet(MemberService memberService) {
-    this.memberService = memberService;
+  public MemberDeleteServlet(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
-  @RequestMapping("/member/delete")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    if (memberService.delete(no) > 0) { // 삭제했다면,
+    if (memberDao.delete(no) > 0) { // 삭제했다면,
       out.println("회원을 삭제했습니다.");
 
     } else {

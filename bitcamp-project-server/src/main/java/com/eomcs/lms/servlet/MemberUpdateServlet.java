@@ -2,26 +2,23 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class MemberUpdateServlet {
+public class MemberUpdateServlet implements Servlet {
 
-  MemberService memberService;
+  MemberDao memberDao;
 
-  public MemberUpdateServlet(MemberService memberService) {
-    this.memberService = memberService;
+  public MemberUpdateServlet(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
-  @RequestMapping("/member/update")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Member old = memberService.get(no);
+    Member old = memberDao.findByNo(no);
     if (old == null) {
       out.println("해당 번호의 회원이 없습니다.");
       return;
@@ -31,16 +28,20 @@ public class MemberUpdateServlet {
 
     member.setNo(no);
     member.setName(Prompt.getString(in, out, //
-        String.format("이름(%s)? ", old.getName())));
+        String.format("이름(%s)? \n", old.getName()), //
+        old.getName()));
     member.setEmail(Prompt.getString(in, out, //
-        String.format("이메일(%s)? ", old.getEmail())));
+        String.format("이메일(%s)? \n", old.getEmail()), //
+        old.getEmail()));
     member.setPassword(Prompt.getString(in, out, "암호? "));
     member.setPhoto(Prompt.getString(in, out, //
-        String.format("사진(%s)? ", old.getPhoto())));
+        String.format("사진(%s)? \n", old.getPhoto()), //
+        old.getPhoto()));
     member.setTel(Prompt.getString(in, out, //
-        String.format("전화(%s)? ", old.getTel())));
+        String.format("전화(%s)? \n", old.getTel()), //
+        old.getTel()));
 
-    if (memberService.update(member) > 0) {
+    if (memberDao.update(member) > 0) {
       out.println("회원을 변경했습니다.");
 
     } else {

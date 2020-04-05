@@ -6,19 +6,11 @@ import java.util.Scanner;
 
 public class Prompt {
   public static int getInt(Scanner in, PrintStream out, String title) {
-    try {
-      return Integer.parseInt(getString(in, out, title));
-    } catch (Exception e) {
-      return 0;
-    }
+    return Integer.parseInt(getString(in, out, title));
   }
 
   public static int getInt(Scanner in, PrintStream out, String title, String defaultValue) {
-    try {
-      return Integer.parseInt(getString(in, out, title, defaultValue));
-    } catch (Exception e) {
-      return 0;
-    }
+    return Integer.parseInt(getString(in, out, title, defaultValue));
   }
 
   public static String getString(Scanner in, PrintStream out, String title) {
@@ -42,18 +34,10 @@ public class Prompt {
   }
 
   public static Date getDate(Scanner in, PrintStream out, String title) {
-    try {
-      return Date.valueOf(getString(in, out, title));
-    } catch (Exception e) {
-      return null;
-    }
+    return Date.valueOf(getString(in, out, title));
   }
 
   public static Date getDate(Scanner in, PrintStream out, String title, String defaultValue) {
-    try {
-      return Date.valueOf(getString(in, out, title, defaultValue));
-    } catch (Exception e) {
-      return null;
-    }
+    return Date.valueOf(getString(in, out, title, defaultValue));
   }
 }

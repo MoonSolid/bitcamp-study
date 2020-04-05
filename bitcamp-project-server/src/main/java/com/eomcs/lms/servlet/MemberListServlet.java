@@ -3,23 +3,20 @@ package com.eomcs.lms.servlet;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.MemberService;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class MemberListServlet {
+public class MemberListServlet implements Servlet {
 
-  MemberService memberService;
+  MemberDao memberDao;
 
-  public MemberListServlet(MemberService memberService) {
-    this.memberService = memberService;
+  public MemberListServlet(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
-  @RequestMapping("/member/list")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-    List<Member> members = memberService.list();
+    List<Member> members = memberDao.findAll();
     for (Member m : members) {
       out.printf("%d, %s, %s, %s, %s\n", //
           m.getNo(), m.getName(), m.getEmail(), m.getTel(), m.getRegisteredDate());

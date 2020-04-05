@@ -2,27 +2,25 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class BoardUpdateServlet {
+public class BoardUpdateServlet implements Servlet {
 
-  BoardService boardService;
+  BoardDao boardDao;
 
-  public BoardUpdateServlet(BoardService boardService) {
-    this.boardService = boardService;
+  public BoardUpdateServlet(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
-  @RequestMapping("/board/update")
+
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Board old = boardService.get(no);
+    Board old = boardDao.findByNo(no);
     if (old == null) {
       out.println("해당 번호의 게시글이 없습니다.");
       return;
@@ -33,12 +31,12 @@ public class BoardUpdateServlet {
     board.setTitle(Prompt.getString(//
         in, //
         out, //
-        String.format("제목(%s)? ", old.getTitle()), //
+        String.format("제목(%s)? \n", old.getTitle()), //
         old.getTitle()));
 
     board.setNo(no);
 
-    if (boardService.update(board) > 0) { // 변경했다면,
+    if (boardDao.update(board) > 0) { // 변경했다면,
       out.println("게시글을 변경했습니다.");
 
     } else {

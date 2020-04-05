@@ -2,26 +2,23 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class MemberDetailServlet {
+public class MemberDetailServlet implements Servlet {
 
-  MemberService memberService;
+  MemberDao memberDao;
 
-  public MemberDetailServlet(MemberService memberService) {
-    this.memberService = memberService;
+  public MemberDetailServlet(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
-  @RequestMapping("/member/detail")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Member member = memberService.get(no);
+    Member member = memberDao.findByNo(no);
 
     if (member != null) {
       out.printf("번호: %d\n", member.getNo());

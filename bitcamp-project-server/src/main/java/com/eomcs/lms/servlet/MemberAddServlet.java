@@ -2,22 +2,19 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class MemberAddServlet {
+public class MemberAddServlet implements Servlet {
 
-  MemberService memberService;
+  MemberDao memberDao;
 
-  public MemberAddServlet(MemberService memberService) {
-    this.memberService = memberService;
+  public MemberAddServlet(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
-  @RequestMapping("/member/add")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     Member member = new Member();
     member.setName(Prompt.getString(in, out, "이름? "));
@@ -26,7 +23,7 @@ public class MemberAddServlet {
     member.setPhoto(Prompt.getString(in, out, "사진? "));
     member.setTel(Prompt.getString(in, out, "전화? "));
 
-    if (memberService.add(member) > 0) {
+    if (memberDao.insert(member) > 0) {
       out.println("회원을 저장했습니다.");
 
     } else {

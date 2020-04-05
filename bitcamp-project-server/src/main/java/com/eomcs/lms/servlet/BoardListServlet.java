@@ -3,23 +3,20 @@ package com.eomcs.lms.servlet;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class BoardListServlet {
+public class BoardListServlet implements Servlet {
 
-  BoardService boardService;
+  BoardDao boardDao;
 
-  public BoardListServlet(BoardService boardService) {
-    this.boardService = boardService;
+  public BoardListServlet(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
-  @RequestMapping("/board/list")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-    List<Board> boards = boardService.list();
+    List<Board> boards = boardDao.findAll();
     for (Board board : boards) {
       out.printf("=> %d, %s, %s, %d\n", //
           board.getNo(), //

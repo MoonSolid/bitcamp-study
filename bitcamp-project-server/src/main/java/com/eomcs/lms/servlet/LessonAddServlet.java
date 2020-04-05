@@ -2,22 +2,19 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class LessonAddServlet {
+public class LessonAddServlet implements Servlet {
 
-  LessonService lessonService;
+  LessonDao lessonDao;
 
-  public LessonAddServlet(LessonService lessonService) {
-    this.lessonService = lessonService;
+  public LessonAddServlet(LessonDao lessonDao) {
+    this.lessonDao = lessonDao;
   }
 
-  @RequestMapping("/lesson/add")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     Lesson lesson = new Lesson();
 
@@ -28,7 +25,7 @@ public class LessonAddServlet {
     lesson.setTotalHours(Prompt.getInt(in, out, "총 강의시간? "));
     lesson.setDayHours(Prompt.getInt(in, out, "일 강의시간? "));
 
-    if (lessonService.add(lesson) > 0) {
+    if (lessonDao.insert(lesson) > 0) {
       out.println("강의를 저장했습니다.");
 
     } else {

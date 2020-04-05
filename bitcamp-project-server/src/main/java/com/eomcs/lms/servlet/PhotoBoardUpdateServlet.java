@@ -4,58 +4,85 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.lms.service.PhotoBoardService;
+import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.util.Prompt;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class PhotoBoardUpdateServlet {
+public class PhotoBoardUpdateServlet implements Servlet {
 
-  PhotoBoardService photoBoardService;
+  PlatformTransactionManager txManager;
+  PhotoBoardDao photoBoardDao;
+  PhotoFileDao photoFileDao;
 
-  public PhotoBoardUpdateServlet(PhotoBoardService photoBoardService) {
-    this.photoBoardService = photoBoardService;
+  public PhotoBoardUpdateServlet( //
+      PlatformTransactionManager txManager, //
+      PhotoBoardDao photoBoardDao, //
+      PhotoFileDao photoFileDao) {
+    this.txManager = txManager;
+    this.photoBoardDao = photoBoardDao;
+    this.photoFileDao = photoFileDao;
   }
 
-  @RequestMapping("/photoboard/update")
+  @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
     int no = Prompt.getInt(in, out, "번호? ");
 
-    PhotoBoard old = photoBoardService.get(no);
+    PhotoBoard old = photoBoardDao.findByNo(no);
     if (old == null) {
       out.println("해당 번호의 사진 게시글이 없습니다.");
       return;
     }
 
     PhotoBoard photoBoard = new PhotoBoard();
-    photoBoard.setNo(no);
     photoBoard.setTitle(Prompt.getString(in, out, //
-        String.format("제목(%s)? ", old.getTitle()), //
+        String.format("제목(%s)? \n", old.getTitle()), //
         old.getTitle()));
+    photoBoard.setNo(no);
 
-    printPhotoFiles(out, old);
-    out.println();
-    out.println("사진은 일부만 변경할 수 없습니다.");
-    out.println("전체를 새로 등록해야 합니다.");
+    txManager.beginTransaction();
 
-    String response = Prompt.getString(in, out, //
-        "사진을 변경하시겠습니까?(y/N) ");
+    try {
+      if (photoBoardDao.update(photoBoard) == 0) {
+        throw new Exception("사진 게시글 변경에 실패했습니다.");
+      }
 
-    if (response.equalsIgnoreCase("y")) {
-      photoBoard.setFiles(inputPhotoFiles(in, out));
+      printPhotoFiles(out, no);
+
+      out.println();
+      out.println("사진은 일부만 변경할 수 없습니다.");
+      out.println("전체를 새로 등록해야 합니다.");
+
+      String response = Prompt.getString(in, out, //
+          "사진을 변경하시겠습니까?(y/N) ");
+
+      if (response.equalsIgnoreCase("y")) {
+
+        // 이 사진 게시글에 첨부되었은 기존 파일을 모두 삭제한다.
+        photoFileDao.deleteAll(no);
+
+        List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
+
+        for (PhotoFile photoFile : photoFiles) {
+          photoFile.setBoardNo(no);
+          photoFileDao.insert(photoFile);
+        }
+      }
+      txManager.commit();
+      out.println("사진 게시글을 변경했습니다.");
+
+    } catch (Exception e) {
+      txManager.rollback();
+      out.println(e.getMessage());
     }
-
-    photoBoardService.update(photoBoard);
-    out.println("사진 게시글을 변경했습니다.");
   }
 
-  private void printPhotoFiles(PrintStream out, PhotoBoard photoBoard) throws Exception {
+  private void printPhotoFiles(PrintStream out, int boardNo) throws Exception {
     out.println("사진파일:");
-    List<PhotoFile> oldPhotoFiles = photoBoard.getFiles();
+    List<PhotoFile> oldPhotoFiles = photoFileDao.findAll(boardNo);
     for (PhotoFile photoFile : oldPhotoFiles) {
       out.printf("> %s\n", photoFile.getFilepath());
     }
