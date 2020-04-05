@@ -1,7 +1,9 @@
 package com.eomcs.lms.servlet;
 
-import java.io.PrintStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
@@ -36,9 +38,51 @@ public class PhotoBoardAddServlet implements Servlet {
 
     PhotoBoard photoBoard = new PhotoBoard();
     photoBoard.setTitle(Prompt.getString(in, out, "제목? "));
+=======
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import org.springframework.context.ApplicationContext;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.PhotoBoard;
+import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.lms.service.LessonService;
+import com.eomcs.lms.service.PhotoBoardService;
 
-    int lessonNo = Prompt.getInt(in, out, "수업 번호? ");
+@WebServlet("/photoboard/add")
+public class PhotoBoardAddServlet extends GenericServlet {
+  private static final long serialVersionUID = 1L;
 
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+    try {
+      res.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = res.getWriter();
+
+      ServletContext servletContext = req.getServletContext();
+      ApplicationContext iocContainer =
+          (ApplicationContext) servletContext.getAttribute("iocContainer");
+      LessonService lessonService = iocContainer.getBean(LessonService.class);
+      PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
+>>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
+
+      int lessonNo = Integer.parseInt(req.getParameter("lessonNo"));
+      out.println("<!DOCTYPE html>");
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<meta charset='UTF-8'>");
+      out.println("<meta http-equiv='refresh'" //
+          + " content='2;url=list?lessonNo=" + lessonNo + "'>");
+      out.println("<title>사진 입력</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>사진 입력 결과</h1>");
+
+<<<<<<< HEAD
     Lesson lesson = lessonDao.findByNo(lessonNo);
     if (lesson == null) {
       out.println("수업 번호가 유효하지 않습니다.");
@@ -66,28 +110,42 @@ public class PhotoBoardAddServlet implements Servlet {
       out.println(e.getMessage());
     }
   }
-
-  private List<PhotoFile> inputPhotoFiles(Scanner in, PrintStream out) {
-    // 첨부 파일을 입력 받는다.
-    out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
-    out.println("파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.");
-
-    ArrayList<PhotoFile> photoFiles = new ArrayList<>();
-
-    while (true) {
-      String filepath = Prompt.getString(in, out, "사진 파일? ");
-
-      if (filepath.length() == 0) {
-        if (photoFiles.size() > 0) {
-          break;
-        } else {
-          out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
-          continue;
+=======
+      try {
+        Lesson lesson = lessonService.get(lessonNo);
+        if (lesson == null) {
+          throw new Exception("수업 번호가 유효하지 않습니다.");
         }
-      }
-      photoFiles.add(new PhotoFile().setFilepath(filepath));
-    }
 
-    return photoFiles;
+        PhotoBoard photoBoard = new PhotoBoard();
+        photoBoard.setTitle(req.getParameter("title"));
+        photoBoard.setLesson(lesson);
+
+        ArrayList<PhotoFile> photoFiles = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+          String filepath = req.getParameter("photo" + i);
+          if (filepath.length() > 0) {
+            photoFiles.add(new PhotoFile().setFilepath(filepath));
+          }
+        }
+>>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
+
+        if (photoFiles.size() == 0) {
+          throw new Exception("최소 한 개의 사진 파일을 등록해야 합니다.");
+        }
+
+        photoBoard.setFiles(photoFiles);
+        photoBoardService.add(photoBoard);
+
+        out.println("<p>새 사진 게시글을 등록했습니다.</p>");
+
+      } catch (Exception e) {
+        out.printf("<p>%s</p>\n", e.getMessage());
+      }
+      out.println("</body>");
+      out.println("</html>");
+    } catch (Exception e) {
+      throw new ServletException(e);
+    }
   }
 }

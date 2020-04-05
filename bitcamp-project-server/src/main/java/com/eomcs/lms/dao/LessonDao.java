@@ -17,7 +17,13 @@ public interface LessonDao {
 
   public int update(Lesson lesson) throws Exception;
 
+<<<<<<< HEAD
   public int delete(int no) throws Exception;
+=======
+  int delete(int no) throws Exception;
+
+  List<Lesson> findByKeyword(Map<String, Object> params) throws Exception;
+>>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
 }
 
 

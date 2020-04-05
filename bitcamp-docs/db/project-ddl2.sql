@@ -19,7 +19,8 @@ create table sc_plan (
   place varchar(255) not null comment '일정 장소',
   cont text not null comment '일정 내용',
   memo text not null comment '메모',
-  cost varchar(30) not null comment '비용'
+  cost varchar(30) not null comment '비용',
+  titl varchar(255) not null comment '일정명'
 ) comment '일정'; 
 
 
