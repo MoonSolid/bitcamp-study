@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class CompanyRequiredCertificate implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int certificateNo;
-  private int jobPostingNo;
+  private int certificateNumber;
+  private int jobPostingNumber;
 
   @Override
   public String toString() {
-    return "CompanyRequiredCertificate [certificateNo=" + certificateNo + ", jobPostingNo="
-        + jobPostingNo + "]";
+    return "CompanyRequiredCertificate [certificateNumber=" + certificateNumber
+        + ", jobPostingNumber=" + jobPostingNumber + "]";
   }
 
 
@@ -19,8 +19,8 @@ public class CompanyRequiredCertificate implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + certificateNo;
-    result = prime * result + jobPostingNo;
+    result = prime * result + certificateNumber;
+    result = prime * result + jobPostingNumber;
     return result;
   }
 
@@ -33,29 +33,29 @@ public class CompanyRequiredCertificate implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     CompanyRequiredCertificate other = (CompanyRequiredCertificate) obj;
-    if (certificateNo != other.certificateNo)
+    if (certificateNumber != other.certificateNumber)
       return false;
-    if (jobPostingNo != other.jobPostingNo)
+    if (jobPostingNumber != other.jobPostingNumber)
       return false;
     return true;
   }
 
 
 
-  public int getCertificateNo() {
-    return certificateNo;
+  public int getCertificateNumber() {
+    return certificateNumber;
   }
 
-  public void setCertificateNo(int certificateNo) {
-    this.certificateNo = certificateNo;
+  public void setCertificateNumber(int certificateNumber) {
+    this.certificateNumber = certificateNumber;
   }
 
-  public int getJobPostingNo() {
-    return jobPostingNo;
+  public int getJobPostingNumber() {
+    return jobPostingNumber;
   }
 
-  public void setJobPostingNo(int jobPostingNo) {
-    this.jobPostingNo = jobPostingNo;
+  public void setJobPostingNumber(int jobPostingNumber) {
+    this.jobPostingNumber = jobPostingNumber;
   }
 
 }

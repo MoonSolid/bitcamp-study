@@ -1,49 +1,28 @@
 package com.eomcs.lms.servlet;
 
-<<<<<<< HEAD
-import java.io.PrintStream;
-import java.util.Scanner;
-import com.eomcs.lms.dao.LessonDao;
-import com.eomcs.util.Prompt;
-
-public class LessonDeleteServlet implements Servlet {
-
-  LessonDao lessonDao;
-
-  public LessonDeleteServlet(LessonDao lessonDao) {
-    this.lessonDao = lessonDao;
-  }
-
-  @Override
-  public void service(Scanner in, PrintStream out) throws Exception {
-    int no = Prompt.getInt(in, out, "번호? ");
-
-    if (lessonDao.delete(no) > 0) { // 삭제했다면,
-      out.println("강의를 삭제했습니다.");
-=======
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.service.LessonService;
 
 @WebServlet("/lesson/delete")
-public class LessonDeleteServlet extends GenericServlet {
+public class LessonDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = res.getWriter();
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
-      ServletContext servletContext = req.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
@@ -58,7 +37,7 @@ public class LessonDeleteServlet extends GenericServlet {
       out.println("<body>");
       out.println("<h1>강의 삭제 결과</h1>");
 
-      int no = Integer.parseInt(req.getParameter("no"));
+      int no = Integer.parseInt(request.getParameter("no"));
 
       if (lessonService.delete(no) > 0) { // 삭제했다면,
         out.println("<p>강의를 삭제했습니다.</p>");
@@ -66,7 +45,6 @@ public class LessonDeleteServlet extends GenericServlet {
       } else {
         out.println("<p>해당 번호의 강의가 없습니다.</p>");
       }
->>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
 
       out.println("</body>");
       out.println("</html>");

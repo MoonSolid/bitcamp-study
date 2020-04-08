@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class CompanyRequiredMajor implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int majorNo;
-  private int jobPostingNo;
+  private int majorNumber;
+  private int jobPostingNumber;
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + jobPostingNo;
-    result = prime * result + majorNo;
+    result = prime * result + jobPostingNumber;
+    result = prime * result + majorNumber;
     return result;
   }
 
@@ -26,32 +26,33 @@ public class CompanyRequiredMajor implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     CompanyRequiredMajor other = (CompanyRequiredMajor) obj;
-    if (jobPostingNo != other.jobPostingNo)
+    if (jobPostingNumber != other.jobPostingNumber)
       return false;
-    if (majorNo != other.majorNo)
+    if (majorNumber != other.majorNumber)
       return false;
     return true;
   }
 
   @Override
   public String toString() {
-    return "CompanyRequiredMajor [majorNo=" + majorNo + ", jobPostingNo=" + jobPostingNo + "]";
+    return "CompanyRequiredMajor [majorNumber=" + majorNumber + ", jobPostingNumber="
+        + jobPostingNumber + "]";
   }
 
-  public int getMajorNo() {
-    return majorNo;
+  public int getMajorNumber() {
+    return majorNumber;
   }
 
-  public void setMajorNo(int majorNo) {
-    this.majorNo = majorNo;
+  public void setMajorNumber(int majorNumber) {
+    this.majorNumber = majorNumber;
   }
 
-  public int getJobPostingNo() {
-    return jobPostingNo;
+  public int getJobPostingNumber() {
+    return jobPostingNumber;
   }
 
-  public void setJobPostingNo(int jobPostingNo) {
-    this.jobPostingNo = jobPostingNo;
+  public void setJobPostingNumber(int jobPostingNumber) {
+    this.jobPostingNumber = jobPostingNumber;
   }
 
 

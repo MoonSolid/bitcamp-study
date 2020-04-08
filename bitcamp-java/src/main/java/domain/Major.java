@@ -6,12 +6,12 @@ public class Major implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private int majorNo;
+  private int majorNumber;
   private String name;
 
   @Override
   public String toString() {
-    return "Major [majorNo=" + majorNo + ", name=" + name + "]";
+    return "Major [majorNumber=" + majorNumber + ", name=" + name + "]";
   }
 
 
@@ -19,7 +19,7 @@ public class Major implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + majorNo;
+    result = prime * result + majorNumber;
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     return result;
   }
@@ -33,7 +33,7 @@ public class Major implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Major other = (Major) obj;
-    if (majorNo != other.majorNo)
+    if (majorNumber != other.majorNumber)
       return false;
     if (name == null) {
       if (other.name != null)
@@ -44,12 +44,12 @@ public class Major implements Serializable {
   }
 
 
-  public int getMajorNo() {
-    return majorNo;
+  public int getMajorNumber() {
+    return majorNumber;
   }
 
-  public void setMajorNo(int majorNo) {
-    this.majorNo = majorNo;
+  public void setMajorNumber(int majorNumber) {
+    this.majorNumber = majorNumber;
   }
 
   public String getName() {

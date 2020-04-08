@@ -1,55 +1,34 @@
 package com.eomcs.lms.servlet;
 
-<<<<<<< HEAD
-import java.io.PrintStream;
-import java.util.Scanner;
-import com.eomcs.lms.dao.LessonDao;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.Prompt;
-
-public class LessonDetailServlet implements Servlet {
-
-  LessonDao lessonDao;
-
-  public LessonDetailServlet(LessonDao lessonDao) {
-    this.lessonDao = lessonDao;
-  }
-
-  @Override
-  public void service(Scanner in, PrintStream out) throws Exception {
-    int no = Prompt.getInt(in, out, "번호? ");
-
-    Lesson lesson = lessonDao.findByNo(no);
-=======
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
 @WebServlet("/lesson/detail")
-public class LessonDetailServlet extends GenericServlet {
+public class LessonDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = res.getWriter();
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
-      ServletContext servletContext = req.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
 
-      int no = Integer.parseInt(req.getParameter("no"));
+      int no = Integer.parseInt(request.getParameter("no"));
       Lesson lesson = lessonService.get(no);
 
       out.println("<!DOCTYPE html>");
@@ -60,10 +39,9 @@ public class LessonDetailServlet extends GenericServlet {
       out.println("</head>");
       out.println("<body>");
       out.println("<h1>수업 상세정보</h1>");
->>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
 
       if (lesson != null) {
-        out.println("<form action='update'>");
+        out.println("<form action='update' method='post'>");
         out.printf("번호: <input name='no' readonly type='text' value='%d'><br>\n", //
             lesson.getNo());
         out.printf("강의명: <input name='title' type='text' value='%s'><br>\n", //

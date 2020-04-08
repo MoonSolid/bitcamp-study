@@ -6,14 +6,14 @@ public class GeneralMemEduMajor implements Serializable {
   private static final long serialVersionUID = 1L;
 
 
-  private int generalMemberNo;
-  private int educationNo;
-  private int majorNo;
+  private int generalMemberNumber;
+  private int educationNumber;
+  private int majorNumber;
 
   @Override
   public String toString() {
-    return "GeneralMemEduMajor [generalMemberNo=" + generalMemberNo + ", educationNo=" + educationNo
-        + ", majorNo=" + majorNo + "]";
+    return "GeneralMemEduMajor [generalMemberNumber=" + generalMemberNumber + ", educationNumber="
+        + educationNumber + ", majorNumber=" + majorNumber + "]";
   }
 
 
@@ -22,9 +22,9 @@ public class GeneralMemEduMajor implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + educationNo;
-    result = prime * result + generalMemberNo;
-    result = prime * result + majorNo;
+    result = prime * result + educationNumber;
+    result = prime * result + generalMemberNumber;
+    result = prime * result + majorNumber;
     return result;
   }
 
@@ -37,38 +37,38 @@ public class GeneralMemEduMajor implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     GeneralMemEduMajor other = (GeneralMemEduMajor) obj;
-    if (educationNo != other.educationNo)
+    if (educationNumber != other.educationNumber)
       return false;
-    if (generalMemberNo != other.generalMemberNo)
+    if (generalMemberNumber != other.generalMemberNumber)
       return false;
-    if (majorNo != other.majorNo)
+    if (majorNumber != other.majorNumber)
       return false;
     return true;
   }
 
 
-  public int getGeneralMemberNo() {
-    return generalMemberNo;
+  public int getGeneralMemberNumber() {
+    return generalMemberNumber;
   }
 
-  public void setGeneralMemberNo(int generalMemberNo) {
-    this.generalMemberNo = generalMemberNo;
+  public void setGeneralMemberNumber(int generalMemberNumber) {
+    this.generalMemberNumber = generalMemberNumber;
   }
 
-  public int getEducationNo() {
-    return educationNo;
+  public int getEducationNumber() {
+    return educationNumber;
   }
 
-  public void setEducationNo(int educationNo) {
-    this.educationNo = educationNo;
+  public void setEducationNumber(int educationNumber) {
+    this.educationNumber = educationNumber;
   }
 
-  public int getMajorNo() {
-    return majorNo;
+  public int getMajorNumber() {
+    return majorNumber;
   }
 
-  public void setMajorNo(int majorNo) {
-    this.majorNo = majorNo;
+  public void setMajorNumber(int majorNumber) {
+    this.majorNumber = majorNumber;
   }
 
 

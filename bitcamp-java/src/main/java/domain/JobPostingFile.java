@@ -5,14 +5,14 @@ import java.io.Serializable;
 public class JobPostingFile implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int jobPostingFileNo;
-  private int jobPostingNo;
+  private int jobPostingFileNumber;
+  private int jobPostingNumber;
   private String filePath;
 
   @Override
   public String toString() {
-    return "JobPostingFile [jobPostingFileNo=" + jobPostingFileNo + ", jobPostingNo=" + jobPostingNo
-        + ", filePath=" + filePath + "]";
+    return "JobPostingFile [jobPostingFileNumber=" + jobPostingFileNumber + ", jobPostingNumber="
+        + jobPostingNumber + ", filePath=" + filePath + "]";
   }
 
   @Override
@@ -20,8 +20,8 @@ public class JobPostingFile implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-    result = prime * result + jobPostingFileNo;
-    result = prime * result + jobPostingNo;
+    result = prime * result + jobPostingFileNumber;
+    result = prime * result + jobPostingNumber;
     return result;
   }
 
@@ -39,27 +39,27 @@ public class JobPostingFile implements Serializable {
         return false;
     } else if (!filePath.equals(other.filePath))
       return false;
-    if (jobPostingFileNo != other.jobPostingFileNo)
+    if (jobPostingFileNumber != other.jobPostingFileNumber)
       return false;
-    if (jobPostingNo != other.jobPostingNo)
+    if (jobPostingNumber != other.jobPostingNumber)
       return false;
     return true;
   }
 
-  public int getJobPostingFileNo() {
-    return jobPostingFileNo;
+  public int getJobPostingFileNumber() {
+    return jobPostingFileNumber;
   }
 
-  public void setJobPostingFileNo(int jobPostingFileNo) {
-    this.jobPostingFileNo = jobPostingFileNo;
+  public void setJobPostingFileNumber(int jobPostingFileNumber) {
+    this.jobPostingFileNumber = jobPostingFileNumber;
   }
 
-  public int getJobPostingNo() {
-    return jobPostingNo;
+  public int getJobPostingNumber() {
+    return jobPostingNumber;
   }
 
-  public void setJobPostingNo(int jobPostingNo) {
-    this.jobPostingNo = jobPostingNo;
+  public void setJobPostingNumber(int jobPostingNumber) {
+    this.jobPostingNumber = jobPostingNumber;
   }
 
   public String getFilePath() {

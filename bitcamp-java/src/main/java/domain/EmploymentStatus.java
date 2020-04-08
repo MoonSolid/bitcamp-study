@@ -6,13 +6,13 @@ public class EmploymentStatus implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private int employmentStatNo;
+  private int employmentStatNumber;
   private String employmentStatName;
 
   @Override
   public String toString() {
-    return "employmentStatus [employmentStatNo=" + employmentStatNo + ", employmentStatName="
-        + employmentStatName + "]";
+    return "employmentStatus [employmentStatNumber=" + employmentStatNumber
+        + ", employmentStatName=" + employmentStatName + "]";
   }
 
 
@@ -21,7 +21,7 @@ public class EmploymentStatus implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((employmentStatName == null) ? 0 : employmentStatName.hashCode());
-    result = prime * result + employmentStatNo;
+    result = prime * result + employmentStatNumber;
     return result;
   }
 
@@ -39,18 +39,18 @@ public class EmploymentStatus implements Serializable {
         return false;
     } else if (!employmentStatName.equals(other.employmentStatName))
       return false;
-    if (employmentStatNo != other.employmentStatNo)
+    if (employmentStatNumber != other.employmentStatNumber)
       return false;
     return true;
   }
 
 
-  public int getEmploymentStatNo() {
-    return employmentStatNo;
+  public int getEmploymentStatNumber() {
+    return employmentStatNumber;
   }
 
-  public void setEmploymentStatNo(int employmentStatNo) {
-    this.employmentStatNo = employmentStatNo;
+  public void setEmploymentStatNumber(int employmentStatNumber) {
+    this.employmentStatNumber = employmentStatNumber;
   }
 
   public String getEmploymentStatName() {

@@ -5,22 +5,22 @@ import java.io.Serializable;
 public class GeneralMemEdu implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int generalMemberNo;
-  private int educationNo;
+  private int generalMemberNumber;
+  private int educationNumber;
   private String schoolName;
 
   @Override
   public String toString() {
-    return "GeneralMemEdu [generalMemberNo=" + generalMemberNo + ", educationNo=" + educationNo
-        + ", schoolName=" + schoolName + "]";
+    return "GeneralMemEdu [generalMemberNumber=" + generalMemberNumber + ", educationNumber="
+        + educationNumber + ", schoolName=" + schoolName + "]";
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + educationNo;
-    result = prime * result + generalMemberNo;
+    result = prime * result + educationNumber;
+    result = prime * result + generalMemberNumber;
     result = prime * result + ((schoolName == null) ? 0 : schoolName.hashCode());
     return result;
   }
@@ -34,9 +34,9 @@ public class GeneralMemEdu implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     GeneralMemEdu other = (GeneralMemEdu) obj;
-    if (educationNo != other.educationNo)
+    if (educationNumber != other.educationNumber)
       return false;
-    if (generalMemberNo != other.generalMemberNo)
+    if (generalMemberNumber != other.generalMemberNumber)
       return false;
     if (schoolName == null) {
       if (other.schoolName != null)
@@ -46,20 +46,20 @@ public class GeneralMemEdu implements Serializable {
     return true;
   }
 
-  public int getGeneralMemberNo() {
-    return generalMemberNo;
+  public int getGeneralMemberNumber() {
+    return generalMemberNumber;
   }
 
-  public void setGeneralMemberNo(int generalMemberNo) {
-    this.generalMemberNo = generalMemberNo;
+  public void setGeneralMemberNumber(int generalMemberNumber) {
+    this.generalMemberNumber = generalMemberNumber;
   }
 
-  public int getEducationNo() {
-    return educationNo;
+  public int getEducationNumber() {
+    return educationNumber;
   }
 
-  public void setEducationNo(int educationNo) {
-    this.educationNo = educationNo;
+  public void setEducationNumber(int educationNumber) {
+    this.educationNumber = educationNumber;
   }
 
   public String getSchoolName() {

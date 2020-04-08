@@ -3,55 +3,28 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.Scanner;
-import com.eomcs.lms.dao.MemberDao;
-import com.eomcs.lms.domain.Member;
-import com.eomcs.util.Prompt;
-
-public class MemberSearchServlet implements Servlet {
-
-  MemberDao memberDao;
-
-  public MemberSearchServlet(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
-
-  @Override
-  public void service(Scanner in, PrintStream out) throws Exception {
-    String keyword = Prompt.getString(in, out, "검색어? ");
-
-    List<Member> members = memberDao.findByKeyword(keyword);
-    for (Member m : members) {
-      out.printf("%d, %s, %s, %s, %s\n", //
-          m.getNo(), //
-          m.getName(), //
-          m.getEmail(), //
-          m.getTel(), //
-          m.getRegisteredDate());
-=======
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
 @WebServlet("/member/search")
-public class MemberSearchServlet extends GenericServlet {
+public class MemberSearchServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = res.getWriter();
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
-      ServletContext servletContext = req.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       MemberService memberService = iocContainer.getBean(MemberService.class);
@@ -73,7 +46,7 @@ public class MemberSearchServlet extends GenericServlet {
       out.println("    <th>등록일</th>");
       out.println("  </tr>");
 
-      String keyword = req.getParameter("keyword");
+      String keyword = request.getParameter("keyword");
       List<Member> members = memberService.search(keyword);
       for (Member m : members) {
         out.printf("  <tr>"//
@@ -96,7 +69,6 @@ public class MemberSearchServlet extends GenericServlet {
       out.println("</html>");
     } catch (Exception e) {
       throw new ServletException(e);
->>>>>>> c7b707544800620c24a93d8eb97ece0d01374b03
     }
   }
 }
