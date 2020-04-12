@@ -7,10 +7,16 @@ public class JobPosting implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int jobPostingNumber;
-  private int boardNumber;
   private int companyMemberNumber;
+  private String title;
+  private String content;
   private int workPlaceNumber;
   private int minimumCareer;
+  private int viewCount;
+  private Date postingRegistration;
+
+
+
   private Date startDated;
   private Date endDated;
   private String job;
@@ -22,12 +28,13 @@ public class JobPosting implements Serializable {
 
   @Override
   public String toString() {
-    return "JobPosting [jobPostingNumber=" + jobPostingNumber + ", boardNumber=" + boardNumber
-        + ", companyMemberNumber=" + companyMemberNumber + ", workPlaceNumber=" + workPlaceNumber
-        + ", minimumCareer=" + minimumCareer + ", startDated=" + startDated + ", endDated="
-        + endDated + ", job=" + job + ", thumnail=" + thumnail + ", yearSalary=" + yearSalary
-        + ", readable=" + readable + ", minimumEducationNumber=" + minimumEducationNumber
-        + ", employmentStatNumber=" + employmentStatNumber + "]";
+    return "JobPosting [jobPostingNumber=" + jobPostingNumber + ", companyMemberNumber="
+        + companyMemberNumber + ", title=" + title + ", content=" + content + ", workPlaceNumber="
+        + workPlaceNumber + ", minimumCareer=" + minimumCareer + ", viewCount=" + viewCount
+        + ", postingRegistration=" + postingRegistration + ", startDated=" + startDated
+        + ", endDated=" + endDated + ", job=" + job + ", thumnail=" + thumnail + ", yearSalary="
+        + yearSalary + ", readable=" + readable + ", minimumEducationNumber="
+        + minimumEducationNumber + ", employmentStatNumber=" + employmentStatNumber + "]";
   }
 
 
@@ -35,17 +42,20 @@ public class JobPosting implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + boardNumber;
     result = prime * result + companyMemberNumber;
+    result = prime * result + ((content == null) ? 0 : content.hashCode());
     result = prime * result + employmentStatNumber;
     result = prime * result + ((endDated == null) ? 0 : endDated.hashCode());
     result = prime * result + ((job == null) ? 0 : job.hashCode());
     result = prime * result + jobPostingNumber;
     result = prime * result + minimumCareer;
     result = prime * result + minimumEducationNumber;
+    result = prime * result + ((postingRegistration == null) ? 0 : postingRegistration.hashCode());
     result = prime * result + readable;
     result = prime * result + ((startDated == null) ? 0 : startDated.hashCode());
     result = prime * result + ((thumnail == null) ? 0 : thumnail.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + viewCount;
     result = prime * result + workPlaceNumber;
     result = prime * result + yearSalary;
     return result;
@@ -60,9 +70,12 @@ public class JobPosting implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     JobPosting other = (JobPosting) obj;
-    if (boardNumber != other.boardNumber)
-      return false;
     if (companyMemberNumber != other.companyMemberNumber)
+      return false;
+    if (content == null) {
+      if (other.content != null)
+        return false;
+    } else if (!content.equals(other.content))
       return false;
     if (employmentStatNumber != other.employmentStatNumber)
       return false;
@@ -82,6 +95,11 @@ public class JobPosting implements Serializable {
       return false;
     if (minimumEducationNumber != other.minimumEducationNumber)
       return false;
+    if (postingRegistration == null) {
+      if (other.postingRegistration != null)
+        return false;
+    } else if (!postingRegistration.equals(other.postingRegistration))
+      return false;
     if (readable != other.readable)
       return false;
     if (startDated == null) {
@@ -93,6 +111,13 @@ public class JobPosting implements Serializable {
       if (other.thumnail != null)
         return false;
     } else if (!thumnail.equals(other.thumnail))
+      return false;
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    if (viewCount != other.viewCount)
       return false;
     if (workPlaceNumber != other.workPlaceNumber)
       return false;
@@ -110,16 +135,44 @@ public class JobPosting implements Serializable {
     this.jobPostingNumber = jobPostingNumber;
   }
 
-
-  public int getBoardNumber() {
-    return boardNumber;
+  public String getTitle() {
+    return title;
   }
 
 
-  public void setBoardNumber(int boardNumber) {
-    this.boardNumber = boardNumber;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
+
+  public String getContent() {
+    return content;
+  }
+
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+
+  public int getViewCount() {
+    return viewCount;
+  }
+
+
+  public void setViewCount(int viewCount) {
+    this.viewCount = viewCount;
+  }
+
+
+  public Date getPostingRegistration() {
+    return postingRegistration;
+  }
+
+
+  public void setPostingRegistration(Date postingRegistration) {
+    this.postingRegistration = postingRegistration;
+  }
 
   public int getCompanyMemberNumber() {
     return companyMemberNumber;
