@@ -2,9 +2,6 @@ package storage;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import com.portfoli.dao.JobPostingDao;
-import com.portfoli.domain.JobPosting;
-import com.portfoli.service.JobPostingService;
 
 @Component
 public class JobPostingServiceImpl implements JobPostingService {
@@ -26,13 +23,13 @@ public class JobPostingServiceImpl implements JobPostingService {
   }
 
   @Override
-  public int delete(int jobPostingNumber) throws Exception {
-    return jobPostingDao.delete(jobPostingNumber);
+  public int delete(int no) throws Exception {
+    return jobPostingDao.delete(no);
   }
 
   @Override
-  public JobPosting get(int jobPostingNumber) throws Exception {
-    return jobPostingDao.findByNo(jobPostingNumber);
+  public JobPosting get(int no) throws Exception {
+    return jobPostingDao.findByNo(no);
   }
 
   @Override

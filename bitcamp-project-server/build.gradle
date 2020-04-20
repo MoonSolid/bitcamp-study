@@ -74,6 +74,11 @@ dependencies {
   
   // JSTL API 및 구현 라이브러리
   implementation 'jstl:jstl:1.2'
+  
+  // multipart 데이터 처리 라이브러리
+  // => Servlet 3.0의 Multipart를 사용하지 않는다면 다음과 같이
+  // apache의 multipart처리 라이브러리를 추가해야 한다.
+  implementation 'commons-fileupload:commons-fileupload:1.4'
     
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'

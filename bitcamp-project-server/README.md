@@ -1,118 +1,44 @@
-# 57_1 - JSP에 EL을 적용하기  
+# 59_1 - Spring WebMVC 적용하기 II : 페이지 컨트롤러, MultipartResolver, ViewResolver
 
 ## 학습목표
 
-- JSP 구동원리를 이해한다.
-- JSP를 사용하여 출력기능을 구현할 수 있다.
-- 서블릿과 JSP를 연동하여 클라이언트 요청을 처리할 수 있다.
-- MVC 아키텍처를 이해한다.
+- @RequestMapping, @GetMapping, @PostMapping의 사용법을 안다.
+- 멀티파트 데이터를 처리하기 위해 MultipartResolver를 설정할 수 있다.
+- ViewResolver의 동작원리를 이해한다.
+- ViewResolver를 교체할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/BoardListServlet.java 변경
-- src/main/webapp/board/list.jsp 추가
-- src/main/webapp/header.jsp 추가
-- src/main/webapp/footer.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/BoardDetailServlet.java 변경
-- src/main/webapp/board/detail.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/BoardAddServlet.java 변경
-- src/main/webapp/board/form.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/BoardUpdateServlet.java 변경
-- src/main/webapp/board/updateform.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/LessonListServlet.java 변경
-- src/main/webapp/lesson/list.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/LessonSearchServlet.java 변경
-- src/main/webapp/lesson/search.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/LessonAddServlet.java 변경
-- src/main/webapp/lesson/form.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/LessonDetailServlet.java 변경
-- src/main/webapp/lesson/detail.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/MemberListServlet.java 변경
-- src/main/webapp/member/list.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/MemberSearchServlet.java 변경
-- src/main/webapp/member/search.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/MemberAddServlet.java 변경
-- src/main/webapp/member/form.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/MemberDetailServlet.java 변경
-- src/main/webapp/member/detail.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardListServlet.java 변경
-- src/main/webapp/photoboard/list.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardAddServlet.java 변경
-- src/main/webapp/photoboard/form.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardDetailServlet.java 변경
-- src/main/webapp/photoboard/detail.jsp 추가
-- src/main/java/com/eomcs/lms/servlet/LoginServlet.java 변경
-- src/main/webapp/auth/form.jsp 추가
-- src/main/webapp/auth/login.jsp 추가
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 삭제
+- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 삭제
+- src/main/java/com/eomcs/lms/filter/CharacterEncodingFilter.java 삭제
+- src/main/java/com/eomcs/util/RequestHandler.java 삭제
+- src/main/java/com/eomcs/util/RequestMapping.java 삭제
+- src/main/java/com/eomcs/util/RequestMappingHandlerMapping.java 삭제
+- src/main/java/com/eomcs/lms/web/XxxController.java 변경
+- src/main/webapp/WEB-INF/web.xml 변경
+
 
 ## 실습  
 
-### 훈련1: 게시글 목록 출력에 JSP를 적용한다.
+### 훈련1: WebApplicationInitializer를 사용하여 DispatcherServlet을 설정한다.
 
-- src/main/webapp/board/list.jsp 추가
-  - BoardListServlet의 출력을 이 JSP에 작성한다.
-- com.eomcs.lms.servlet.BoardListServlet 변경
-  - 서비스 객체를 통해 출력할 데이터를 준비한다.
-  - 출력은 JSP에게 위임한다.
-  - 상단 메뉴바와 하단 스크립트 코드 부분을 별도의 JSP로 분리한다.
-- src/main/webapp/header.jsp 추가
-  - 상단 메뉴를 출력한다.
-- src/main/webapp/footer.jsp 추가
-  - 하단 스크립트 태그를 출력한다.
-  
-### 훈련2: 게시글 상세 정보 출력에 JSP를 적용한다.
+- com.eomcs.lms.web.AppWebApplicationInitializer 추가 
+- com.eomcs.lms.AppConfig 변경
+  - ViewResolver 객체 등록
+  - MultipartResolver 객체 등록
+  - WebMVC 관련 애노테이션을 처리할 객체 등록 : @EnableWebMVC
+ 
 
-- src/main/webapp/board/detail.jsp 추가
-  - BoardDetailServlet의 출력을 이 JSP에 작성한다.
-- com.eomcs.lms.servlet.BoardDetailServlet 변경
-  - 서비스 객체를 통해 출력할 데이터를 준비한다.
-  - 출력은 JSP에게 위임한다.
+### 훈련2: JSP 파일을 /WEB-INF/jsp/ 폴더로 옮긴다.
 
-### 훈련3: 게시글 입력, 변경폼 출력에 JSP를 적용한다.
+- src/main/webapp/**/*.jsp 를 /WEB-INF/jsp/ 로 옮긴다.
 
-- src/main/webapp/board/form.jsp 추가
-  - BoardAddServlet의 출력을 이 JSP에 작성한다.
-- com.eomcs.lms.servlet.BoardAddServlet 변경
-  - 출력은 JSP에게 위임한다.
-- src/main/webapp/board/updateform.jsp 추가
-  - BoardUpdateServlet의 출력을 이 JSP에 작성한다.
-- com.eomcs.lms.servlet.BoardUpdateServlet 변경
-  - 서비스 객체를 통해 출력할 데이터를 준비한다.
-  - 출력은 JSP에게 위임한다.
-  
-### 훈련4: 수업관리에 JSP를 적용한다.
+### 훈련3: 페이지 컨트롤러의 view name을 변경한다.
 
-- com.eomcs.lms.servlet.LessonListServlet 변경
-  - src/main/webapp/lesson/list.jsp 추가
-- com.eomcs.lms.servlet.LessonSearchServlet 변경
-  - src/main/webapp/lesson/search.jsp 추가
-- com.eomcs.lms.servlet.LessonAddServlet 변경
-  - src/main/webapp/lesson/form.jsp 추가
-- com.eomcs.lms.servlet.LessonDetailServlet 변경
-  - src/main/webapp/lesson/detail.jsp 추가
-  
-### 훈련5: 회원관리에 JSP를 적용한다.
+- com.eomcs.lms.web.*Controller 변경
+  - @RequestMapping을 클래스 선언부에도 붙인다.
+  - @RequestMapping 대신에 @GetMapping 또는 @PostMapping을 사용한다.
+  - 리턴 값 변경
+  - 
 
-- com.eomcs.lms.servlet.MemberListServlet 변경
-  - src/main/webapp/member/list.jsp 추가
-- com.eomcs.lms.servlet.MemberSearchServlet 변경
-  - src/main/webapp/member/search.jsp 추가
-- com.eomcs.lms.servlet.MemberAddServlet 변경
-  - src/main/webapp/member/form.jsp 추가
-- com.eomcs.lms.servlet.MemberDetailServlet 변경
-  - src/main/webapp/member/detail.jsp 추가
-  
-### 훈련6: 사진게시물 관리에 JSP를 적용한다.
-
-- com.eomcs.lms.servlet.PhotoBoardListServlet 변경
-  - src/main/webapp/photoboard/list.jsp 추가
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
-  - src/main/webapp/photoboard/form.jsp 추가
-- com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
-  - src/main/webapp/photoboard/detail.jsp 추가
-  
-### 훈련7: 로그인에 JSP를 적용한다.
-
-- com.eomcs.lms.servlet.LoginServlet 변경
-  - src/main/webapp/auth/form.jsp 추가
-  - src/main/webapp/auth/login.jsp 추가
