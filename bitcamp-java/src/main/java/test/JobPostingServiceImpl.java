@@ -1,7 +1,10 @@
-package storage;
+package test;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
+import com.portfoli.dao.JobPostingDao;
+import com.portfoli.domain.JobPosting;
+import com.portfoli.service.JobPostingService;
 
 @Component
 public class JobPostingServiceImpl implements JobPostingService {

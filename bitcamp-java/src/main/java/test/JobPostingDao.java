@@ -1,4 +1,4 @@
-package storage;
+package test;
 
 import java.util.List;
 import com.portfoli.domain.JobPosting;

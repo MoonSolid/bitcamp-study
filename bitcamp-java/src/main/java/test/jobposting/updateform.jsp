@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <h1>공고 변경</h1>
 
@@ -19,5 +19,5 @@
 조회수: ${jobPosting.viewCount}<br>
 <button>변경</button>
 </form>
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

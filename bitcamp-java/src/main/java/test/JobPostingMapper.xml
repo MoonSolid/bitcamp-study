@@ -37,12 +37,15 @@
      view_count
    from
      pf_job_posting
+   where 
+     end_dated > now()
   order by
   job_posting_no desc
   </select>
      
   <insert id="insert" parameterType="JobPosting">
   insert into pf_job_posting(
+  job_posting_no,
   title,
   content,
   minimum_career,
@@ -51,6 +54,7 @@
   start_dated,
   end_dated)
   values(
+  #{jobPostingNumber},
   #{title},
   #{content},
   #{minimumCareer},
