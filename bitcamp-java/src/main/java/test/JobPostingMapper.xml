@@ -22,6 +22,14 @@
 		<result column="readable" property="readable" />
 		<result column="minimum_education_no" property="minimumEducationNumber" />
 		<result column="employment_stat_no" property="employmentStatNumber" />
+		
+		<association property="company" javaType="CompanyMember">
+          <id column="company_no" property="number"/>
+      <result column="business_registration_no" property="businessRegistrationNumber"/>
+      <result column="company_name" property="name"/>
+      <result column="company_tel" property="tel"/>
+    </association>
+    
 	</resultMap>
 
   <select id="findAll" resultMap="JobPostingMap">

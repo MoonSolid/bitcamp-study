@@ -7,7 +7,7 @@ public class JobPosting implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int jobPostingNumber;
-  private int companyMemberNumber;
+  private CompanyMember companyMember;
   private String title;
   private String content;
   private int workPlaceNumber;
