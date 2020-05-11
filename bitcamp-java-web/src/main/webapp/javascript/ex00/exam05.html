@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>exam</title>
+</head>
+<body>
+	<h1>onclick 테스트</h1>
+ <p id="p1">변경될 테스트</p>
+ <button id="btn1">변경버튼</button>
+
+<script>
+var tag1 = document.getElementById("btn1");
+
+tag1.onclick = function() {
+	var tag2 = document.getElementById("p1");
+	tag2.innerHTML = "변경된 텍스트";
+};
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
